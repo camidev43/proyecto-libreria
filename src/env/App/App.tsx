@@ -1,9 +1,7 @@
-import type {FC} from 'react';
-
 import {Counter} from '@/lib';
 import './index.css';
 
-const App: FC = () => {
+const App = () => {
     return (
         <div>
             <Counter />
