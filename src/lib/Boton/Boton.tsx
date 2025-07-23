@@ -1,7 +1,8 @@
+import type { FC } from 'react';
 import { useEffect } from 'react';
 import { throttle } from 'lodash';
 
-import classes from './Counter.module.css';
+import classes from './Boton.module.css';
 import useLogic from './useLogic';
 
 export type Props = {
@@ -9,7 +10,7 @@ export type Props = {
     initialValue?: number;
 };
 
-export const Counter = ({ initialValue = 0 }: Props) => {
+export const Boton: FC<Props> = ({ initialValue = 0 }) => {
     const { count, incrementCount } = useLogic(initialValue);
 
     useEffect(() => {
@@ -18,9 +19,8 @@ export const Counter = ({ initialValue = 0 }: Props) => {
         }, 10);
         runner();
     }, []);
-
     return (
-        <div className={classes.counter}>
+        <div className={classes.boton}>
             <h2 className={classes.header}>Counter</h2>
             <button className={classes.button} type='button' onClick={incrementCount}>
                 Increment by one

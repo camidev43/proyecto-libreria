@@ -1,7 +1,7 @@
 {
   "name": "react-library-template",
   "homepage": "https://morewings.github.io/react-library-template/",
-  "private": false,
+  "private": true,
   "version": "0.1.0",
   "type": "module",
   "files": [
@@ -17,22 +17,6 @@
       "require": "./dist/index.umd.cjs"
     }
   },
-  "keywords": [
-    "react",
-    "template",
-    "react-testing-library",
-    "testing-library",
-    "eslint",
-    "npm",
-    "rollup",
-    "stylelint",
-    "library",
-    "package",
-    "vite",
-    "css-modules",
-    "typescript"
-  ],
-  "description": "Missing React, typescript NPM library creation template",
   "scripts": {
     "dev": "vite",
     "clean:lib": "rm -rf dist",
@@ -56,6 +40,8 @@
     "react-dom": ">=18.2.0"
   },
   "dependencies": {
+    "@uidotdev/usehooks": "^2.4.1",
+    "clsx": "^2.1.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
