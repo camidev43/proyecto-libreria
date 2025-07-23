@@ -1,4 +1,4 @@
-import {renderHook, act} from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 
 import useLogic from './useLogic';
 
@@ -9,7 +9,7 @@ describe('lib > Counter > useLogic', () => {
          * Render hook, using testing-library utility
          * @see https://testing-library.com/docs/react-testing-library/api#renderhook
          */
-        const {result} = renderHook(() => useLogic(initialValue));
+        const { result } = renderHook(() => useLogic(initialValue));
 
         expect(result.current).toMatchSnapshot();
     });
@@ -18,7 +18,7 @@ describe('lib > Counter > useLogic', () => {
          * Render hook, using testing-library utility
          * @see https://testing-library.com/docs/react-testing-library/api#renderhook
          */
-        const {result} = renderHook(() => useLogic(initialValue));
+        const { result } = renderHook(() => useLogic(initialValue));
 
         /**
          * Wrap state update with act
