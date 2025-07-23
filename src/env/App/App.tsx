@@ -1,4 +1,4 @@
-import {Counter} from '@/lib';
+import { Counter } from '@/lib';
 import './index.css';
 
 const App = () => {

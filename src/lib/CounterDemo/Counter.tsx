@@ -1,6 +1,5 @@
-import type {FC} from 'react';
-import {useEffect} from 'react';
-import {throttle} from 'lodash';
+import { useEffect } from 'react';
+import { throttle } from 'lodash';
 
 import classes from './Counter.module.css';
 import useLogic from './useLogic';
@@ -10,8 +9,8 @@ export type Props = {
     initialValue?: number;
 };
 
-export const Counter: FC<Props> = ({initialValue = 0}) => {
-    const {count, incrementCount} = useLogic(initialValue);
+export const Counter = ({ initialValue = 0 }: Props) => {
+    const { count, incrementCount } = useLogic(initialValue);
 
     useEffect(() => {
         const runner = throttle(() => {
@@ -23,7 +22,7 @@ export const Counter: FC<Props> = ({initialValue = 0}) => {
     return (
         <div className={classes.counter}>
             <h2 className={classes.header}>Counter</h2>
-            <button className={classes.button} type="button" onClick={incrementCount}>
+            <button className={classes.button} type='button' onClick={incrementCount}>
                 Increment by one
             </button>
             <div>
