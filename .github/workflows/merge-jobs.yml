@@ -1,29 +1,26 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Post-merge tasks
 
 on:
   push:
     branches: [ master ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   build-publish:
-
     runs-on: ubuntu-latest
 
     steps:
-      - name: Cancel Workflow Action
-        uses: styfle/cancel-workflow-action@0.12.1
-        with:
-          access_token: ${{ github.token }}
-
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Read .nvmrc
-        run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
         id: nvm
+        run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
 
       - name: Use Node.js ${{ env.NVMRC }}
         uses: actions/setup-node@v4
@@ -50,9 +47,11 @@ jobs:
 
       - name: Run merge tasks
         run: |
-          pnpm install
+          pnpm install --frozen-lockfile
+          pnpm run lint:code --quiet
+          pnpm run lint:style --quiet
+          pnpm run test --silent
+          pnpm run build
+          # pnpm publish --no-git-checks           # ← usa esto si publicas directo
+          # etc.
 
-#      - name: Publish NPM package
-#        uses: JS-DevTools/npm-publish@v3
-#        with:
-#          token: ${{ secrets.NPM_TOKEN }}
