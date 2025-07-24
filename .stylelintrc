@@ -3,7 +3,14 @@
     "stylelint-config-standard",
     "stylelint-prettier/recommended"
   ],
+  "plugins": [
+    "stylelint-order"
+  ],
+  "ignoreFiles": ["**/*.snap"],
   "rules": {
+    "selector-class-pattern": "^[a-z][a-z0-9_]*$",
+    "keyframes-name-pattern": "^[a-z][a-z0-9_]*$",
+
     "function-calc-no-unspaced-operator": true,
     "order/order": [
       "custom-properties",
@@ -16,9 +23,5 @@
     "selector-no-vendor-prefix": true,
     "max-nesting-depth": 3,
     "selector-max-compound-selectors": 5
-  },
-  "plugins": [
-    "stylelint-order"
-  ],
-  "ignoreFiles": ["**/*.snap"]
+  }
 }

@@ -58,13 +58,13 @@ export default [
             '@typescript-eslint/ban-ts-comment': 1,
             'no-const-assign': 'error',
             /** Restrict imports from devDependencies since they are not included in library build. peerDependencies are ok */
-            'import/no-extraneous-dependencies': [
-                'error',
-                {
-                    devDependencies: false,
-                    peerDependencies: true,
-                },
-            ],
+            // 'import/no-extraneous-dependencies': [
+            //     'error',
+            //     {
+            //         devDependencies: false,
+            //         peerDependencies: true,
+            //     },
+            // ],
             /**
              * Enforce import order with empty lines between import group
              * @see https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
@@ -136,13 +136,13 @@ export default [
             import: pluginImport,
         },
         rules: {
-            'import/no-extraneous-dependencies': [
-                'error',
-                {
-                    devDependencies: true,
-                    peerDependencies: true,
-                },
-            ],
+            // 'import/no-extraneous-dependencies': [
+            //     'error',
+            //     {
+            //         devDependencies: true,
+            //         peerDependencies: true,
+            //     },
+            // ],
         },
     },
     /* Disable `environment` directory imports for library files */

@@ -1,33 +1,268 @@
+/* Boton.module.css */
 .boton {
-    border: 1px solid lightgray;
-    font-family: sans-serif;
-    margin: 36px 24px;
-    padding: 24px;
-    text-align: center;
-    width: 240px;
-}
-
-.header {
-    font-size: 24px;
-    font-weight: normal;
-    margin: 0 0 12px;
-}
-
-.button {
-    background: lightseagreen;
+    align-items: center;
+    background: transparent;
     border: none;
-    border-radius: 5px;
-    color: white;
+    color: var(--color-primary-text);
     cursor: pointer;
-    display: block;
-    font-size: 16px;
-    margin: 0 auto 24px;
-    padding: 12px 24px;
-    text-shadow: 1px 1px 1px rgb(0 0 0 / 50%);
+    display: inline-flex;
+    font-family: inherit;
+    font-size: var(--paragraph);
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.5;
+    overflow: hidden;
+    position: relative;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.1s ease;
 }
 
-.button:active {
-    left: 1px;
+.inner {
+    align-items: center;
+    display: inline-flex;
+    gap: 0.5rem;
     position: relative;
-    top: 1px;
+    z-index: 1;
+}
+
+/* Ripple effect */
+.ripple {
+    animation: ripple_effect 600ms ease-out forwards;
+    background-color: currentcolor;
+    border-radius: 50%;
+    opacity: 0.3;
+    pointer-events: none;
+    position: absolute;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 0;
+}
+
+@keyframes ripple_effect {
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Press animation */
+.tap_animation:active {
+    transform: scale(0.96);
+}
+
+/* Loading spinner */
+.spinner {
+    animation: heroui_spin 0.8s linear infinite;
+    border: 2px solid currentcolor;
+    border-radius: 50%;
+    border-top-color: transparent;
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+}
+
+/* Disabled */
+.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Full width */
+.full_width {
+    width: 100%;
+}
+
+/* ─── Tamaños ──────────────────────────────────────────────────────────────── */
+.sm {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.75rem;
+}
+
+.md {
+    font-size: var(--paragraph);
+    padding: 0.5rem 1rem;
+}
+
+.lg {
+    font-size: var(--subtitle);
+    padding: 0.75rem 1.25rem;
+}
+
+/* ─── Radios ───────────────────────────────────────────────────────────────── */
+.radius_none {
+    border-radius: 0;
+}
+.radius_sm {
+    border-radius: var(--radius-1);
+}
+.radius_md {
+    border-radius: var(--radius-2);
+}
+.radius_lg {
+    border-radius: var(--radius-3);
+}
+.radius_full {
+    border-radius: var(--radius-round);
+}
+
+/* ─── Variantes ─────────────────────────────────────────────────────────────── */
+
+/* Solid */
+.solid {
+    background-color: var(--btn-color);
+    color: var(--btn-color-foreground);
+}
+
+/* Bordered */
+.bordered {
+    background: transparent;
+    border: 1px solid var(--btn-color);
+    color: var(--btn-color);
+}
+
+/* Ghost */
+.ghost {
+    background: transparent;
+    border: none;
+    color: var(--btn-color);
+}
+
+/* Light */
+.light {
+    background-color: var(--btn-color-light);
+    border: none;
+    color: var(--btn-color);
+}
+
+/* Flat */
+.flat {
+    background-color: var(--btn-color-flat);
+    border: none;
+    color: var(--btn-color);
+}
+
+/* Faded */
+.faded {
+    background-color: var(--btn-color-faded);
+    border: none;
+    color: var(--btn-color);
+}
+
+/* Shadow */
+.shadow {
+    background-color: var(--btn-color);
+    box-shadow: var(--shadow-3);
+    color: var(--btn-color-foreground);
+}
+
+/* ─── Colores (via tokens) ─────────────────────────────────────────────────── */
+
+/* Primary */
+.primary {
+    --btn-color: var(--brand-primary);
+    --btn-color-foreground: var(--base);
+    --btn-color-hover: var(--brand-7);
+    --btn-color-light: var(--brand-1);
+    --btn-color-flat: var(--brand-2);
+    --btn-color-faded: var(--brand-3);
+}
+
+/* Secondary */
+.secondary {
+    --btn-color: var(--brand-secondary);
+    --btn-color-foreground: var(--base);
+    --btn-color-hover: var(--brand-7-secondary);
+    --btn-color-light: var(--brand-1-secondary);
+    --btn-color-flat: var(--brand-2-secondary);
+    --btn-color-faded: var(--brand-3-secondary);
+}
+
+/* Success */
+.success {
+    --btn-color: var(--system-success-color);
+    --btn-color-foreground: var(--base);
+    --btn-color-hover: var(--color-add-green-7);
+    --btn-color-light: var(--color-add-green-1);
+    --btn-color-flat: var(--color-add-green-2);
+    --btn-color-faded: var(--color-add-green-3);
+}
+
+/* Warning */
+.warning {
+    --btn-color: var(--system-warning-color);
+    --btn-color-foreground: var(--base);
+    --btn-color-hover: var(--color-add-orange-7);
+    --btn-color-light: var(--color-add-orange-1);
+    --btn-color-flat: var(--color-add-orange-2);
+    --btn-color-faded: var(--color-add-orange-3);
+}
+
+/* Danger */
+.danger {
+    --btn-color: var(--system-error-color);
+    --btn-color-foreground: var(--base);
+    --btn-color-hover: var(--color-add-red-5);
+    --btn-color-light: var(--color-add-red-1);
+    --btn-color-flat: var(--color-add-red-2);
+    --btn-color-faded: var(--color-add-red-3);
+}
+
+/* Default */
+.default {
+    --btn-color: var(--gray-5);
+    --btn-color-foreground: var(--base);
+    --btn-color-hover: var(--gray-6);
+    --btn-color-light: var(--gray-1);
+    --btn-color-flat: var(--gray-2);
+    --btn-color-faded: var(--gray-3);
+}
+
+/* ─── Hover States ───────────────────────────────────────────────────────── */
+
+/* Solid + Shadow */
+.solid:hover:not(:disabled),
+.shadow:hover:not(:disabled) {
+    background-color: var(--btn-color-hover);
+}
+
+/* Bordered + Ghost */
+.bordered:hover:not(:disabled),
+.ghost:hover:not(:disabled) {
+    background-color: var(--btn-color-light);
+}
+
+/* Light */
+.light:hover:not(:disabled) {
+    background-color: var(--btn-color-flat);
+}
+
+/* Flat */
+.flat:hover:not(:disabled) {
+    background-color: var(--btn-color-faded);
+}
+
+/* Faded */
+.faded:hover:not(:disabled) {
+    background-color: var(--btn-color);
+    color: var(--btn-color-foreground);
+}
+
+/* ─── Spinner (cargando) ────────────────────────────────────────────────── */
+.loading {
+    cursor: progress;
+}
+
+/* Spinner por defecto */
+.default_spinner {
+    animation: heroui_spin 0.8s linear infinite;
+    border: 2px solid currentcolor;
+    border-radius: 50%;
+    border-top-color: transparent;
+    display: inline-block;
+    height: 1em;
+    width: 1em;
 }

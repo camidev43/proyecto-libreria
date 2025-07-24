@@ -1,1 +1,1 @@
-export { Boton } from './Boton.tsx';
+export { default as Boton } from './Boton.tsx';

@@ -1,0 +1,49 @@
+/* App.module.css */
+.contenedor_app {
+    background-color: var(--base);
+    color: var(--color-primary-text);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    transition: all 0.3s ease;
+}
+
+.cabecera {
+    background-color: transparent;
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--gaps-3);
+}
+
+.boton_tema {
+    align-items: center;
+    background-color: var(--brand-8);
+    border: none;
+    border-radius: var(--radius-3);
+    color: whitesmoke;
+    cursor: pointer;
+    display: flex;
+    gap: var(--gaps-2);
+    padding: var(--gaps-2) var(--gaps-3);
+    transition:
+        transform 0.1s ease,
+        background-color 0.2s ease;
+}
+
+.boton_tema:hover {
+    background-color: var(--heroui-colors-secondary-hover);
+}
+
+.area_prueba {
+    align-items: center;
+    background-color: var(--surface-first);
+    border: 1px solid var(--border-color, rgb(0 0 0 / 10%));
+    border-radius: var(--radius-4);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+    display: flex;
+    flex: 1;
+    gap: var(--gaps-3);
+    justify-content: center;
+    margin: 0 var(--gaps-5) var(--gaps-5);
+    padding: var(--gaps-7);
+}
