@@ -111,4 +111,5 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
 
 Boton.displayName = 'Boton';
 
+export { Boton };
 export default Boton;

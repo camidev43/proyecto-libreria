@@ -1,26 +1,24 @@
 :root {
-    --brand-primary-base: hsl(203deg 80% 35%);
-    --brand-secondary-base: hsl(295deg 80% 48%);
-    --brand-1: color-mix(in hsl, var(--brand-primary-base) 90%, white 10%);
-    --brand-2: color-mix(in hsl, var(--brand-primary-base) 75%, white 25%);
-    --brand-3: color-mix(in hsl, var(--brand-primary-base) 60%, white 40%);
-    --brand-4: color-mix(in hsl, var(--brand-primary-base) 45%, white 55%);
-    --brand-5: var(--brand-primary-base);
-    --brand-6: color-mix(in hsl, var(--brand-primary-base) 85%, black 15%);
-    --brand-7: color-mix(in hsl, var(--brand-primary-base) 70%, black 30%);
-    --brand-8: color-mix(in hsl, var(--brand-primary-base) 55%, black 45%);
-    --brand-9: color-mix(in hsl, var(--brand-primary-base) 40%, black 60%);
-    --brand-10: color-mix(in hsl, var(--brand-primary-base) 25%, black 75%);
-    --brand-1-secondary: color-mix(in hsl, var(--brand-secondary-base) 90%, white 10%);
-    --brand-2-secondary: color-mix(in hsl, var(--brand-secondary-base) 75%, white 25%);
-    --brand-3-secondary: color-mix(in hsl, var(--brand-secondary-base) 60%, white 40%);
-    --brand-4-secondary: color-mix(in hsl, var(--brand-secondary-base) 45%, white 55%);
-    --brand-5-secondary: var(--brand-secondary-base);
-    --brand-6-secondary: color-mix(in hsl, var(--brand-secondary-base) 85%, black 15%);
-    --brand-7-secondary: color-mix(in hsl, var(--brand-secondary-base) 70%, black 30%);
-    --brand-8-secondary: color-mix(in hsl, var(--brand-secondary-base) 55%, black 45%);
-    --brand-9-secondary: color-mix(in hsl, var(--brand-secondary-base) 40%, black 60%);
-    --brand-10-secondary: color-mix(in hsl, var(--brand-secondary-base) 25%, black 75%);
+    --brand-1: hsl(190deg 100% 91%);
+    --brand-2: hsl(194deg 100% 84%);
+    --brand-3: hsl(195deg 100% 73%);
+    --brand-4: hsl(194deg 100% 46%);
+    --brand-5: hsl(198deg 100% 38%);
+    --brand-6: hsl(203deg 80% 35%);
+    --brand-7: hsl(200deg 93% 23%);
+    --brand-8: hsl(202deg 91% 17%);
+    --brand-9: hsl(203deg 91% 13%);
+    --brand-10: hsl(199deg 76% 8%);
+    --brand-1-secondary: hsl(98deg 97% 92%);
+    --brand-2-secondary: hsl(96deg 96% 79%);
+    --brand-3-secondary: hsl(91deg 94% 70%);
+    --brand-4-secondary: hsl(91deg 77% 60%);
+    --brand-5-secondary: hsl(91deg 58% 53%);
+    --brand-6-secondary: hsl(91deg 53% 40%);
+    --brand-7-secondary: hsl(91deg 55% 30%);
+    --brand-8-secondary: hsl(91deg 59% 22%);
+    --brand-9-secondary: hsl(91deg 62% 16%);
+    --brand-10-secondary: hsl(91deg 70% 10%);
     --base: #fff;
     --brand-primary: var(--brand-6);
     --brand-secondary: var(--brand-5-secondary);
@@ -350,6 +348,7 @@ html.dark_theme {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -359,9 +358,11 @@ html.dark_theme {
     0% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(0.96);
     }
+
     100% {
         transform: scale(1);
     }
