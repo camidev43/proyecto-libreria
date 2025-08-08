@@ -1,11 +1,12 @@
-/* App.module.css */
 .contenedor_app {
     background-color: var(--base);
     color: var(--color-primary-text);
     display: flex;
     flex-direction: column;
     height: 100vh;
-    transition: all 0.3s ease;
+    transition:
+        background-color 0.3s var(--ease-2),
+        color 0.3s var(--ease-2);
 }
 
 .cabecera {
@@ -17,33 +18,42 @@
 
 .boton_tema {
     align-items: center;
-    background-color: var(--brand-8);
+    background-color: var(--brand-primary);
     border: none;
     border-radius: var(--radius-3);
-    color: whitesmoke;
+    color: var(--base);
     cursor: pointer;
     display: flex;
     gap: var(--gaps-2);
     padding: var(--gaps-2) var(--gaps-3);
     transition:
-        transform 0.1s ease,
-        background-color 0.2s ease;
+        transform 0.1s var(--ease-2),
+        background-color 0.3s var(--ease-2),
+        box-shadow 0.3s var(--ease-2);
 }
 
 .boton_tema:hover {
-    background-color: var(--heroui-colors-secondary-hover);
+    background-color: var(--brand-7);
+    box-shadow: var(--shadow-3);
+    transform: translateY(-1px);
 }
 
 .area_prueba {
-    align-items: center;
+    align-items: flex-start;
     background-color: var(--surface-first);
-    border: 1px solid var(--border-color, rgb(0 0 0 / 10%));
+    border: 1px solid var(--gray-3);
     border-radius: var(--radius-4);
-    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+    box-shadow: var(--shadow-2);
     display: flex;
     flex: 1;
+    flex-wrap: wrap;
     gap: var(--gaps-3);
     justify-content: center;
     margin: 0 var(--gaps-5) var(--gaps-5);
+    overflow-y: auto;
     padding: var(--gaps-7);
+    transition:
+        background-color 0.3s var(--ease-2),
+        border-color 0.3s var(--ease-2),
+        box-shadow 0.3s var(--ease-2);
 }

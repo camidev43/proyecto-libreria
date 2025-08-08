@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import styles from './Boton.module.css';
 
-export type Variant = 'solid' | 'bordered' | 'light' | 'flat' | 'faded' | 'ghost' | 'shadow';
+export type Variant = 'solid' | 'bordered' | 'light' | 'faded' | 'ghost' | 'shadow';
 export type Color = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
 export type Size = 'sm' | 'md' | 'lg';
 export type Radius = 'none' | 'sm' | 'md' | 'lg' | 'full';
@@ -60,7 +60,7 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
             styles[`radius_${radius}`],
             fullWidth && styles.full_width,
             (isDisabled || props.disabled) && styles.disabled,
-            isIconOnly && styles.iconOnly,
+            isIconOnly && styles.icon_only,
             isLoading && styles.loading,
             !disableAnimation && styles.tap_animation,
             className
@@ -96,11 +96,15 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
                 <span className={styles.inner}>
                     {startContent && !isLoading && <span className={styles.start}>{startContent}</span>}
                     {isLoading && spinnerPlacement === 'start' && (
-                        <span className={styles.spinner}>{spinner ?? <span className={styles.default_spinner} />}</span>
+                        <span className={styles.spinner}>{spinner ?? <span className={styles.spinner_loading} />}</span>
                     )}
-                    {!isIconOnly && <span className={styles.label}>{children}</span>}
+                    {isIconOnly ? (
+                        <span className={styles.label}>{children}</span>
+                    ) : (
+                        children && <span className={styles.label}>{children}</span>
+                    )}
                     {isLoading && spinnerPlacement === 'end' && (
-                        <span className={styles.spinner}>{spinner ?? <span className={styles.default_spinner} />}</span>
+                        <span className={styles.spinner}>{spinner ?? <span className={styles.spinner_loading} />}</span>
                     )}
                     {endContent && !isLoading && <span className={styles.end}>{endContent}</span>}
                 </span>

@@ -1,4 +1,14 @@
 :root {
+    --theme-faded-bg: light-dark(var(--gray-1), var(--gray-7));
+    --theme-faded-border: light-dark(var(--gray-3), var(--gray-5));
+    --base: light-dark(#fff, #1a1a1a);
+    --color-primary-text: light-dark(var(--gray-8), var(--gray-2));
+    --color-secondary-text: light-dark(var(--gray-9), var(--gray-3));
+    --color-placeholder: light-dark(var(--gray-4), var(--gray-6));
+    --surface-first: light-dark(var(--gray-0), var(--gray-9));
+    --surface-second: light-dark(var(--gray-1), var(--gray-8));
+    --surface-third: light-dark(var(--gray-2), var(--gray-7));
+    --surface-fourth: light-dark(var(--gray-3), var(--gray-6));
     --brand-1: hsl(190deg 100% 91%);
     --brand-2: hsl(194deg 100% 84%);
     --brand-3: hsl(195deg 100% 73%);
@@ -19,16 +29,8 @@
     --brand-8-secondary: hsl(91deg 59% 22%);
     --brand-9-secondary: hsl(91deg 62% 16%);
     --brand-10-secondary: hsl(91deg 70% 10%);
-    --base: #fff;
     --brand-primary: var(--brand-6);
     --brand-secondary: var(--brand-5-secondary);
-    --color-primary-text: var(--gray-8);
-    --color-secondary-text: var(--gray-9);
-    --color-placeholder: var(--gray-4);
-    --surface-first: var(--gray-0);
-    --surface-second: var(--gray-1);
-    --surface-third: var(--gray-2);
-    --surface-fourth: var(--gray-3);
     --system-warning-color: var(--color-add-orange-6);
     --system-error-color: var(--color-add-red-6);
     --system-info-color: var(--color-add-blue-8);
@@ -290,12 +292,6 @@
     --inner-shadow-2: inset 0 1px 4px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
     --inner-shadow-3: inset 0 2px 8px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
     --inner-shadow-4: inset 0 2px 14px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
-    --heroui-colors-primary-hover: #0059c9;
-    --heroui-colors-secondary-hover: #5f1f9e;
-    --heroui-colors-success-hover: #13a555;
-    --heroui-colors-warning-hover: #d48e1e;
-    --heroui-colors-danger-hover: #c20e50;
-    --heroui-colors-default-hover: #cacaca;
 
     color-scheme: light dark;
     font-family:
@@ -309,48 +305,43 @@
         sans-serif;
 }
 
-html.dark_theme {
-    --base: var(--gray-9);
-    --brand-primary: var(--brand-4);
-    --brand-secondary: var(--brand-4-secondary);
-    --color-primary-text: var(--gray-2);
-    --color-secondary-text: var(--gray-3);
-    --color-placeholder: var(--gray-4);
-    --surface-first: var(--gray-8);
-    --surface-second: var(--gray-7);
-    --surface-third: var(--gray-6);
-    --surface-fourth: var(--gray-5);
-    --surface-fifth: var(--gray-4);
-    --system-warning-color: var(--color-add-orange-3);
-    --system-error-color: var(--color-add-red-3);
-    --system-info-color: var(--color-add-blue-3);
-    --system-success-color: var(--color-add-green-3);
-    --system-disabled-color: var(--gray-9);
-    --background-modals: #0000003f;
-    --shadow-1: 0px 2px 5px -1px rgb(50 50 93 / 25%), 0px 1px 3px -1px rgb(0 0 0 / 30%);
-    --shadow-2: 0px 2px 8px 0px rgb(99 99 99 / 20%);
-    --shadow-3: 0px 1px 4px rgb(0 0 0 / 16%);
-    --shadow-4: 1.95px 1.95px 2.6px rgb(0 0 0 / 15%);
-    --shadow-5: 0px 8px 24px rgb(149 157 165 / 20%);
-    --shadow-6:
-        inset 0px 1px 1px 0px rgb(255 255 255 / 10%), 0px 50px 100px -20px rgb(50 50 93 / 25%),
-        0px 30px 60px -30px rgb(0 0 0 / 30%);
-    --inner-shadow-0: inset 0 0 0 1px hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
-    --inner-shadow-1: inset 0 1px 2px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
-    --inner-shadow-2: inset 0 1px 4px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
-    --inner-shadow-3: inset 0 2px 8px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
-    --inner-shadow-4: inset 0 2px 14px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
-
-    color-scheme: light dark;
+html {
+    transition:
+        background-color 0.3s var(--ease-2),
+        color 0.3s var(--ease-2);
 }
 
-@keyframes heroui_spin {
+*,
+*::before,
+*::after {
+    transition:
+        background-color 0.3s var(--ease-2),
+        border-color 0.3s var(--ease-2),
+        color 0.3s var(--ease-2),
+        box-shadow 0.3s var(--ease-2);
+}
+
+@keyframes spin_loading {
     from {
         transform: rotate(0deg);
     }
 
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes dots_loading {
+    0%,
+    80%,
+    100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
@@ -366,18 +357,6 @@ html.dark_theme {
     100% {
         transform: scale(1);
     }
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    font-size: 100%;
 }
 
 body {
