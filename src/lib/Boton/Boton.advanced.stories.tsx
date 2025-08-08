@@ -27,9 +27,10 @@ export const VariantMatrix: Story = {
             <div
                 style={{
                     display: 'grid',
-                    gridTemplateColumns: 'auto repeat(6, 1fr)',
+                    gridTemplateColumns: 'auto repeat(6, minmax(140px, max-content))',
                     gap: '0.5rem',
                     alignItems: 'center',
+                    justifyContent: 'center',
                     marginBottom: '3rem',
                 }}>
                 {/* Headers */}
@@ -43,127 +44,127 @@ export const VariantMatrix: Story = {
 
                 {/* Solid */}
                 <div style={{ fontWeight: 'bold', padding: '0.5rem' }}>Solid</div>
-                <Boton color='default' size='sm'>
+                <Boton color='default' size='md'>
                     Botón
                 </Boton>
-                <Boton color='primary' size='sm'>
+                <Boton color='primary' size='md'>
                     Botón
                 </Boton>
-                <Boton color='secondary' size='sm'>
+                <Boton color='secondary' size='md'>
                     Botón
                 </Boton>
-                <Boton color='success' size='sm'>
+                <Boton color='success' size='md'>
                     Botón
                 </Boton>
-                <Boton color='warning' size='sm'>
+                <Boton color='warning' size='md'>
                     Botón
                 </Boton>
-                <Boton color='danger' size='sm'>
+                <Boton color='danger' size='md'>
                     Botón
                 </Boton>
 
                 {/* Bordered */}
                 <div style={{ fontWeight: 'bold', padding: '0.5rem' }}>Bordered</div>
-                <Boton variant='bordered' color='default' size='sm'>
+                <Boton variant='bordered' color='default' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='bordered' color='primary' size='sm'>
+                <Boton variant='bordered' color='primary' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='bordered' color='secondary' size='sm'>
+                <Boton variant='bordered' color='secondary' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='bordered' color='success' size='sm'>
+                <Boton variant='bordered' color='success' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='bordered' color='warning' size='sm'>
+                <Boton variant='bordered' color='warning' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='bordered' color='danger' size='sm'>
+                <Boton variant='bordered' color='danger' size='md'>
                     Botón
                 </Boton>
 
                 {/* Light */}
                 <div style={{ fontWeight: 'bold', padding: '0.5rem' }}>Light</div>
-                <Boton variant='light' color='default' size='sm'>
+                <Boton variant='light' color='default' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='light' color='primary' size='sm'>
+                <Boton variant='light' color='primary' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='light' color='secondary' size='sm'>
+                <Boton variant='light' color='secondary' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='light' color='success' size='sm'>
+                <Boton variant='light' color='success' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='light' color='warning' size='sm'>
+                <Boton variant='light' color='warning' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='light' color='danger' size='sm'>
+                <Boton variant='light' color='danger' size='md'>
                     Botón
                 </Boton>
 
                 {/* Faded */}
                 <div style={{ fontWeight: 'bold', padding: '0.5rem' }}>Faded</div>
-                <Boton variant='faded' color='default' size='sm'>
+                <Boton variant='faded' color='default' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='faded' color='primary' size='sm'>
+                <Boton variant='faded' color='primary' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='faded' color='secondary' size='sm'>
+                <Boton variant='faded' color='secondary' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='faded' color='success' size='sm'>
+                <Boton variant='faded' color='success' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='faded' color='warning' size='sm'>
+                <Boton variant='faded' color='warning' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='faded' color='danger' size='sm'>
+                <Boton variant='faded' color='danger' size='md'>
                     Botón
                 </Boton>
 
                 {/* Ghost */}
                 <div style={{ fontWeight: 'bold', padding: '0.5rem' }}>Ghost</div>
-                <Boton variant='ghost' color='default' size='sm'>
+                <Boton variant='ghost' color='default' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='ghost' color='primary' size='sm'>
+                <Boton variant='ghost' color='primary' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='ghost' color='secondary' size='sm'>
+                <Boton variant='ghost' color='secondary' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='ghost' color='success' size='sm'>
+                <Boton variant='ghost' color='success' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='ghost' color='warning' size='sm'>
+                <Boton variant='ghost' color='warning' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='ghost' color='danger' size='sm'>
+                <Boton variant='ghost' color='danger' size='md'>
                     Botón
                 </Boton>
 
                 {/* Shadow */}
                 <div style={{ fontWeight: 'bold', padding: '0.5rem' }}>Shadow</div>
-                <Boton variant='shadow' color='default' size='sm'>
+                <Boton variant='shadow' color='default' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='shadow' color='primary' size='sm'>
+                <Boton variant='shadow' color='primary' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='shadow' color='secondary' size='sm'>
+                <Boton variant='shadow' color='secondary' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='shadow' color='success' size='sm'>
+                <Boton variant='shadow' color='success' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='shadow' color='warning' size='sm'>
+                <Boton variant='shadow' color='warning' size='md'>
                     Botón
                 </Boton>
-                <Boton variant='shadow' color='danger' size='sm'>
+                <Boton variant='shadow' color='danger' size='md'>
                     Botón
                 </Boton>
             </div>

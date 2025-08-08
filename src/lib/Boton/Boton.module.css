@@ -1,25 +1,29 @@
+:where(.boton) {
+    --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --ease-quick: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-extra-smooth: cubic-bezier(0.2, 0, 0.2, 1);
+}
+
 .boton {
     align-items: center;
     background: transparent;
     border: none;
     color: var(--color-primary-text);
+    contain: layout style;
     cursor: pointer;
     display: inline-flex;
     font-family: inherit;
     font-size: var(--paragraph);
     font-weight: 400;
+    isolation: isolate;
     justify-content: center;
     line-height: 1;
     outline: none;
     overflow: hidden;
     position: relative;
     transition:
-        background-color 300ms ease-out,
-        border-color 300ms ease-out,
-        color 300ms ease-out,
-        box-shadow 300ms ease-out,
-        transform 100ms ease-out,
-        opacity 300ms ease-out;
+        transform 200ms var(--ease-quick),
+        opacity 300ms var(--ease-smooth);
     user-select: none;
     vertical-align: middle;
 }
@@ -36,13 +40,15 @@
 }
 
 .ripple {
-    animation: ripple_effect 600ms ease-out forwards;
-    background-color: currentcolor;
+    animation: ripple_effect 1000ms var(--ease-extra-smooth) forwards;
+    background-color: color-mix(in srgb, currentcolor 80%, transparent);
     border-radius: 50%;
+    contain: strict;
     opacity: 0.3;
     pointer-events: none;
     position: absolute;
     transform: translate(-50%, -50%) scale(0);
+    will-change: transform, opacity;
     z-index: 0;
 }
 
@@ -54,13 +60,13 @@
 }
 
 .tap_animation:not(:active) {
-    transform: scale(1);
-    transition: transform 150ms ease-out;
+    transition: transform 200ms var(--ease-quick);
+    will-change: transform;
 }
 
 .tap_animation:active:not(:disabled) {
-    transform: scale(0.95);
-    transition: transform 150ms ease-out;
+    transform: scale(0.98);
+    transition: transform 100ms var(--ease-quick);
 }
 
 .spinner {
@@ -69,6 +75,25 @@
     height: 1em;
     justify-content: center;
     width: 1em;
+}
+
+.modern_spinner {
+    animation: spinner_rotate 1s infinite linear;
+    background:
+        radial-gradient(farthest-side, currentcolor 94%, transparent) top/0.16em 0.16em no-repeat,
+        conic-gradient(transparent 30%, currentcolor);
+    block-size: 1em;
+    border-radius: 50%;
+    inline-size: 1em;
+    mask: radial-gradient(farthest-side, transparent calc(100% - 0.16em), black 0);
+    mask: radial-gradient(farthest-side, transparent calc(100% - 0.16em), black 0);
+    will-change: transform;
+}
+
+@keyframes spinner_rotate {
+    100% {
+        transform: rotate(1turn);
+    }
 }
 
 .spinner_loading {
@@ -109,7 +134,7 @@
 
 .icon_only {
     aspect-ratio: 1;
-    min-width: auto;
+    min-inline-size: auto;
     padding: 0.5rem;
 }
 
@@ -145,17 +170,20 @@
 
 .sm {
     font-size: 0.875rem;
-    padding: var(--gaps-1) var(--gaps-3);
+    padding-block: var(--gaps-1);
+    padding-inline: var(--gaps-3);
 }
 
 .md {
     font-size: var(--paragraph);
-    padding: var(--gaps-2) var(--gaps-4);
+    padding-block: var(--gaps-2);
+    padding-inline: var(--gaps-4);
 }
 
 .lg {
     font-size: var(--subtitle);
-    padding: var(--gaps-2) var(--gaps-5);
+    padding-block: var(--gaps-2);
+    padding-inline: var(--gaps-5);
 }
 
 .radius_none {
@@ -181,12 +209,21 @@
 .solid {
     background-color: var(--btn-color);
     color: white;
+    transition:
+        background-color 400ms var(--ease-smooth),
+        color 400ms var(--ease-smooth),
+        filter 400ms var(--ease-smooth);
 }
 
 .bordered {
     background: transparent;
     border: 2px solid var(--btn-text-color);
     color: var(--btn-text-color);
+    transition:
+        background-color 400ms var(--ease-smooth),
+        border-color 400ms var(--ease-smooth),
+        color 400ms var(--ease-smooth),
+        filter 400ms var(--ease-smooth);
 }
 
 .ghost {
@@ -194,26 +231,42 @@
     border: 2px solid var(--btn-text-color);
     color: var(--btn-text-color);
     opacity: 0.8;
+    transition:
+        background-color 500ms var(--ease-extra-smooth),
+        border-color 500ms var(--ease-extra-smooth),
+        color 500ms var(--ease-extra-smooth),
+        opacity 500ms var(--ease-extra-smooth);
 }
 
 .light {
     background: transparent;
     border: none;
     color: var(--btn-text-color);
+    transition:
+        background-color 400ms var(--ease-smooth),
+        color 400ms var(--ease-smooth);
 }
 
 .faded {
     background-color: var(--theme-faded-bg);
     border: 2px solid var(--theme-faded-border);
     color: var(--btn-text-color);
+    transition:
+        background-color 400ms var(--ease-smooth),
+        border-color 400ms var(--ease-smooth);
 }
 
 .shadow {
     background-color: var(--btn-color);
     box-shadow:
-        0 4px 14px -2px var(--btn-shadow-color),
-        0 8px 20px -6px color-mix(in srgb, var(--btn-shadow-color) 40%, transparent);
+        0 2px 8px -1px color-mix(in srgb, var(--btn-shadow-color) 35%, transparent),
+        0 4px 12px -3px color-mix(in srgb, var(--btn-shadow-color) 25%, transparent);
     color: white;
+    transition:
+        background-color 400ms var(--ease-smooth),
+        box-shadow 400ms var(--ease-smooth),
+        color 400ms var(--ease-smooth),
+        filter 400ms var(--ease-smooth);
 }
 
 .primary {
@@ -284,8 +337,8 @@
 
 .shadow:hover:not(:disabled, .loading) {
     box-shadow:
-        0 6px 18px -4px var(--btn-shadow-color),
-        0 12px 28px -8px color-mix(in srgb, var(--btn-shadow-color) 50%, transparent);
+        0 3px 12px -2px color-mix(in srgb, var(--btn-shadow-color) 40%, transparent),
+        0 6px 16px -4px color-mix(in srgb, var(--btn-shadow-color) 30%, transparent);
 }
 
 .bordered:hover:not(:disabled, .loading) {

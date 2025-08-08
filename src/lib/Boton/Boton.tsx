@@ -1,4 +1,3 @@
-// Boton.tsx
 import { forwardRef, type MouseEvent, useRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 
@@ -41,7 +40,6 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
             startContent,
             endContent,
             spinner,
-            spinnerPlacement = 'start',
             disableRipple = false,
             disableAnimation = false,
             children,
@@ -76,7 +74,7 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
                 ripple.style.left = `${e.clientX - rect.left}px`;
                 ripple.style.top = `${e.clientY - rect.top}px`;
                 internalRef.current.appendChild(ripple);
-                setTimeout(() => ripple.remove(), 600);
+                setTimeout(() => ripple.remove(), 800);
             }
             props.onClick?.(e);
         };
@@ -95,16 +93,13 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
                 onClick={handleClick}>
                 <span className={styles.inner}>
                     {startContent && !isLoading && <span className={styles.start}>{startContent}</span>}
-                    {isLoading && spinnerPlacement === 'start' && (
-                        <span className={styles.spinner}>{spinner ?? <span className={styles.spinner_loading} />}</span>
+                    {children && (
+                        <span className={styles.label} style={{ opacity: isLoading ? 0.7 : 1 }}>
+                            {children}
+                        </span>
                     )}
-                    {isIconOnly ? (
-                        <span className={styles.label}>{children}</span>
-                    ) : (
-                        children && <span className={styles.label}>{children}</span>
-                    )}
-                    {isLoading && spinnerPlacement === 'end' && (
-                        <span className={styles.spinner}>{spinner ?? <span className={styles.spinner_loading} />}</span>
+                    {isLoading && (
+                        <span className={styles.spinner}>{spinner ?? <div className={styles.modern_spinner} />}</span>
                     )}
                     {endContent && !isLoading && <span className={styles.end}>{endContent}</span>}
                 </span>

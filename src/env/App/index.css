@@ -305,60 +305,6 @@
         sans-serif;
 }
 
-html {
-    transition:
-        background-color 0.3s var(--ease-2),
-        color 0.3s var(--ease-2);
-}
-
-*,
-*::before,
-*::after {
-    transition:
-        background-color 0.3s var(--ease-2),
-        border-color 0.3s var(--ease-2),
-        color 0.3s var(--ease-2),
-        box-shadow 0.3s var(--ease-2);
-}
-
-@keyframes spin_loading {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes dots_loading {
-    0%,
-    80%,
-    100% {
-        opacity: 0.3;
-        transform: scale(0.8);
-    }
-
-    40% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes heroui_button_press {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(0.96);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
 body {
     background: var(--base);
     color: var(--color-primary-text);

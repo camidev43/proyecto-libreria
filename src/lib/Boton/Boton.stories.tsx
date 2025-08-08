@@ -405,7 +405,7 @@ export const States: Story = {
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', justifyContent: 'center' }}>
             <Boton color='primary'>Normal</Boton>
             <Boton color='primary' isLoading>
-                Loading
+                Guardando
             </Boton>
             <Boton color='primary' isDisabled>
                 Disabled
@@ -416,8 +416,99 @@ export const States: Story = {
         docs: {
             source: {
                 code: `<Boton>Normal</Boton>
-<Boton isLoading>Loading</Boton>
+<Boton isLoading>Guardando</Boton>
 <Boton isDisabled>Disabled</Boton>`,
+            },
+        },
+    },
+};
+
+// Loading Examples
+export const LoadingExamples: Story = {
+    render: () => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center' }}>
+            <h3 style={{ margin: 0, color: 'var(--color-primary-text)' }}>Ejemplos de Loading</h3>
+
+            <div style={{ textAlign: 'center' }}>
+                <h4 style={{ margin: '0 0 1rem 0', color: 'var(--color-secondary-text)' }}>Solo Spinner</h4>
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <Boton color='primary' isLoading isIconOnly></Boton>
+                    <Boton color='success' isLoading isIconOnly></Boton>
+                    <Boton color='warning' isLoading isIconOnly></Boton>
+                    <Boton color='danger' isLoading isIconOnly></Boton>
+                </div>
+            </div>
+
+            {/* Con texto */}
+            <div style={{ textAlign: 'center' }}>
+                <h4 style={{ margin: '0 0 1rem 0', color: 'var(--color-secondary-text)' }}>Con Texto</h4>
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <Boton color='primary' isLoading>
+                        Procesando...
+                    </Boton>
+                    <Boton color='success' isLoading>
+                        Guardando
+                    </Boton>
+                    <Boton color='warning' isLoading>
+                        Subiendo
+                    </Boton>
+                    <Boton color='danger' isLoading>
+                        Eliminando
+                    </Boton>
+                </div>
+            </div>
+
+            {/* Diferentes variantes */}
+            <div style={{ textAlign: 'center' }}>
+                <h4 style={{ margin: '0 0 1rem 0', color: 'var(--color-secondary-text)' }}>Diferentes Variantes</h4>
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <Boton variant='solid' color='primary' isLoading>
+                        Solid
+                    </Boton>
+                    <Boton variant='bordered' color='primary' isLoading>
+                        Bordered
+                    </Boton>
+                    <Boton variant='light' color='primary' isLoading>
+                        Light
+                    </Boton>
+                    <Boton variant='faded' color='primary' isLoading>
+                        Faded
+                    </Boton>
+                    <Boton variant='ghost' color='primary' isLoading>
+                        Ghost
+                    </Boton>
+                    <Boton variant='shadow' color='primary' isLoading>
+                        Shadow
+                    </Boton>
+                </div>
+            </div>
+        </div>
+    ),
+    parameters: {
+        layout: 'fullscreen',
+        docs: {
+            description: {
+                story: `
+### Ejemplos de Loading
+
+El sistema de loading incluye un spinner moderno con animación de pulso. El spinner se adapta al color del botón y puede usarse solo o con texto.
+
+**Características:**
+- Spinner moderno con animación de múltiples puntos
+- Mantiene el texto visible con opacidad reducida
+- Se adapta automáticamente al color del botón
+- Funciona en todas las variantes y tamaños
+                `,
+            },
+            source: {
+                code: `// Solo spinner
+<Boton color="primary" isLoading isIconOnly></Boton>
+
+// Con texto
+<Boton color="primary" isLoading>Procesando...</Boton>
+
+// Diferentes variantes
+<Boton variant="bordered" color="primary" isLoading>Cargando</Boton>`,
             },
         },
     },
