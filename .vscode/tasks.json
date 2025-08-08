@@ -10,6 +10,16 @@
         "color": "terminal.ansiYellow",
         "id": "notebook-template"
       },
+    },
+    {
+      "type": "npm",
+      "script": "dev",
+      "problemMatcher": [],
+      "label": "Levantar entorno",
+       "icon": {
+        "color": "terminal.ansiCyan",
+        "id": "device-desktop"
+      },
     }
   ]
 }
