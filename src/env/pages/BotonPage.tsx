@@ -253,11 +253,11 @@ export function BotonPage() {
                     <div className={estilos.estado_panel}>
                         <div className={estilos.estado_header}>Cargando</div>
                         <div className={estilos.estado_fila}>
-                            <Boton variant='solid' color='primary'>
+                            <Boton variant='solid' color='primary' isLoading>
                                 Procesando…
                             </Boton>
-                            <Boton variant='bordered' color='primary'>
-                                Enviando…
+                            <Boton variant='bordered' color='primary' isLoading>
+                                enviando…
                             </Boton>
                         </div>
                     </div>
