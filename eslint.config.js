@@ -1,214 +1,139 @@
 // @ts-check
-
 /**
- * Configuración de ESLint para proyecto React + TypeScript
- *
- * Esta configuración está optimizada para:
- * - React 19 con TypeScript 5.8
- * - ESLint 9 (flat config)
- * - Vite como bundler
- * - Jest para testing
- * - Storybook para documentación
- * - Prettier para formateo
+ * ESLint 9 (flat config) para React + TypeScript + Vite + Jest + Storybook
  */
-
-import eslint from '@eslint/js';
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import typescriptParser from '@typescript-eslint/parser';
-import pluginImport from 'eslint-plugin-import';
-import pluginPrettier from 'eslint-plugin-prettier';
-import pluginReactRefresh from 'eslint-plugin-react-refresh';
-import configReactRecommended from 'eslint-plugin-react/configs/recommended.js';
-import configReactJSXRuntime from 'eslint-plugin-react/configs/jsx-runtime.js';
-import pluginReactHooks from 'eslint-plugin-react-hooks';
 import { fixupPluginRules } from '@eslint/compat';
-import configPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslint from '@eslint/js';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import importPlugin from 'eslint-plugin-import';
+import prettierPlugin from 'eslint-plugin-prettier';
+import prettierRecommended from 'eslint-plugin-prettier/recommended';
+import reactJSXRuntime from 'eslint-plugin-react/configs/jsx-runtime.js';
+import reactRecommended from 'eslint-plugin-react/configs/recommended.js';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import reactRefreshPlugin from 'eslint-plugin-react-refresh';
+import globals from 'globals';
 
 export default [
-    // Configuraciones base recomendadas
-    eslint.configs.recommended, // Reglas básicas de JavaScript
-    configReactRecommended, // Reglas recomendadas para React
-    configReactJSXRuntime, // Soporte para nuevo JSX Transform (React 17+)
-    configPrettierRecommended, // Integración con Prettier
+    eslint.configs.recommended,
+    reactRecommended,
+    reactJSXRuntime,
+    prettierRecommended,
 
-    // === CONFIGURACIÓN PRINCIPAL PARA ARCHIVOS TYPESCRIPT Y REACT ===
     {
         files: ['**/*.{js,jsx,ts,tsx,cjs,mjs}'],
         linterOptions: {
-            // Reportar directivas de ESLint disable que no están siendo usadas
             reportUnusedDisableDirectives: 'error',
         },
         languageOptions: {
-            // Parser específico para TypeScript
-            parser: typescriptParser,
+            parser: tsParser,
             parserOptions: {
-                ecmaFeatures: { jsx: true }, // Habilitar JSX
-                ecmaVersion: 'latest', // Usar última versión de ECMAScript
-                sourceType: 'module', // Usar módulos ES6
-                project: './tsconfig.linter.json', // Archivo TypeScript config para linting
+                ecmaFeatures: { jsx: true },
+                ecmaVersion: 'latest',
+                sourceType: 'module',
+                // Usa un TS config específico para lint (sin conflictos con el de build)
+                project: './tsconfig.linter.json',
             },
-            // Variables globales disponibles en el entorno del navegador
+            // ⬇️ Globals de navegador y ES modernos (localStorage, window, etc.)
             globals: {
-                console: 'readonly',
-                document: 'readonly',
-                window: 'readonly',
-                setTimeout: 'readonly',
-                clearTimeout: 'readonly',
+                ...globals.browser,
+                ...globals.es2021,
             },
         },
         settings: {
-            react: {
-                version: 'detect', // Auto-detectar versión de React
+            react: { version: 'detect' },
+            'import/resolver': {
+                typescript: { project: './tsconfig.json' },
             },
         },
         plugins: {
-            '@typescript-eslint': typescriptEslint,
-            import: pluginImport,
-            prettier: pluginPrettier,
-            'react-refresh': pluginReactRefresh,
-            'react-hooks': fixupPluginRules(pluginReactHooks), // Usar fixup para compatibilidad ESLint 9
+            '@typescript-eslint': tsPlugin,
+            import: importPlugin,
+            prettier: prettierPlugin,
+            'react-refresh': reactRefreshPlugin,
+            'react-hooks': fixupPluginRules(reactHooksPlugin),
         },
         rules: {
-            // Aplicar reglas recomendadas de TypeScript y React Hooks
-            ...typescriptEslint.configs.recommended.rules,
-            ...pluginReactHooks.configs.recommended.rules,
+            // TS + Hooks recomendadas
+            ...tsPlugin.configs.recommended.rules,
+            ...reactHooksPlugin.configs.recommended.rules,
 
-            /**
-             * Permitir funciones de flecha vacías `() => {}`, mientras restringe otras funciones vacías
-             * @see https://eslint.org/docs/latest/rules/no-empty-function#allow-arrowfunctions
-             */
             '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
+            '@typescript-eslint/ban-ts-comment': 'warn',
+            '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+            '@typescript-eslint/consistent-type-imports': 'error',
+            '@typescript-eslint/no-unused-vars': [
+                'error',
+                {
+                    argsIgnorePattern: '^_',
+                    varsIgnorePattern: '^_',
+                    caughtErrorsIgnorePattern: '^_',
+                    ignoreRestSiblings: true,
+                    args: 'after-used',
+                },
+            ],
 
-            /**
-             * Permitir comentarios de TypeScript (@ts-ignore, etc.) con advertencia
-             */
-            '@typescript-eslint/ban-ts-comment': 1,
-
-            /**
-             * Evitar reasignación de variables const
-             */
-            'no-const-assign': 'error',
-
-            /**
-             * Enforza el orden de imports con líneas vacías entre grupos de imports
-             * @see https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
-             */
+            // Import hygiene
             'import/order': [
                 'error',
                 {
                     groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
-                    pathGroups: [
-                        {
-                            pattern: '@/**', // Alias internos del proyecto
-                            group: 'internal',
-                        },
-                    ],
-                    'newlines-between': 'always', // Líneas vacías entre grupos
+                    pathGroups: [{ pattern: '@/**', group: 'internal' }],
+                    'newlines-between': 'always',
+                    alphabetize: { order: 'asc', caseInsensitive: true },
                 },
             ],
-
-            /**
-             * Deshabilitar imports combinados de módulos y tipos como `import React, {FC} from 'react'`
-             * ESLint intentará dividir en imports de tipo y módulo por separado
-             * @see https://typescript-eslint.io/rules/consistent-type-imports/
-             */
-            '@typescript-eslint/consistent-type-imports': 'error',
-
-            /**
-             * Evitar imports circulares entre módulos
-             */
-            /**
-             * Evitar imports circulares entre módulos
-             */
             'import/no-cycle': 'error',
 
-            /**
-             * Configuración de Prettier integrada con ESLint
-             */
+            // Prettier como fuente de la verdad de estilo
             'prettier/prettier': [
                 'error',
                 {
-                    semi: true, // Usar punto y coma
-                    singleQuote: true, // Usar comillas simples
-                    jsxSingleQuote: true, // Usar comillas simples en JSX
-                    trailingComma: 'es5', // Comas finales compatibles con ES5
-                    bracketSpacing: true, // Espacios en llaves de objetos
-                    jsxBracketSameLine: true, // Cerrar > de JSX en la misma línea
-                    arrowParens: 'avoid', // Evitar paréntesis en arrow functions de un parámetro
-                    endOfLine: 'auto', // Terminación de línea automática (cross-platform)
+                    semi: true,
+                    singleQuote: true,
+                    jsxSingleQuote: true,
+                    trailingComma: 'es5',
+                    bracketSpacing: true,
+                    jsxBracketSameLine: true,
+                    arrowParens: 'avoid',
+                    endOfLine: 'auto',
                 },
             ],
 
-            /**
-             * Requerido por Vite para React Fast Refresh
-             * Advertir sobre componentes que no son exportaciones por defecto
-             */
             'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 
-            /**
-             * Enforza el uso de 'type' en lugar de 'interface' para consistencia
-             */
-            '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
-
-            /**
-             * Permitir variables no usadas que empiecen con '_'
-             * Útil para parámetros de funciones que no se usan pero son requeridos por la firma
-             * @see https://eslint.org/docs/latest/rules/no-unused-vars
-             * @see https://typescript-eslint.io/rules/no-unused-vars/
-             */
-            '@typescript-eslint/no-unused-vars': [
-                'error',
-                {
-                    argsIgnorePattern: '^_', // Ignorar argumentos que empiecen con _
-                    varsIgnorePattern: '^_', // Ignorar variables que empiecen con _
-                    caughtErrorsIgnorePattern: '^_', // Ignorar errores capturados que empiecen con _
-                    ignoreRestSiblings: true, // Ignorar propiedades rest siblings
-                    args: 'after-used', // Solo verificar argumentos después del último usado
-                },
-            ],
+            'no-const-assign': 'error',
         },
     },
 
-    // === CONFIGURACIÓN ESPECÍFICA PARA ARCHIVOS DE TEST Y CONFIGURACIÓN ===
     {
-        files: [
-            '**/*.spec.*', // Archivos de test (Jest)
-            '**/testUtils/*.{js,jsx,ts,tsx}', // Utilidades de testing
-            '*/*.{js,jsx,ts,tsx}', // Archivos de configuración en raíz
-            '**/setupTests.ts', // Configuración de tests
-            '**/*.stories.*', // Archivos de Storybook
-            '*.config.{js,ts}', // Archivos de configuración
-        ],
+        files: ['**/*.{spec,test}.{js,jsx,ts,tsx}', '**/setupTests.ts'],
         languageOptions: {
             globals: {
-                // Variables globales de Jest disponibles en archivos de test
-                describe: 'readonly',
-                it: 'readonly',
-                expect: 'readonly',
-                beforeEach: 'readonly',
-                afterEach: 'readonly',
-                beforeAll: 'readonly',
-                afterAll: 'readonly',
-                jest: 'readonly',
+                ...globals.jest,
             },
         },
     },
 
-    // === RESTRICCIONES DE IMPORTS PARA ARCHIVOS DE LIBRERÍA ===
+    {
+        files: ['**/*.stories.*'],
+        rules: {
+            'react-hooks/rules-of-hooks': 'off',
+        },
+    },
+
     {
         files: ['src/lib/**/*.{js,jsx,ts,tsx}'],
         rules: {
-            /**
-             * Prohibir imports desde el directorio 'environment' en archivos de librería
-             * Los archivos de la librería no deben depender del entorno de desarrollo
-             */
             'no-restricted-imports': [
                 'error',
                 {
                     patterns: [
                         {
                             group: ['**/environment/**'],
-                            message: 'Imports from environment directory are forbidden in the library files.',
+                            message:
+                                'No importes desde "environment" dentro de librería. Mantén la lib libre de dependencias de entorno.',
                         },
                     ],
                 },
@@ -216,21 +141,16 @@ export default [
         },
     },
 
-    // === RESTRICCIONES GLOBALES DE IMPORTS ===
     {
         files: ['src/**/*.{js,jsx,ts,tsx}'],
         rules: {
-            /**
-             * Prohibir imports desde el directorio 'templates' en todos los archivos
-             * Los templates son solo para generación de código, no para uso directo
-             */
             'no-restricted-imports': [
                 'error',
                 {
                     patterns: [
                         {
                             group: ['**/templates/**'],
-                            message: 'Imports from templates directory are forbidden.',
+                            message: 'No importes templates directamente desde el código fuente.',
                         },
                     ],
                 },
@@ -238,25 +158,7 @@ export default [
         },
     },
 
-    // === CONFIGURACIÓN ESPECÍFICA PARA ARCHIVOS DE STORYBOOK ===
     {
-        files: ['**/*.stories.*'],
-        rules: {
-            /**
-             * Deshabilitar reglas de hooks en archivos de stories
-             * Permite mejor visualización del código en Storybook
-             * @see TemplateName.stories.tsx
-             */
-            'react-hooks/rules-of-hooks': 'off',
-        },
-    },
-
-    // === ARCHIVOS Y DIRECTORIOS IGNORADOS ===
-    {
-        ignores: [
-            '**/*.snap', // Archivos snapshot de Jest
-            'dist/**', // Directorio de build
-            'storybook-static/**', // Build estático de Storybook
-        ],
+        ignores: ['node_modules/**', 'dist/**', 'storybook-static/**', '**/*.snap', 'coverage/**'],
     },
 ];

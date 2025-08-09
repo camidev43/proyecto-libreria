@@ -1,3 +1,33 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+html {
+    background: var(--base);
+    color-scheme: light dark;
+}
+
+body {
+    background: var(--base);
+    color: var(--color-primary-text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    margin: 0;
+}
+
+html,
+body {
+    overflow-x: clip;
+}
+
 :root {
     --theme-faded-bg: light-dark(var(--gray-1), var(--gray-7));
     --theme-faded-border: light-dark(var(--gray-3), var(--gray-5));
@@ -293,7 +323,6 @@
     --inner-shadow-3: inset 0 2px 8px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
     --inner-shadow-4: inset 0 2px 14px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
 
-    color-scheme: light dark;
     font-family:
         "Nunito Sans",
         system-ui,
@@ -303,27 +332,19 @@
         Cantarell,
         "Noto Sans",
         sans-serif;
+    min-height: 100dvh;
 }
 
-body {
-    background: var(--base);
-    color: var(--color-primary-text);
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
+:root[data-theme="light"] {
+    color-scheme: light;
+}
+:root[data-theme="dark"] {
+    color-scheme: dark;
 }
 
-img,
-svg,
-video,
-canvas {
-    display: block;
-    max-width: 100%;
-}
-
-button,
-input,
-textarea,
-select {
-    color: inherit;
-    font: inherit;
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(page),
+::view-transition-new(page) {
+    pointer-events: none;
 }
