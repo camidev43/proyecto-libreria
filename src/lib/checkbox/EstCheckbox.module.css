@@ -15,7 +15,6 @@
 .ui_checkbox *::before,
 .ui_checkbox *::after {
     box-sizing: border-box;
-    box-sizing: border-box;
 }
 
 .ui_checkbox {
@@ -26,8 +25,6 @@
     --checkmark-size: 1.2;
 
     appearance: none;
-    appearance: none;
-    appearance: none;
     background: var(--secondary-color);
     border: var(--checkbox-border-width) var(--checkbox-border-style) var(--checkbox-border-color);
     border-radius: var(--checkbox-border-radius);
@@ -35,21 +32,16 @@
     height: var(--checkbox-diameter);
     position: relative;
     transition: all 0.3s;
-    transition: all 0.3s;
-    transition: all 0.3s;
     width: var(--checkbox-diameter);
 }
 
 .ui_checkbox::after {
     border-radius: inherit;
-    inset: 0;
-    box-shadow: 0 0 0 calc(var(--checkbox-diameter) / 2.5) var(--primary-color);
     box-shadow: 0 0 0 calc(var(--checkbox-diameter) / 2.5) var(--primary-color);
     content: "";
+    inset: 0;
     opacity: 0;
     position: absolute;
-    transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
-    transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
     transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
 }
 
@@ -63,14 +55,6 @@
     position: absolute;
     top: calc(50% - 1px);
     transform: translate(-50%, -50%) rotate(45deg) scale(0);
-    transform: translate(-50%, -50%) rotate(45deg) scale(0);
-    transform: translate(-50%, -50%) rotate(45deg) scale(0);
-    transition:
-        all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),
-        opacity 0.1s;
-    transition:
-        all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),
-        opacity 0.1s;
     transition:
         all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),
         opacity 0.1s;
@@ -89,19 +73,12 @@
 .ui_checkbox:checked::before {
     opacity: 1;
     transform: translate(-50%, -50%) rotate(45deg) scale(var(--checkmark-size));
-    transform: translate(-50%, -50%) rotate(45deg) scale(var(--checkmark-size));
-    transform: translate(-50%, -50%) rotate(45deg) scale(var(--checkmark-size));
-    transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
-    transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
     transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
 }
 
 .ui_checkbox:active:not(:checked)::after {
     box-shadow: none;
-    box-shadow: none;
     opacity: 1;
-    transition: none;
-    transition: none;
     transition: none;
 }
 

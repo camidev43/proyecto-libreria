@@ -1,5 +1,5 @@
-import { forwardRef, type MouseEvent, useRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
+import { forwardRef, type MouseEvent, useRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 import styles from './Boton.module.css';
 

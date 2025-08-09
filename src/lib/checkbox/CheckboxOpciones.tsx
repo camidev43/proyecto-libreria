@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 
 import styles from './Checkbox.module.css';
-import { useCheckboxGroup } from './useCheckbox';
-import type { CheckboxOptions } from './types';
 import CheckBoxIndicador from './ChekboxIndicador';
+import type { CheckboxOptions } from './types';
+import { useCheckboxGroup } from './useCheckbox';
 
 const CheckboxOption = ({ option, orientation, className, classInterna }: CheckboxOptions) => {
     const {

@@ -1,5 +1,4 @@
 /// <reference lib="dom" />
-/* global alert */
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Boton from './Boton';

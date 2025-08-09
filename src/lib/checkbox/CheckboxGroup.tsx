@@ -1,10 +1,10 @@
-import { useState, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
+import { useState, useCallback, useMemo } from 'react';
 
 import styles from './Checkbox.module.css';
-import { GrupoContexto } from './useCheckbox';
 import CheckboxOption from './CheckboxOpciones';
 import type { CheckboxGroupProps } from './types';
+import { GrupoContexto } from './useCheckbox';
 
 const CheckboxGroup = ({
     options,

@@ -1,25 +1,19 @@
-import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import styles from './App.module.css';
+import Layout from '../components/Layout';
+import { BotonPage } from '../pages/BotonPage';
+import HomePage from '../pages/HomePage';
 
 const App = () => {
-    const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-    const toggleTheme = () => {
-        setIsDarkTheme(prev => !prev);
-        document.documentElement.classList.toggle('dark_theme');
-    };
-
     return (
-        <div className={styles.contenedor_app}>
-            <header className={styles.cabecera}>
-                <button onClick={toggleTheme} className={styles.boton_tema}>
-                    {isDarkTheme ? '🌞 Light Mode' : '🌕 Dark Mode'}
-                </button>
-            </header>
-
-            <main className={styles.area_prueba}>{/* Aquí van tus componentes de prueba */}</main>
-        </div>
+        <Router>
+            <Layout>
+                <Routes>
+                    <Route path='/' element={<HomePage />} />
+                    <Route path='/boton' element={<BotonPage />} />
+                </Routes>
+            </Layout>
+        </Router>
     );
 };
 

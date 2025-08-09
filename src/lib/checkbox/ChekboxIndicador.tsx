@@ -1,6 +1,6 @@
+import clsx from 'clsx';
 import type { CSSProperties } from 'react';
 import { useId, useState } from 'react';
-import clsx from 'clsx';
 
 import estilos from './EstCheckbox.module.css';
 import type { CheckBoxIndicadorProps } from './types';

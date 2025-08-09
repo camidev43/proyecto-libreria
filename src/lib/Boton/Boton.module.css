@@ -86,7 +86,6 @@
     border-radius: 50%;
     inline-size: 1em;
     mask: radial-gradient(farthest-side, transparent calc(100% - 0.16em), black 0);
-    mask: radial-gradient(farthest-side, transparent calc(100% - 0.16em), black 0);
     will-change: transform;
 }
 
