@@ -56,13 +56,15 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
             styles[color],
             styles[size],
             styles[`radius_${radius}`],
-            fullWidth && styles.full_width,
+            fullWidth && !isIconOnly && styles.full_width,
             (isDisabled || props.disabled) && styles.disabled,
             isIconOnly && styles.icon_only,
             isLoading && styles.loading,
             !disableAnimation && styles.tap_animation,
             className
         );
+
+        const mostrarLabel = !!children && (!isLoading || !isIconOnly);
 
         const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
             if (!disableRipple && !isDisabled && !isLoading && internalRef.current) {
@@ -82,6 +84,7 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
         return (
             <button
                 {...props}
+                aria-busy={isLoading}
                 ref={instance => {
                     internalRef.current = instance;
                     if (typeof ref === 'function') ref(instance);
@@ -93,14 +96,17 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
                 onClick={handleClick}>
                 <span className={styles.inner}>
                     {startContent && !isLoading && <span className={styles.start}>{startContent}</span>}
-                    {children && (
+
+                    {mostrarLabel && (
                         <span className={styles.label} style={{ opacity: isLoading ? 0.7 : 1 }}>
                             {children}
                         </span>
                     )}
+
                     {isLoading && (
                         <span className={styles.spinner}>{spinner ?? <div className={styles.modern_spinner} />}</span>
                     )}
+
                     {endContent && !isLoading && <span className={styles.end}>{endContent}</span>}
                 </span>
             </button>

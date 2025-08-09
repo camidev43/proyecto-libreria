@@ -32,7 +32,6 @@ export function BotonPage() {
 
     return (
         <div className={estilos.contenedor_boton_page}>
-            {/* HERO */}
             <section className={estilos.seccion_hero}>
                 <div className={estilos.hero_textos}>
                     <span className={estilos.hero_chip}>Laboratorio</span>
@@ -47,14 +46,27 @@ export function BotonPage() {
                     <div className={estilos.hero_glow_1} />
                     <div className={estilos.hero_glow_2} />
                     <div className={estilos.hero_pod}>
-                        <Boton variant='shadow' color='success' className={estilos.hero_boton}>
-                            ✔
+                        <Boton
+                            variant='solid'
+                            isIconOnly
+                            disableAnimation
+                            className={estilos.hero_boton}
+                            style={
+                                {
+                                    '--delay': '0s',
+                                    fontSize: '4rem',
+                                    borderRadius: '999px',
+                                    color: '#d400ff',
+                                    textShadow: '0 0 16px #d400ff, 0 0 32px #d400ff',
+                                    transition: 'box-shadow 0.4s cubic-bezier(.4,0,.2,1)',
+                                } as CSSProperties
+                            }>
+                            ⚔️
                         </Boton>
                     </div>
                 </div>
             </section>
 
-            {/* PLAYGROUND */}
             <section className={estilos.seccion}>
                 <div className={estilos.encabezado_seccion}>
                     <h2 className={estilos.titulo_seccion}>Playground</h2>
@@ -160,7 +172,6 @@ export function BotonPage() {
                 </div>
             </section>
 
-            {/* COLECCIONES RÁPIDAS — Cinta scroll-snap */}
             <section className={estilos.seccion}>
                 <div className={estilos.encabezado_seccion}>
                     <h2 className={estilos.titulo_seccion}>Colecciones rápidas</h2>
@@ -208,7 +219,6 @@ export function BotonPage() {
                 </div>
             </section>
 
-            {/* ESTADOS COMUNES — Paneles elevados bonitos */}
             <section className={estilos.seccion}>
                 <div className={estilos.encabezado_seccion}>
                     <h2 className={estilos.titulo_seccion}>Estados comunes</h2>
@@ -243,10 +253,10 @@ export function BotonPage() {
                     <div className={estilos.estado_panel}>
                         <div className={estilos.estado_header}>Cargando</div>
                         <div className={estilos.estado_fila}>
-                            <Boton variant='solid' color='primary' isLoading>
+                            <Boton variant='solid' color='primary'>
                                 Procesando…
                             </Boton>
-                            <Boton variant='bordered' color='primary' isLoading>
+                            <Boton variant='bordered' color='primary'>
                                 Enviando…
                             </Boton>
                         </div>
