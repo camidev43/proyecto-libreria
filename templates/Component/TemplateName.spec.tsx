@@ -1,6 +1,6 @@
-import {render, fireEvent} from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
-import {TemplateName} from './TemplateName';
+import { TemplateName } from './TemplateName';
 
 describe('lib > TemplateName', () => {
     /**
@@ -16,7 +16,7 @@ describe('lib > TemplateName', () => {
          * `baseElement`:
          * @see https://testing-library.com/docs/react-testing-library/api#baseelement
          */
-        const {asFragment, baseElement} = render(<TemplateName initialValue={6} />);
+        const { asFragment, baseElement } = render(<TemplateName initialValue={6} />);
 
         /**
          * Basic snapshot test to make sure, that rendered component
@@ -35,7 +35,7 @@ describe('lib > TemplateName', () => {
          * `getByRole`:
          * @see https://testing-library.com/docs/dom-testing-library/api-queries#byrole
          */
-        const {getByRole, baseElement} = render(<TemplateName initialValue={value} />);
+        const { getByRole, baseElement } = render(<TemplateName initialValue={value} />);
 
         /**
          * Search for the button and make testing library click on it
