@@ -1,11 +1,19 @@
-import { Counter } from '@/lib';
-import './index.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import Layout from '../components/Layout';
+import { BotonPage } from '../pages/BotonPage';
+import HomePage from '../pages/HomePage';
 
 const App = () => {
     return (
-        <div>
-            <Counter />
-        </div>
+        <Router>
+            <Layout>
+                <Routes>
+                    <Route path='/' element={<HomePage />} />
+                    <Route path='/boton' element={<BotonPage />} />
+                </Routes>
+            </Layout>
+        </Router>
     );
 };
 

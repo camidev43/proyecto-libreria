@@ -1,9 +1,9 @@
-import type {Meta, StoryObj} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {TemplateName} from './TemplateName';
+import { TemplateName } from './TemplateName';
 
 const meta = {
-    title: 'Example/TemplateName',
+    title: 'Componentes/TemplateName',
     component: TemplateName,
     parameters: {
         // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout

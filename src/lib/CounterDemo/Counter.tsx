@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import { throttle } from 'lodash';
+import { useEffect } from 'react';
 
 import classes from './Counter.module.css';
 import useLogic from './useLogic';
