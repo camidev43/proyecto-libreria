@@ -15,6 +15,8 @@ export type CheckboxGroupProps = {
     /** Orientación del listado @default vertical */
     orientation?: 'vertical' | 'horizontal';
     valores?: string[];
+    value?: string[];
+
     /** Valores iniciales (no controlado) */
     valoresIniciales?: string[];
     /** Callback al cambiar la selección */

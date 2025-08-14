@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 
 import CheckboxGroup from './CheckboxGroup';
 import CheckboxGroupCustom from './CheckboxGroupCustom';
@@ -15,15 +16,77 @@ const meta: Meta<typeof CheckboxGroup> = {
     component: CheckboxGroup,
     parameters: {
         layout: 'centered',
+        docs: {
+            description: {
+                component:
+                    'Componente para selección múltiple con soporte para orientación, estilos, límites y renderizado custom.',
+            },
+        },
     },
     decorators: [
         Story => (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 300 }}>
+            <div
+                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 320, width: 520 }}>
                 <Story />
             </div>
         ),
     ],
-    // tags: ['autodocs'],
+    argTypes: {
+        options: {
+            control: 'object',
+            description: 'Lista de opciones',
+            table: { type: { summary: 'Array<Option>' } },
+        },
+        value: {
+            control: 'object',
+            description: 'Lista de valores seleccionados (modo controlado)',
+            table: { type: { summary: 'string[]' } },
+        },
+
+        onChange: {
+            action: 'onChange',
+            description: 'Se dispara con el array de seleccionados',
+            table: { type: { summary: '(values: string[]) => void' } },
+        },
+        label: { control: 'text', description: 'Etiqueta del grupo' },
+        orientation: {
+            control: { type: 'radio' },
+            options: ['vertical', 'horizontal'],
+            description: 'Dirección de renderizado',
+            table: { defaultValue: { summary: 'vertical' } },
+        },
+        disabled: { control: 'boolean', description: 'Deshabilita todo el grupo' },
+        readOnly: { control: 'boolean', description: 'Solo lectura (bloquea cambios)' },
+        required: { control: 'boolean', description: 'Marca el grupo como requerido' },
+        relleno: { control: 'boolean', description: 'Usa checkbox con relleno (nativo) vs. SVG custom' },
+        tachado: { control: 'boolean', description: 'Tacha el label cuando está seleccionado' },
+        lineaMitad: { control: 'boolean', description: 'Dibuja separador entre opciones' },
+        maxSelecionados: {
+            control: { type: 'number', min: 1, step: 1 },
+            description: 'Límite máximo de opciones seleccionadas',
+            table: { type: { summary: 'number' } },
+        },
+        color: { control: 'color', description: 'Color principal (check/halo)' },
+        borderColor: { control: 'color', description: 'Color del borde del checkbox' },
+        size: {
+            control: 'text',
+            description: 'Tamaño del checkbox (e.g. 18px, 22px)',
+            table: { type: { summary: 'CSSSize' } },
+        },
+        radius: {
+            control: 'text',
+            description: 'Radio del checkbox (e.g. 6px, var(--radius-2))',
+            table: { type: { summary: 'CSSSize' } },
+        },
+        className: { control: false },
+        classInterna: { control: false },
+    },
+    args: {
+        options: opciones,
+        orientation: 'vertical',
+        relleno: true,
+        label: 'Elige opciones',
+    },
 };
 export default meta;
 
@@ -32,7 +95,7 @@ type Story = StoryObj<typeof CheckboxGroup>;
 export const Basico: Story = {
     args: {
         options: opciones,
-        label: 'Elige opciones',
+        label: 'Básico',
     },
 };
 
@@ -41,6 +104,7 @@ export const Horizontal: Story = {
         options: opciones,
         orientation: 'horizontal',
         label: 'Horizontal',
+        lineaMitad: true,
     },
 };
 
@@ -56,7 +120,7 @@ export const ConRelleno: Story = {
     args: {
         options: opciones,
         relleno: true,
-        label: 'Con relleno',
+        label: 'Con relleno (input nativo)',
     },
 };
 
@@ -64,14 +128,15 @@ export const SinRelleno: Story = {
     args: {
         options: opciones,
         relleno: false,
-        label: 'Sin relleno',
+        label: 'Sin relleno (SVG custom)',
     },
 };
 
 export const ConColor: Story = {
     args: {
         options: opciones,
-        color: '#e57373',
+        color: '#4caf50',
+        borderColor: '#9ccc65',
         label: 'Color personalizado',
     },
 };
@@ -100,31 +165,60 @@ export const Requerido: Story = {
     },
 };
 
-export const CustomRender: StoryObj = {
+export const Controlado: Story = {
+    name: 'Modo controlado',
+    render: args => {
+        const [vals, setVals] = useState<string[]>(['uno']);
+        return (
+            <CheckboxGroup
+                {...args}
+                value={vals}
+                onChange={v => {
+                    setVals(v);
+                    // también queda trazado en Actions
+                    args.onChange?.(v);
+                }}
+                label={`Seleccionados: ${vals.join(', ') || 'ninguno'}`}
+            />
+        );
+    },
+};
+
+export const CustomRender: Story = {
+    name: 'Custom (CheckboxGroupCustom)',
     render: () => (
-        <CheckboxGroupCustom opciones={opciones} onChange={vals => console.log(vals)}>
+        <CheckboxGroupCustom
+            opciones={opciones}
+            onChange={vals => {
+                // ver en pestaña "Actions"
+
+                console.log('onChange', vals);
+            }}>
             {(opcion, { checked, alternar, disabled }) => (
                 <div
+                    role='button'
+                    tabIndex={0}
+                    onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && !disabled && alternar()}
                     style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: 30,
                         background: checked
-                            ? 'color-mix(in srgb, var(--brand-primary, #4caf50) 8%, var(--background, #fff) 92%)'
+                            ? 'color-mix(in srgb, var(--brand-primary, #4caf50) 10%, var(--background, #fff) 90%)'
                             : 'var(--background, #fff)',
                         border: checked
                             ? '2px solid var(--brand-primary, #4caf50)'
                             : '1px solid var(--surface-third, #bbb)',
                         borderRadius: 12,
                         padding: '14px 22px',
-                        margin: '22px 0',
+                        margin: '14px 0',
                         boxShadow: checked
-                            ? '0 2px 8px 0 color-mix(in srgb, var(--brand-primary, #4caf50) 10%, transparent)'
-                            : '0 1px 4px 0 color-mix(in srgb, var(--surface-third, #bbb) 10%, transparent)',
+                            ? '0 2px 8px 0 color-mix(in srgb, var(--brand-primary, #4caf50) 12%, transparent)'
+                            : '0 1px 4px 0 color-mix(in srgb, var(--surface-third, #bbb) 12%, transparent)',
                         transition: 'all 0.2s',
                         cursor: disabled ? 'not-allowed' : 'pointer',
-                        minWidth: 240,
-                        backdropFilter: 'blur(1px)',
+                        minWidth: 260,
+                        width: 420,
                     }}
                     onClick={() => !disabled && alternar()}>
                     <input
@@ -150,12 +244,7 @@ export const CustomRender: StoryObj = {
                             {opcion.label}
                         </span>
                         {opcion.descripcion && (
-                            <span
-                                style={{
-                                    fontSize: 13.5,
-                                    color: 'var(--text-secondary, #666)',
-                                    marginTop: 3,
-                                }}>
+                            <span style={{ fontSize: 13.5, color: 'var(--text-secondary, #666)', marginTop: 3 }}>
                                 {opcion.descripcion}
                             </span>
                         )}
@@ -164,4 +253,15 @@ export const CustomRender: StoryObj = {
             )}
         </CheckboxGroupCustom>
     ),
+};
+
+export const Playground: Story = {
+    args: {
+        options: opciones,
+        orientation: 'vertical',
+        label: 'Playground',
+        relleno: true,
+        lineaMitad: false,
+        tachado: false,
+    },
 };
