@@ -51,12 +51,18 @@ jobs:
       - name: Install deps & run tasks
         run: |
           pnpm install --frozen-lockfile
-        - name: Install Playwright (chromium)
-          if: runner.os == 'Linux'
-          run: pnpm exec playwright install --with-deps chromium
-          pnpm run lint:code --quiet
-          pnpm run lint:style --quiet
-          pnpm run test --silent
-          pnpm run start:docs --smoke-test --quiet
-          pnpm run build
-          pnpm run generate:component Foo --dry-run
+      - name: Install Playwright (chromium)
+        if: runner.os == 'Linux'
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Lint código
+        run: pnpm run lint:code
+      - name: Lint estilos
+        run: pnpm run lint:style
+      - name: Test unitarios
+        run: pnpm run test
+      - name: Storybook smoke test
+        run: pnpm run start:docs --smoke-test
+      - name: Build
+        run: pnpm run build
+      - name: Dry run generate component
+        run: pnpm run generate:component Foo --dry-run

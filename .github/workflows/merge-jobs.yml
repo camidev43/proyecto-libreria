@@ -46,15 +46,15 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Run merge tasks
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm run lint:code --quiet
+        run: pnpm install --frozen-lockfile
+      - name: Lint código
+        run: pnpm run lint:code
       - name: Install Playwright (chromium)
         if: runner.os == 'Linux'
         run: pnpm exec playwright install --with-deps chromium
-          pnpm run lint:style --quiet
-          pnpm run test --silent
-          pnpm run build
-          # pnpm publish --no-git-checks           # ← usa esto si publicas directo
-          # etc.
-
+      - name: Lint estilos
+        run: pnpm run lint:style
+      - name: Test unitarios
+        run: pnpm run test
+      - name: Build
+        run: pnpm run build
