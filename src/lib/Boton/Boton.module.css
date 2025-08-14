@@ -1,365 +1,365 @@
 :where(.boton) {
-    --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
-    --ease-quick: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-extra-smooth: cubic-bezier(0.2, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-quick: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-extra-smooth: cubic-bezier(0.2, 0, 0.2, 1);
 }
 
 .boton {
-    align-items: center;
-    background: transparent;
-    border: none;
-    color: var(--color-primary-text);
-    contain: layout style;
-    cursor: pointer;
-    display: inline-flex;
-    font-family: inherit;
-    font-size: var(--paragraph);
-    font-weight: 400;
-    isolation: isolate;
-    justify-content: center;
-    line-height: 1;
-    outline: none;
-    overflow: hidden;
-    position: relative;
-    transition:
-        transform 200ms var(--ease-quick),
-        opacity 300ms var(--ease-smooth);
-    user-select: none;
-    vertical-align: middle;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: var(--color-primary-text);
+  contain: layout style;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: var(--paragraph);
+  font-weight: 400;
+  isolation: isolate;
+  justify-content: center;
+  line-height: 1;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  transition:
+    transform 200ms var(--ease-quick),
+    opacity 300ms var(--ease-smooth);
+  user-select: none;
+  vertical-align: middle;
 }
 
 .inner {
-    align-items: center;
-    display: inline-flex;
-    gap: 0.5rem;
-    height: 100%;
-    justify-content: center;
-    position: relative;
-    width: 100%;
-    z-index: 1;
+  align-items: center;
+  display: inline-flex;
+  gap: 0.5rem;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  z-index: 1;
 }
 
 .ripple {
-    animation: ripple_effect 1000ms var(--ease-extra-smooth) forwards;
-    background-color: color-mix(in srgb, currentcolor 80%, transparent);
-    border-radius: 50%;
-    contain: strict;
-    opacity: 0.3;
-    pointer-events: none;
-    position: absolute;
-    transform: translate(-50%, -50%) scale(0);
-    will-change: transform, opacity;
-    z-index: 0;
+  animation: ripple_effect 1000ms var(--ease-extra-smooth) forwards;
+  background-color: color-mix(in srgb, currentcolor 80%, transparent);
+  border-radius: 50%;
+  contain: strict;
+  opacity: 0.3;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, -50%) scale(0);
+  will-change: transform, opacity;
+  z-index: 0;
 }
 
 @keyframes ripple_effect {
-    to {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(1);
-    }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .tap_animation:not(:active) {
-    transition: transform 200ms var(--ease-quick);
-    will-change: transform;
+  transition: transform 200ms var(--ease-quick);
+  will-change: transform;
 }
 
 .tap_animation:active:not(:disabled) {
-    transform: scale(0.98);
-    transition: transform 100ms var(--ease-quick);
+  transform: scale(0.98);
+  transition: transform 100ms var(--ease-quick);
 }
 
 .spinner {
-    align-items: center;
-    display: inline-flex;
-    height: 1em;
-    justify-content: center;
-    width: 1em;
+  align-items: center;
+  display: inline-flex;
+  height: 1em;
+  justify-content: center;
+  width: 1em;
 }
 
 .modern_spinner {
-    animation: spinner_rotate 1s infinite linear;
-    background:
-        radial-gradient(farthest-side, currentcolor 94%, transparent) top/0.16em 0.16em no-repeat,
-        conic-gradient(transparent 30%, currentcolor);
-    block-size: 1em;
-    border-radius: 50%;
-    inline-size: 1em;
-    mask: radial-gradient(farthest-side, transparent calc(100% - 0.16em), black 0);
-    will-change: transform;
+  animation: spinner_rotate 1s infinite linear;
+  background:
+    radial-gradient(farthest-side, currentcolor 94%, transparent) top/0.16em 0.16em no-repeat,
+    conic-gradient(transparent 30%, currentcolor);
+  block-size: 1em;
+  border-radius: 50%;
+  inline-size: 1em;
+  mask: radial-gradient(farthest-side, transparent calc(100% - 0.16em), black 0);
+  will-change: transform;
 }
 
 @keyframes spinner_rotate {
-    100% {
-        transform: rotate(1turn);
-    }
+  100% {
+    transform: rotate(1turn);
+  }
 }
 
 .spinner_loading {
-    animation: spin_loading 0.8s linear infinite;
-    border: 2px solid currentcolor;
-    border-radius: 50%;
-    border-top-color: transparent;
-    display: inline-block;
-    height: 1em;
-    width: 1em;
+  animation: spin_loading 0.8s linear infinite;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+  border-top-color: transparent;
+  display: inline-block;
+  height: 1em;
+  width: 1em;
 }
 
 @keyframes spin_loading {
-    from {
-        transform: rotate(0deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
 
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .loading {
-    cursor: progress;
-    opacity: 0.7;
-    pointer-events: none;
+  cursor: progress;
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 .disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-    pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .full_width {
-    width: 100%;
+  width: 100%;
 }
 
 .icon_only {
-    aspect-ratio: 1;
-    display: inline-grid;
-    inline-size: max-content;
-    place-items: center;
-    width: auto;
+  aspect-ratio: 1;
+  display: inline-grid;
+  inline-size: max-content;
+  place-items: center;
+  width: auto;
 }
 
 .icon_only .inner {
-    height: auto;
-    width: auto;
+  height: auto;
+  width: auto;
 }
 
 .icon_only.sm {
-    padding: 0.375rem;
+  padding: 0.375rem;
 }
 
 .icon_only.md {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 .icon_only.lg {
-    padding: 0.625rem;
+  padding: 0.625rem;
 }
 
 .label,
 .start,
 .end,
 .spinner {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
 }
 
 .icon_only .label {
-    font-size: 1em;
-    line-height: 1;
+  font-size: 1em;
+  line-height: 1;
 }
 
 .sm {
-    font-size: 0.875rem;
-    padding-block: var(--gaps-1);
-    padding-inline: var(--gaps-3);
+  font-size: 0.875rem;
+  padding-block: var(--gaps-1);
+  padding-inline: var(--gaps-3);
 }
 
 .md {
-    font-size: var(--paragraph);
-    padding-block: var(--gaps-2);
-    padding-inline: var(--gaps-4);
+  font-size: var(--paragraph);
+  padding-block: var(--gaps-2);
+  padding-inline: var(--gaps-4);
 }
 
 .lg {
-    font-size: var(--subtitle);
-    padding-block: var(--gaps-2);
-    padding-inline: var(--gaps-5);
+  font-size: var(--subtitle);
+  padding-block: var(--gaps-2);
+  padding-inline: var(--gaps-5);
 }
 
 .radius_none {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .radius_sm {
-    border-radius: var(--radius-1);
+  border-radius: var(--radius-1);
 }
 
 .radius_md {
-    border-radius: var(--radius-2);
+  border-radius: var(--radius-2);
 }
 
 .radius_lg {
-    border-radius: var(--radius-3);
+  border-radius: var(--radius-3);
 }
 
 .radius_full {
-    border-radius: var(--radius-round);
+  border-radius: var(--radius-round);
 }
 
 .solid {
-    background-color: var(--btn-color);
-    color: white;
-    transition:
-        background-color 400ms var(--ease-smooth),
-        color 400ms var(--ease-smooth),
-        filter 400ms var(--ease-smooth);
+  background-color: var(--btn-color);
+  color: white;
+  transition:
+    background-color 400ms var(--ease-smooth),
+    color 400ms var(--ease-smooth),
+    filter 400ms var(--ease-smooth);
 }
 
 .bordered {
-    background: transparent;
-    border: 2px solid var(--btn-text-color);
-    color: var(--btn-text-color);
-    transition:
-        background-color 400ms var(--ease-smooth),
-        border-color 400ms var(--ease-smooth),
-        color 400ms var(--ease-smooth),
-        filter 400ms var(--ease-smooth);
+  background: transparent;
+  border: 2px solid var(--btn-text-color);
+  color: var(--btn-text-color);
+  transition:
+    background-color 400ms var(--ease-smooth),
+    border-color 400ms var(--ease-smooth),
+    color 400ms var(--ease-smooth),
+    filter 400ms var(--ease-smooth);
 }
 
 .ghost {
-    background: transparent;
-    border: 2px solid var(--btn-text-color);
-    color: var(--btn-text-color);
-    opacity: 0.8;
-    transition:
-        background-color 500ms var(--ease-extra-smooth),
-        border-color 500ms var(--ease-extra-smooth),
-        color 500ms var(--ease-extra-smooth),
-        opacity 500ms var(--ease-extra-smooth);
+  background: transparent;
+  border: 2px solid var(--btn-text-color);
+  color: var(--btn-text-color);
+  opacity: 0.8;
+  transition:
+    background-color 500ms var(--ease-extra-smooth),
+    border-color 500ms var(--ease-extra-smooth),
+    color 500ms var(--ease-extra-smooth),
+    opacity 500ms var(--ease-extra-smooth);
 }
 
 .light {
-    background: transparent;
-    border: none;
-    color: var(--btn-text-color);
-    transition:
-        background-color 400ms var(--ease-smooth),
-        color 400ms var(--ease-smooth);
+  background: transparent;
+  border: none;
+  color: var(--btn-text-color);
+  transition:
+    background-color 400ms var(--ease-smooth),
+    color 400ms var(--ease-smooth);
 }
 
 .faded {
-    background-color: var(--theme-faded-bg);
-    border: 2px solid var(--theme-faded-border);
-    color: var(--btn-text-color);
-    transition:
-        background-color 400ms var(--ease-smooth),
-        border-color 400ms var(--ease-smooth);
+  background-color: var(--theme-faded-bg);
+  border: 2px solid var(--theme-faded-border);
+  color: var(--btn-text-color);
+  transition:
+    background-color 400ms var(--ease-smooth),
+    border-color 400ms var(--ease-smooth);
 }
 
 .shadow {
-    background-color: var(--btn-color);
-    box-shadow:
-        0 2px 8px -1px color-mix(in srgb, var(--btn-shadow-color) 35%, transparent),
-        0 4px 12px -3px color-mix(in srgb, var(--btn-shadow-color) 25%, transparent);
-    color: white;
-    transition:
-        background-color 400ms var(--ease-smooth),
-        box-shadow 400ms var(--ease-smooth),
-        color 400ms var(--ease-smooth),
-        filter 400ms var(--ease-smooth);
+  background-color: var(--btn-color);
+  box-shadow:
+    0 2px 8px -1px color-mix(in srgb, var(--btn-shadow-color) 35%, transparent),
+    0 4px 12px -3px color-mix(in srgb, var(--btn-shadow-color) 25%, transparent);
+  color: white;
+  transition:
+    background-color 400ms var(--ease-smooth),
+    box-shadow 400ms var(--ease-smooth),
+    color 400ms var(--ease-smooth),
+    filter 400ms var(--ease-smooth);
 }
 
 .primary {
-    --btn-color: var(--brand-6);
-    --btn-text-color: light-dark(var(--brand-6), var(--brand-4));
-    --btn-color-foreground: var(--base);
-    --btn-color-light: var(--brand-1);
-    --btn-color-faded: var(--brand-4);
-    --btn-shadow-color: var(--brand-6);
-    --btn-hover-brightness: 0.95;
+  --btn-color: var(--brand-6);
+  --btn-text-color: light-dark(var(--brand-6), var(--brand-4));
+  --btn-color-foreground: var(--base);
+  --btn-color-light: var(--brand-1);
+  --btn-color-faded: var(--brand-4);
+  --btn-shadow-color: var(--brand-6);
+  --btn-hover-brightness: 0.95;
 }
 
 .secondary {
-    --btn-color: var(--brand-5-secondary);
-    --btn-text-color: light-dark(var(--brand-5-secondary), var(--brand-4-secondary));
-    --btn-color-foreground: var(--base);
-    --btn-color-light: var(--brand-1-secondary);
-    --btn-color-faded: var(--brand-4-secondary);
-    --btn-shadow-color: var(--brand-5-secondary);
-    --btn-hover-brightness: 0.95;
+  --btn-color: var(--brand-5-secondary);
+  --btn-text-color: light-dark(var(--brand-5-secondary), var(--brand-4-secondary));
+  --btn-color-foreground: var(--base);
+  --btn-color-light: var(--brand-1-secondary);
+  --btn-color-faded: var(--brand-4-secondary);
+  --btn-shadow-color: var(--brand-5-secondary);
+  --btn-hover-brightness: 0.95;
 }
 
 .success {
-    --btn-color: var(--color-add-green-6);
-    --btn-text-color: light-dark(var(--color-add-green-6), var(--color-add-green-4));
-    --btn-color-foreground: var(--base);
-    --btn-color-light: var(--color-add-green-1);
-    --btn-color-faded: var(--color-add-green-5);
-    --btn-shadow-color: var(--color-add-green-6);
-    --btn-hover-brightness: 0.92;
+  --btn-color: var(--color-add-green-6);
+  --btn-text-color: light-dark(var(--color-add-green-6), var(--color-add-green-4));
+  --btn-color-foreground: var(--base);
+  --btn-color-light: var(--color-add-green-1);
+  --btn-color-faded: var(--color-add-green-5);
+  --btn-shadow-color: var(--color-add-green-6);
+  --btn-hover-brightness: 0.92;
 }
 
 .warning {
-    --btn-color: var(--color-add-orange-6);
-    --btn-text-color: light-dark(var(--color-add-orange-6), var(--color-add-orange-4));
-    --btn-color-foreground: var(--base);
-    --btn-color-light: var(--color-add-orange-1);
-    --btn-color-faded: var(--color-add-orange-5);
-    --btn-shadow-color: var(--color-add-orange-6);
-    --btn-hover-brightness: 0.92;
+  --btn-color: var(--color-add-orange-6);
+  --btn-text-color: light-dark(var(--color-add-orange-6), var(--color-add-orange-4));
+  --btn-color-foreground: var(--base);
+  --btn-color-light: var(--color-add-orange-1);
+  --btn-color-faded: var(--color-add-orange-5);
+  --btn-shadow-color: var(--color-add-orange-6);
+  --btn-hover-brightness: 0.92;
 }
 
 .danger {
-    --btn-color: var(--color-add-red-6);
-    --btn-text-color: light-dark(var(--color-add-red-6), var(--color-add-red-4));
-    --btn-color-foreground: var(--base);
-    --btn-color-light: var(--color-add-red-1);
-    --btn-color-faded: var(--color-add-red-5);
-    --btn-shadow-color: var(--color-add-red-6);
-    --btn-hover-brightness: 0.92;
+  --btn-color: var(--color-add-red-6);
+  --btn-text-color: light-dark(var(--color-add-red-6), var(--color-add-red-4));
+  --btn-color-foreground: var(--base);
+  --btn-color-light: var(--color-add-red-1);
+  --btn-color-faded: var(--color-add-red-5);
+  --btn-shadow-color: var(--color-add-red-6);
+  --btn-hover-brightness: 0.92;
 }
 
 .default {
-    --btn-color: var(--gray-6);
-    --btn-text-color: light-dark(var(--gray-6), var(--gray-4));
-    --btn-color-foreground: var(--base);
-    --btn-color-light: var(--gray-2);
-    --btn-color-faded: var(--gray-5);
-    --btn-shadow-color: var(--gray-6);
-    --btn-hover-brightness: 0.95;
+  --btn-color: var(--gray-6);
+  --btn-text-color: light-dark(var(--gray-6), var(--gray-4));
+  --btn-color-foreground: var(--base);
+  --btn-color-light: var(--gray-2);
+  --btn-color-faded: var(--gray-5);
+  --btn-shadow-color: var(--gray-6);
+  --btn-hover-brightness: 0.95;
 }
 
 .solid:hover:not(:disabled, .loading),
 .shadow:hover:not(:disabled, .loading),
 .bordered:hover:not(:disabled, .loading) {
-    filter: brightness(var(--btn-hover-brightness, 0.92));
+  filter: brightness(var(--btn-hover-brightness, 0.92));
 }
 
 .shadow:hover:not(:disabled, .loading) {
-    box-shadow:
-        0 3px 12px -2px color-mix(in srgb, var(--btn-shadow-color) 40%, transparent),
-        0 6px 16px -4px color-mix(in srgb, var(--btn-shadow-color) 30%, transparent);
+  box-shadow:
+    0 3px 12px -2px color-mix(in srgb, var(--btn-shadow-color) 40%, transparent),
+    0 6px 16px -4px color-mix(in srgb, var(--btn-shadow-color) 30%, transparent);
 }
 
 .bordered:hover:not(:disabled, .loading) {
-    border-color: var(--btn-text-color);
+  border-color: var(--btn-text-color);
 }
 
 .ghost:hover:not(:disabled, .loading) {
-    background-color: var(--btn-color);
-    border-color: var(--btn-color);
-    color: white;
-    opacity: 1;
+  background-color: var(--btn-color);
+  border-color: var(--btn-color);
+  color: white;
+  opacity: 1;
 }
 
 .light:hover:not(:disabled, .loading) {
-    background-color: color-mix(in srgb, var(--btn-text-color) 15%, transparent);
-    color: var(--btn-text-color);
+  background-color: color-mix(in srgb, var(--btn-text-color) 15%, transparent);
+  color: var(--btn-text-color);
 }
 
 .faded:hover:not(:disabled, .loading) {
-    background-color: color-mix(in srgb, var(--btn-text-color) 10%, var(--theme-faded-bg));
-    border-color: color-mix(in srgb, var(--btn-text-color) 32%, var(--theme-faded-border));
+  background-color: color-mix(in srgb, var(--btn-text-color) 10%, var(--theme-faded-bg));
+  border-color: color-mix(in srgb, var(--btn-text-color) 32%, var(--theme-faded-border));
 }

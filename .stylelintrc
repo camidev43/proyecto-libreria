@@ -1,21 +1,13 @@
 {
-  "extends": [
-    "stylelint-config-standard",
-    "stylelint-prettier/recommended"
-  ],
-  "plugins": [
-    "stylelint-order"
-  ],
+  "extends": ["stylelint-config-standard", "stylelint-prettier/recommended"],
+  "plugins": ["stylelint-order"],
   "ignoreFiles": ["**/*.snap", "dist/**", ".storybook/preview.css"],
   "rules": {
     "selector-class-pattern": "^[a-z][a-z0-9_]*$",
     "keyframes-name-pattern": "^[a-z][a-z0-9_]*$",
 
     "function-calc-no-unspaced-operator": true,
-    "order/order": [
-      "custom-properties",
-      "declarations"
-    ],
+    "order/order": ["custom-properties", "declarations"],
     "order/properties-alphabetical-order": true,
     "property-no-vendor-prefix": true,
     "media-feature-name-no-vendor-prefix": true,

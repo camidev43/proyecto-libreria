@@ -1,127 +1,127 @@
 .switch {
-    display: inline-block;
-    font-size: 17px;
-    height: 2em;
-    position: relative;
-    width: 3.5em;
+  display: inline-block;
+  font-size: 17px;
+  height: 2em;
+  position: relative;
+  width: 3.5em;
 }
 
 .switch input {
-    height: 0;
-    opacity: 0;
-    position: absolute;
-    width: 0;
+  height: 0;
+  opacity: 0;
+  position: absolute;
+  width: 0;
 }
 
 .slider {
-    background-color: #2185d6;
-    border-radius: 30px;
-    box-shadow: 0 0 0 rgb(33 133 214 / 0%);
-    cursor: pointer;
-    inset: 0;
-    position: absolute;
-    transition: all 0.4s ease;
+  background-color: #2185d6;
+  border-radius: 30px;
+  box-shadow: 0 0 0 rgb(33 133 214 / 0%);
+  cursor: pointer;
+  inset: 0;
+  position: absolute;
+  transition: all 0.4s ease;
 }
 
 .slider:hover {
-    box-shadow: 0 0 15px rgb(33 133 214 / 50%);
+  box-shadow: 0 0 15px rgb(33 133 214 / 50%);
 }
 
 .switch input:focus-visible + .slider {
-    outline: 2px solid color-mix(in oklab, var(--brand-primary, #2185d6), transparent 35%);
-    outline-offset: 2px;
+  outline: 2px solid color-mix(in oklab, var(--brand-primary, #2185d6), transparent 35%);
+  outline-offset: 2px;
 }
 
 .slider::before {
-    background-color: #28096b;
-    border-radius: 50%;
-    bottom: 15%;
-    box-shadow: inset 15px -4px 0 15px #fdf906;
-    content: "";
-    height: 1.4em;
-    left: 10%;
-    position: absolute;
-    transform-origin: center;
-    transition: all 0.4s ease;
-    width: 1.4em;
+  background-color: #28096b;
+  border-radius: 50%;
+  bottom: 15%;
+  box-shadow: inset 15px -4px 0 15px #fdf906;
+  content: '';
+  height: 1.4em;
+  left: 10%;
+  position: absolute;
+  transform-origin: center;
+  transition: all 0.4s ease;
+  width: 1.4em;
 }
 
 .slider:hover::before {
-    transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .clouds_stars {
-    background-color: #fff;
-    border-radius: 50%;
-    bottom: 50%;
-    box-shadow:
-        -12px 0 0 0 white,
-        -6px 0 0 1.6px white,
-        0.3px 16px 0 white,
-        -6.5px 16px 0 white;
-    content: "";
-    filter: blur(0.55px);
-    height: 10px;
-    left: 70%;
-    position: absolute;
-    transition: all 0.3s;
-    width: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  bottom: 50%;
+  box-shadow:
+    -12px 0 0 0 white,
+    -6px 0 0 1.6px white,
+    0.3px 16px 0 white,
+    -6.5px 16px 0 white;
+  content: '';
+  filter: blur(0.55px);
+  height: 10px;
+  left: 70%;
+  position: absolute;
+  transition: all 0.3s;
+  width: 10px;
 }
 
 .switch input:checked + .slider {
-    background-color: #28096b !important;
+  background-color: #28096b !important;
 }
 
 .switch input:checked + .slider::before {
-    box-shadow: inset 8px -4px 0 0 #fff;
-    transform: translateX(100%);
+  box-shadow: inset 8px -4px 0 0 #fff;
+  transform: translateX(100%);
 }
 
 .switch input:checked + .slider:hover::before {
-    transform: translateX(100%) rotate(-45deg);
+  transform: translateX(100%) rotate(-45deg);
 }
 
 .switch input:checked ~ .clouds_stars {
-    animation: twinkle 2s infinite;
-    backdrop-filter: blur(10px);
-    background-color: #fff;
-    border-radius: 50%;
-    box-shadow:
-        -7px 10px 0 #fff,
-        8px 15px 0 #fff,
-        -17px 1px 0 #fff,
-        -20px 10px 0 #fff,
-        -7px 23px 0 #fff,
-        -15px 25px 0 #fff;
-    filter: none;
-    height: 2px;
-    left: 80%;
-    top: 15%;
-    transform: translateX(-20px);
-    transition: all 0.3s;
-    width: 2px;
+  animation: twinkle 2s infinite;
+  backdrop-filter: blur(10px);
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow:
+    -7px 10px 0 #fff,
+    8px 15px 0 #fff,
+    -17px 1px 0 #fff,
+    -20px 10px 0 #fff,
+    -7px 23px 0 #fff,
+    -15px 25px 0 #fff;
+  filter: none;
+  height: 2px;
+  left: 80%;
+  top: 15%;
+  transform: translateX(-20px);
+  transition: all 0.3s;
+  width: 2px;
 }
 
 @keyframes twinkle {
-    0%,
-    100% {
-        opacity: 1;
-    }
+  0%,
+  100% {
+    opacity: 1;
+  }
 
-    50% {
-        opacity: 0.5;
-    }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* Respeta preferencias del usuario */
 @media (prefers-reduced-motion: reduce) {
-    .slider,
-    .slider::before,
-    .clouds_stars {
-        transition: none;
-    }
+  .slider,
+  .slider::before,
+  .clouds_stars {
+    transition: none;
+  }
 
-    .switch input:checked ~ .clouds_stars {
-        animation: none;
-    }
+  .switch input:checked ~ .clouds_stars {
+    animation: none;
+  }
 }

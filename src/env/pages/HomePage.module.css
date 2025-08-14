@@ -1,278 +1,278 @@
 .contenedor_principal {
-    display: grid;
-    gap: var(--gaps-8);
+  display: grid;
+  gap: var(--gaps-8);
 }
 
 .seccion_hero {
-    align-items: center;
-    display: grid;
-    gap: var(--gaps-7);
-    grid-template-columns: 1.05fr 0.95fr;
-    padding: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+  display: grid;
+  gap: var(--gaps-7);
+  grid-template-columns: 1.05fr 0.95fr;
+  padding: clamp(1rem, 3vw, 2rem);
 }
 
 @media (width <= 980px) {
-    .seccion_hero {
-        grid-template-columns: 1fr;
-    }
+  .seccion_hero {
+    grid-template-columns: 1fr;
+  }
 }
 
 .columna_texto {
-    display: grid;
-    gap: var(--gaps-3);
+  display: grid;
+  gap: var(--gaps-3);
 }
 
 .chip_etiqueta {
-    background: color-mix(in oklab, var(--brand-1), transparent 65%);
-    border-radius: 999px;
-    box-shadow: var(--shadow-3);
-    font-size: 0.85rem;
-    font-weight: 800;
-    padding: 0.35rem 0.7rem;
-    width: fit-content;
+  background: color-mix(in oklab, var(--brand-1), transparent 65%);
+  border-radius: 999px;
+  box-shadow: var(--shadow-3);
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0.35rem 0.7rem;
+  width: fit-content;
 }
 
 .titulo_principal {
-    font-size: clamp(2rem, 4.5vw, 3.2rem);
-    letter-spacing: -0.01em;
-    line-height: var(--font-lineheight-2);
-    margin: 0;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  letter-spacing: -0.01em;
+  line-height: var(--font-lineheight-2);
+  margin: 0;
 }
 
 .texto_resaltado {
-    background: linear-gradient(90deg, var(--brand-4), var(--brand-6));
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 6px 18px color-mix(in oklab, var(--brand-4), transparent 70%));
+  background: linear-gradient(90deg, var(--brand-4), var(--brand-6));
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 18px color-mix(in oklab, var(--brand-4), transparent 70%));
 }
 
 .parrafo_principal {
-    color: var(--color-secondary-text);
-    max-width: 68ch;
+  color: var(--color-secondary-text);
+  max-width: 68ch;
 }
 
 .acciones_hero {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
 }
 
 .cta_principal {
-    background: var(--brand-primary);
-    border-radius: var(--radius-6);
-    box-shadow: 0 10px 24px color-mix(in oklab, var(--brand-primary), transparent 75%);
-    color: white;
-    font-weight: 800;
-    padding: 0.85rem 1.1rem;
-    text-decoration: none;
+  background: var(--brand-primary);
+  border-radius: var(--radius-6);
+  box-shadow: 0 10px 24px color-mix(in oklab, var(--brand-primary), transparent 75%);
+  color: white;
+  font-weight: 800;
+  padding: 0.85rem 1.1rem;
+  text-decoration: none;
 }
 
 .cta_principal:hover {
-    filter: brightness(1.06);
-    transform: translateY(-1px);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
 }
 
 .cta_secundaria {
-    background: var(--surface-first);
-    border-radius: var(--radius-6);
-    box-shadow: var(--shadow-5);
-    color: var(--color-primary-text);
-    padding: 0.85rem 1.1rem;
-    text-decoration: none;
+  background: var(--surface-first);
+  border-radius: var(--radius-6);
+  box-shadow: var(--shadow-5);
+  color: var(--color-primary-text);
+  padding: 0.85rem 1.1rem;
+  text-decoration: none;
 }
 
 .cta_secundaria:hover {
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .columna_visual {
-    aspect-ratio: 1 / 1;
-    isolation: isolate;
-    min-height: 300px;
-    position: relative;
+  aspect-ratio: 1 / 1;
+  isolation: isolate;
+  min-height: 300px;
+  position: relative;
 }
 
 .resplandor_uno,
 .resplandor_dos {
-    border-radius: 999px;
-    filter: blur(35px);
-    inset: 10% 0 0 10%;
-    position: absolute;
-    z-index: -1;
+  border-radius: 999px;
+  filter: blur(35px);
+  inset: 10% 0 0 10%;
+  position: absolute;
+  z-index: -1;
 }
 
 .resplandor_uno {
-    background: color-mix(in oklab, var(--brand-2), transparent 60%);
+  background: color-mix(in oklab, var(--brand-2), transparent 60%);
 }
 
 .resplandor_dos {
-    background: color-mix(in oklab, var(--brand-1-secondary), transparent 70%);
-    transform: translate(15%, 20%);
+  background: color-mix(in oklab, var(--brand-1-secondary), transparent 70%);
+  transform: translate(15%, 20%);
 }
 
 .pila_cartas {
-    display: grid;
-    inset: 0;
-    perspective: 900px;
-    place-items: center;
-    position: absolute;
+  display: grid;
+  inset: 0;
+  perspective: 900px;
+  place-items: center;
+  position: absolute;
 }
 
 .carta_flotante {
-    animation: flotar 6s ease-in-out infinite;
-    background: var(--surface-first);
-    border-radius: var(--radius-5);
-    box-shadow:
-        0 18px 40px color-mix(in oklab, var(--brand-6), transparent 86%),
-        var(--shadow-5);
-    height: clamp(140px, 30%, 200px);
-    transform: rotateX(8deg) rotateY(-10deg) translateY(0);
-    width: clamp(200px, 45%, 320px);
+  animation: flotar 6s ease-in-out infinite;
+  background: var(--surface-first);
+  border-radius: var(--radius-5);
+  box-shadow:
+    0 18px 40px color-mix(in oklab, var(--brand-6), transparent 86%),
+    var(--shadow-5);
+  height: clamp(140px, 30%, 200px);
+  transform: rotateX(8deg) rotateY(-10deg) translateY(0);
+  width: clamp(200px, 45%, 320px);
 }
 
 .carta_flotante:nth-child(2) {
-    animation-delay: 0.4s;
-    opacity: 0.95;
-    transform: rotateX(8deg) rotateY(-6deg) translateY(10px);
+  animation-delay: 0.4s;
+  opacity: 0.95;
+  transform: rotateX(8deg) rotateY(-6deg) translateY(10px);
 }
 
 .carta_flotante:nth-child(3) {
-    animation-delay: 0.8s;
-    opacity: 0.9;
-    transform: rotateX(8deg) rotateY(-3deg) translateY(18px);
+  animation-delay: 0.8s;
+  opacity: 0.9;
+  transform: rotateX(8deg) rotateY(-3deg) translateY(18px);
 }
 
 @keyframes flotar {
-    0%,
-    100% {
-        translate: 0 0;
-    }
+  0%,
+  100% {
+    translate: 0 0;
+  }
 
-    50% {
-        translate: 0 -6px;
-    }
+  50% {
+    translate: 0 -6px;
+  }
 }
 
 .seccion_bloque {
-    display: grid;
-    gap: var(--gaps-4);
-    padding: 0 clamp(1rem, 3vw, 2rem);
+  display: grid;
+  gap: var(--gaps-4);
+  padding: 0 clamp(1rem, 3vw, 2rem);
 }
 
 .titulo_seccion {
-    font-size: clamp(1.5rem, 2.6vw, 2rem);
-    margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  margin: 0;
 }
 
 .grilla_tres {
-    display: grid;
-    gap: var(--gaps-4);
-    grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  gap: var(--gaps-4);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 @media (width <= 1100px) {
-    .grilla_tres {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .grilla_tres {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (width <= 720px) {
-    .grilla_tres {
-        grid-template-columns: 1fr;
-    }
+  .grilla_tres {
+    grid-template-columns: 1fr;
+  }
 }
 
 .tarjeta_vidrio {
-    backdrop-filter: blur(8px) saturate(1.1);
-    background: color-mix(in oklab, var(--surface-first), transparent 10%);
-    border-radius: var(--radius-4);
-    box-shadow:
-        0 14px 36px color-mix(in oklab, var(--brand-7), transparent 90%),
-        var(--shadow-5);
-    display: grid;
-    gap: 0.6rem;
-    padding: 1rem;
+  backdrop-filter: blur(8px) saturate(1.1);
+  background: color-mix(in oklab, var(--surface-first), transparent 10%);
+  border-radius: var(--radius-4);
+  box-shadow:
+    0 14px 36px color-mix(in oklab, var(--brand-7), transparent 90%),
+    var(--shadow-5);
+  display: grid;
+  gap: 0.6rem;
+  padding: 1rem;
 }
 
 .titulo_tarjeta {
-    margin: 0;
+  margin: 0;
 }
 
 .texto_suave {
-    color: var(--color-secondary-text);
+  color: var(--color-secondary-text);
 }
 
 .bloque_codigo {
-    background: var(--surface-second);
-    border-radius: 0.7rem;
-    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--theme-faded-border), transparent 60%);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.9rem;
-    margin: 0;
-    overflow: auto;
-    padding: 0.8rem;
-    white-space: pre;
+  background: var(--surface-second);
+  border-radius: 0.7rem;
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--theme-faded-border), transparent 60%);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  margin: 0;
+  overflow: auto;
+  padding: 0.8rem;
+  white-space: pre;
 }
 
 .lista_detallada {
-    display: grid;
-    gap: 0.35rem;
-    margin: 0;
-    padding-left: 1rem;
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding-left: 1rem;
 }
 
 .lista_detallada li {
-    color: var(--color-primary-text);
+  color: var(--color-primary-text);
 }
 
 .lista_detallada code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .grilla_cuatro {
-    display: grid;
-    gap: var(--gaps-4);
-    grid-template-columns: repeat(4, 1fr);
+  display: grid;
+  gap: var(--gaps-4);
+  grid-template-columns: repeat(4, 1fr);
 }
 
 @media (width <= 1100px) {
-    .grilla_cuatro {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .grilla_cuatro {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (width <= 680px) {
-    .grilla_cuatro {
-        grid-template-columns: 1fr;
-    }
+  .grilla_cuatro {
+    grid-template-columns: 1fr;
+  }
 }
 
 .acceso_tile,
 .acceso_tile_muted {
-    background: var(--surface-first);
-    border-radius: var(--radius-4);
-    box-shadow:
-        0 12px 28px color-mix(in oklab, var(--brand-6), transparent 90%),
-        var(--shadow-3);
-    color: inherit;
-    display: grid;
-    gap: 0.25rem;
-    padding: 1rem;
-    text-decoration: none;
+  background: var(--surface-first);
+  border-radius: var(--radius-4);
+  box-shadow:
+    0 12px 28px color-mix(in oklab, var(--brand-6), transparent 90%),
+    var(--shadow-3);
+  color: inherit;
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem;
+  text-decoration: none;
 }
 
 .acceso_tile:hover {
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .tile_titulo {
-    font-weight: 800;
+  font-weight: 800;
 }
 
 .tile_descripcion {
-    color: var(--color-secondary-text);
+  color: var(--color-secondary-text);
 }
 
 .acceso_tile_muted {
-    opacity: 0.88;
+  opacity: 0.88;
 }
