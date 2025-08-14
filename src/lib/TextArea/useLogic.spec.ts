@@ -1,4 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 import useLogic from './useLogic';
 
@@ -40,7 +41,7 @@ describe('lib > TextArea > useLogic', () => {
     });
 
     it('bloquea cambios si está disabled o readOnly', () => {
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         const { result, rerender } = renderHook(
             (p: { disabled?: boolean; readOnly?: boolean }) =>
                 useLogic({ defaultValue: 'a', onChange, isDisabled: p.disabled, isReadOnly: p.readOnly }),

@@ -15,7 +15,7 @@ Forget about the tedious setup – we've got you covered. Focus on writing your 
 - **TypeScript & JavaScript**: Write your code in the language you prefer.
 - **Blazing fast**: **pnpm** for speedy package management and **Vite** for lightning-fast builds.
 - **Husky** enforces pre-commit hooks, **Eslint** and **Stylelint** will keep your code tidy and consistent.
-- **Jest** and **react-testing-library** help you write robust tests.
+- **Vitest** and **react-testing-library** help you write robust tests.
 - **Storybook** lets you create interactive demos and docs for your components.
 - **Optional Tailwind CSS**: If you're into it, you can easily enable Tailwind CSS for styling.
 

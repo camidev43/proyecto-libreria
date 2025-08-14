@@ -24,7 +24,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "templates/**/*.ts", "templates/**/*.tsx"],
+  "include": ["src", "templates/**/*.ts", "templates/**/*.tsx", "vitest.setup.ts"],
   "exclude": ["**/*.stories.*", "dist", "node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -49,6 +49,9 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
           pnpm run lint:code --quiet
+      - name: Install Playwright (chromium)
+        if: runner.os == 'Linux'
+        run: pnpm exec playwright install --with-deps chromium
           pnpm run lint:style --quiet
           pnpm run test --silent
           pnpm run build

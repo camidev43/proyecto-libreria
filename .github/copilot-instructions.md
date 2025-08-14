@@ -38,8 +38,6 @@ Use `pnpm generate:component` to scaffold new components. This uses the `generat
 - `pnpm dev` - Development server for testing components
 - `pnpm start:docs` - Start Storybook on port 6006
 - `pnpm build` - Build library for distribution
-- `pnpm test` - Run Jest tests
-
 ### Code Quality
 - **Linting**: ESLint with TypeScript, React, and Prettier rules
 - **Styling**: Stylelint for CSS validation

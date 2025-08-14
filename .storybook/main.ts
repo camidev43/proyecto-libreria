@@ -3,19 +3,11 @@ import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
     stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-    addons: ['@storybook/addon-links', '@storybook/addon-docs'],
-    framework: {
-        name: '@storybook/react-vite',
-        options: {},
+    addons: ['@storybook/addon-a11y', '@storybook/addon-docs', '@storybook/addon-themes', '@storybook/addon-vitest'],
+    framework: { name: '@storybook/react-vite', options: {} },
+    async viteFinal(cfg) {
+        return { ...cfg, plugins: await withoutVitePlugins(cfg.plugins, ['vite:dts']) };
     },
-    async viteFinal(config) {
-        return {
-            ...config,
-            plugins: await withoutVitePlugins(config.plugins, ['vite:dts']),
-        };
-    },
-    typescript: {
-        reactDocgen: 'react-docgen-typescript',
-    },
+    typescript: { reactDocgen: 'react-docgen-typescript' },
 };
 export default config;

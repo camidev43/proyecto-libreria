@@ -54,6 +54,9 @@ jobs:
       - name: Build docs
         run: |
           pnpm install --frozen-lockfile
+        - name: Install Playwright (chromium)
+          if: runner.os == 'Linux'
+          run: pnpm exec playwright install --with-deps chromium
           pnpm run build:docs --quiet
 
       - name: Setup Pages

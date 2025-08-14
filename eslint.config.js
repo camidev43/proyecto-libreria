@@ -1,6 +1,6 @@
 // @ts-check
 /**
- * ESLint 9 (flat config) para React + TypeScript + Vite + Jest + Storybook
+ * ESLint 9 (flat config) para React + TypeScript + Vite + Vitest + Storybook
  */
 import { fixupPluginRules } from '@eslint/compat';
 import eslint from '@eslint/js';
@@ -109,10 +109,19 @@ export default [
     },
 
     {
-        files: ['**/*.{spec,test}.{js,jsx,ts,tsx}', '**/setupTests.ts'],
+        files: ['**/*.{spec,test}.{js,jsx,ts,tsx}', '**/vitest.setup.ts'],
         languageOptions: {
             globals: {
-                ...globals.jest,
+                // Vitest globals (si los usas sin importar desde 'vitest')
+                vi: 'readonly',
+                describe: 'readonly',
+                it: 'readonly',
+                test: 'readonly',
+                expect: 'readonly',
+                beforeAll: 'readonly',
+                beforeEach: 'readonly',
+                afterAll: 'readonly',
+                afterEach: 'readonly',
             },
         },
     },

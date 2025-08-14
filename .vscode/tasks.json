@@ -3,37 +3,97 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "start:docs",
-      "problemMatcher": [],
-      "label": "Levantar Storybook",
-       "icon": {
-        "color": "terminal.ansiYellow",
-        "id": "notebook-template"
-  }
+      "script": "dev",
+      "label": "Levantar entorno (Vite)",
+      "group": "build",
+      "icon": {
+        "id": "device-desktop",
+        "color": "terminal.ansiCyan"
+      },
+      "detail": "Vite dev server para la librería"
     },
     {
       "type": "npm",
-      "script": "dev",
-      "problemMatcher": [],
-      "label": "Levantar entorno",
-       "icon": {
-        "color": "terminal.ansiCyan",
-        "id": "device-desktop"
-  }
+      "script": "start:docs",
+      "label": "Levantar Storybook",
+      "group": "build",
+      "icon": {
+        "id": "notebook-template",
+        "color": "terminal.ansiYellow"
+      },
+      "detail": "Storybook en modo dev"
     },
     {
+      "type": "npm",
+      "script": "build",
+      "label": "Build librería",
+      "group": "build",
+      "detail": "Compila la librería (Vite + dts)"
+    },
+    {
+      "type": "npm",
+      "script": "build:docs",
+      "label": "Build docs (Storybook)",
+      "group": "build",
+      "detail": "Genera storybook-static para Pages"
+    },
+    {
+      "type": "npm",
+      "script": "lint:code",
+      "label": "Lint código",
+      "group": "test",
+      "detail": "ESLint"
+    },
+    {
+      "type": "npm",
+      "script": "lint:style",
+      "label": "Lint estilos",
+      "group": "test",
+      "detail": "Stylelint"
+    },
+    {
+      "type": "npm",
+      "script": "test:unit",
+      "label": "Test unitarios (watch)",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "detail": "Vitest (jsdom)"
+    },
+    {
+      "type": "npm",
+      "script": "test:sb",
+      "label": "Test Storybook (browser, watch)",
+      "group": "test",
+      "detail": "Runner de stories en Chromium"
+    },
+    {
+      "type": "npm",
+      "script": "test",
+      "label": "Test: todo (watch)",
+      "group": "test",
+      "detail": "Unit + Storybook"
+    },
+    {
+      "type": "npm",
+      "script": "test:coverage",
+      "label": "Cobertura (unit)",
+      "group": "test",
+      "detail": "Vitest coverage (V8)"
+    },
+    {
+      "label": "Checks (CI-like)",
       "type": "shell",
-      "label": "Corregir estilos (Stylelint)",
-      "command": "pnpm",
-      "args": [
-        "lint:style",
-        "--fix"
-      ],
+      "group": "test",
+      "command": "pnpm run lint:code && pnpm run lint:style && pnpm run test:ci",
+      "detail": "Lint + tests como en CI"
+    },
+    {
+      "type": "Live Preview",
+      "workspacePath": "c:\\proyecto-libreria",
       "problemMatcher": [],
-      "icon": {
-        "color": "terminal.ansiGreen",
-        "id": "symbol-color"
-      }
+      "label": "Live Preview: Ejecutar servidor"
     }
   ]
 }

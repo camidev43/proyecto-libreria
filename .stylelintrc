@@ -6,7 +6,7 @@
   "plugins": [
     "stylelint-order"
   ],
-  "ignoreFiles": ["**/*.snap"],
+  "ignoreFiles": ["**/*.snap", "dist/**", ".storybook/preview.css"],
   "rules": {
     "selector-class-pattern": "^[a-z][a-z0-9_]*$",
     "keyframes-name-pattern": "^[a-z][a-z0-9_]*$",
