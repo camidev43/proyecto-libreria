@@ -9,7 +9,7 @@
        "icon": {
         "color": "terminal.ansiYellow",
         "id": "notebook-template"
-      },
+  }
     },
     {
       "type": "npm",
@@ -19,7 +19,21 @@
        "icon": {
         "color": "terminal.ansiCyan",
         "id": "device-desktop"
-      },
+  }
+    },
+    {
+      "type": "shell",
+      "label": "Corregir estilos (Stylelint)",
+      "command": "pnpm",
+      "args": [
+        "lint:style",
+        "--fix"
+      ],
+      "problemMatcher": [],
+      "icon": {
+        "color": "terminal.ansiGreen",
+        "id": "symbol-color"
+      }
     }
   ]
 }

@@ -22,6 +22,14 @@ export default function Layout({ children }: { children: ReactNode }) {
             descripcion: 'Variantes y estados',
             color: 'var(--brand-5-secondary)',
         },
+
+        {
+            path: '/textarea',
+            icono: '📝',
+            etiqueta: 'TextArea',
+            descripcion: 'Área de texto',
+            color: 'var(--brand-5-tertiary)',
+        },
     ];
 
     return (

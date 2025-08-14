@@ -96,6 +96,7 @@ export default [
                     trailingComma: 'es5',
                     bracketSpacing: true,
                     jsxBracketSameLine: true,
+                    bracketSameLine: true,
                     arrowParens: 'avoid',
                     endOfLine: 'auto',
                 },
