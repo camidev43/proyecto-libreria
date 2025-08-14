@@ -34,7 +34,6 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* INFO / ARQUITECTURA */}
             <section id='arquitectura' className={estilos.seccion_bloque}>
                 <h2 className={estilos.titulo_seccion}>Cómo está organizado</h2>
 
@@ -66,7 +65,7 @@ export default function HomePage() {
                                 <code>pnpm start:docs</code> — Storybook
                             </li>
                             <li>
-                                <code>pnpm test</code> — pruebas con RTL/Jest
+                                <code>pnpm test</code> — pruebas con Vitest
                             </li>
                             <li>
                                 <code>pnpm build</code> — empaquetado ESM+d.ts
@@ -89,7 +88,6 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ACCESOS RÁPIDOS */}
             <section className={estilos.seccion_bloque}>
                 <h2 className={estilos.titulo_seccion}>Accesos rápidos</h2>
                 <div className={estilos.grilla_cuatro}>

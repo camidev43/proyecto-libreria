@@ -1,4 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
+import { describe, beforeEach, it, expect } from 'vitest';
 
 import { TemplateName } from './TemplateName';
 

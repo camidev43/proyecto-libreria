@@ -3,7 +3,6 @@
     gap: var(--gaps-8);
 }
 
-/* ========== HERO ========== */
 .seccion_hero {
     align-items: center;
     display: grid;
@@ -154,7 +153,6 @@
     }
 }
 
-/* ========== SECCIONES ========== */
 .seccion_bloque {
     display: grid;
     gap: var(--gaps-4);
@@ -166,7 +164,6 @@
     margin: 0;
 }
 
-/* GRID 3 */
 .grilla_tres {
     display: grid;
     gap: var(--gaps-4);
@@ -232,7 +229,6 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* ACCESOS */
 .grilla_cuatro {
     display: grid;
     gap: var(--gaps-4);

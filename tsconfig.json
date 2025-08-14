@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
+    "target": "ES2023",
     "useDefineForClassFields": true,
-    "lib": ["ES2021", "DOM", "DOM.Iterable"],
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -24,7 +24,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "templates/**/*.ts", "templates/**/*.tsx"],
+  "include": ["src", "templates/**/*.ts", "templates/**/*.tsx", "vitest.setup.ts"],
   "exclude": ["**/*.stories.*", "dist", "node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

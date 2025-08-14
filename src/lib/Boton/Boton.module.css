@@ -133,8 +133,15 @@
 
 .icon_only {
     aspect-ratio: 1;
-    min-inline-size: auto;
-    padding: 0.5rem;
+    display: inline-grid;
+    inline-size: max-content;
+    place-items: center;
+    width: auto;
+}
+
+.icon_only .inner {
+    height: auto;
+    width: auto;
 }
 
 .icon_only.sm {
@@ -147,10 +154,6 @@
 
 .icon_only.lg {
     padding: 0.625rem;
-}
-
-.icon_only .inner {
-    gap: 0;
 }
 
 .label,

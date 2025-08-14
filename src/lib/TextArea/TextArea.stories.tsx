@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TemplateName } from './TemplateName';
+import TextArea from './TextArea';
 
 const meta = {
-    title: 'Componentes/TemplateName',
-    component: TemplateName,
+    title: 'Componentes/TextArea',
+    component: TextArea,
     parameters: {
         // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
         layout: 'fullscreen',
     },
-} as Meta<typeof TemplateName>;
+} as Meta<typeof TextArea>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
     render: args => {
-        return <TemplateName {...args} />;
+        return <TextArea {...args} />;
     },
     args: {},
 };
@@ -24,7 +24,7 @@ export const Primary: Story = {
 export const WithCode: Story = {
     render: args => {
         // here comes the code
-        return <TemplateName {...args} />;
+        return <TextArea {...args} />;
     },
 };
 

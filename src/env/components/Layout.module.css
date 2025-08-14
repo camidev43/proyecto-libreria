@@ -3,7 +3,6 @@
     --color-menu-secundario: var(--brand-5-secondary);
 }
 
-/* ===== Contenedor raíz ===== */
 .contenedor_principal {
     background: var(--base);
     min-height: 100dvh;
@@ -11,7 +10,6 @@
     position: relative;
 }
 
-/* ===== Fondo animado ===== */
 .fondo_animado {
     inset: 0;
     pointer-events: none;
@@ -103,7 +101,6 @@
     grid-auto-flow: column;
 }
 
-/* ===== Cuerpo layout ===== */
 .cuerpo_layout {
     display: grid;
     gap: var(--gaps-6);
@@ -119,7 +116,6 @@
     }
 }
 
-/* ===== Dock lateral (glass) ===== */
 .dock_lateral {
     align-self: start;
     backdrop-filter: blur(8px) saturate(1.15);

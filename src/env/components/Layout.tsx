@@ -22,17 +22,23 @@ export default function Layout({ children }: { children: ReactNode }) {
             descripcion: 'Variantes y estados',
             color: 'var(--brand-5-secondary)',
         },
+
+        {
+            path: '/textarea',
+            icono: '📝',
+            etiqueta: 'TextArea',
+            descripcion: 'Área de texto',
+            color: 'var(--brand-5-tertiary)',
+        },
     ];
 
     return (
         <div className={estilos.contenedor_principal}>
-            {/* Fondo decorativo */}
             <div className={estilos.fondo_animado} aria-hidden>
                 <div className={estilos.particula_1}></div>
                 <div className={estilos.particula_2}></div>
             </div>
 
-            {/* Barra superior vidrio */}
             <header className={estilos.barra_superior_vidrio}>
                 <div className={estilos.barra_contenido}>
                     <Link to='/' className={estilos.logo_bloque}>
@@ -49,9 +55,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 </div>
             </header>
 
-            {/* Layout */}
             <div className={estilos.cuerpo_layout}>
-                {/* Dock lateral líquido */}
                 <aside className={estilos.dock_lateral}>
                     <div className={estilos.dock_cabecera}>
                         <span className={estilos.dock_titulo}>Demo</span>
