@@ -4,10 +4,10 @@ import CheckboxGroupCustom from './CheckboxGroupCustom';
 import CheckBoxIndicador from './ChekboxIndicador';
 
 const Checkbox = {
-    Grupo: CheckboxGroup,
-    Personalizado: CheckboxGroupCustom,
-    Indicador: CheckBoxIndicador,
-    Contenedor: CheckboxContenedor,
+  Grupo: CheckboxGroup,
+  Personalizado: CheckboxGroupCustom,
+  Indicador: CheckBoxIndicador,
+  Contenedor: CheckboxContenedor,
 };
 
 export default Checkbox;
