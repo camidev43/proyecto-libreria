@@ -13,36 +13,43 @@ import dts from 'vite-plugin-dts';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-    resolve: { alias: hq.get('rollup') },
-    plugins: [react(), dts({ rollupTypes: true, exclude: ['**/*.stories.{ts,tsx}'] })],
-    build: {
-        sourcemap: true,
-        lib: { entry: path.resolve(__dirname, 'src/lib/index.ts'), name: 'Library name', fileName: 'index' },
-        rollupOptions: { external: external(), output: { globals: { react: 'React' } } },
+  resolve: { alias: hq.get('rollup') },
+  plugins: [react(), dts({ rollupTypes: true, exclude: ['**/*.stories.{ts,tsx}'] })],
+  build: {
+    sourcemap: true,
+    lib: {
+      entry: path.resolve(__dirname, 'src/lib/index.ts'),
+      name: 'Library name',
+      fileName: 'index',
     },
-    css: { modules: { localsConvention: 'camelCase' }, postcss: { plugins: [postcssPresetEnv({ stage: 1 })] } },
+    rollupOptions: { external: external(), output: { globals: { react: 'React' } } },
+  },
+  css: {
+    modules: { localsConvention: 'camelCase' },
+    postcss: { plugins: [postcssPresetEnv({ stage: 1 })] },
+  },
 
-    test: {
-        projects: [
-            {
-                extends: true,
-                plugins: [
-                    storybookTest({
-                        configDir: path.join(__dirname, '.storybook'),
-                        // opcional: startScript: 'pnpm start:docs --quiet'
-                    }),
-                ],
-                test: {
-                    name: 'storybook',
-                    browser: {
-                        enabled: true,
-                        headless: true,
-                        provider: 'playwright',
-                        instances: [{ browser: 'chromium' }],
-                    },
-                    setupFiles: ['.storybook/vitest.setup.ts'], // 👈 el nuevo setup
-                },
-            },
+  test: {
+    projects: [
+      {
+        extends: true,
+        plugins: [
+          storybookTest({
+            configDir: path.join(__dirname, '.storybook'),
+            // opcional: startScript: 'pnpm start:docs --quiet'
+          }),
         ],
-    },
+        test: {
+          name: 'storybook',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: 'playwright',
+            instances: [{ browser: 'chromium' }],
+          },
+          setupFiles: ['.storybook/vitest.setup.ts'], // 👈 el nuevo setup
+        },
+      },
+    ],
+  },
 });
