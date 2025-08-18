@@ -22,12 +22,9 @@ describe('lib > TextArea > useLogic', () => {
     const onChange = (v: string) => {
       ext = v;
     };
-    const { result, rerender } = renderHook(
-      ({ v }) => useLogic({ value: v, onChange, isClearable: true }),
-      {
-        initialProps: { v: ext },
-      }
-    );
+    const { result, rerender } = renderHook(({ v }) => useLogic({ value: v, onChange, isClearable: true }), {
+      initialProps: { v: ext },
+    });
 
     expect(result.current.value).toBe('x');
     expect(result.current.showClear).toBe(true);

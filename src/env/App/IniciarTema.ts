@@ -94,10 +94,7 @@ const aplicarTema = (tema: Tema, opciones?: { instantaneo?: boolean; x?: number;
   transicionActiva.ready
     .then(() => {
       animacionOndaActual = root.animate(
-        [
-          { clipPath: `circle(0px at ${x}px ${y}px)` },
-          { clipPath: `circle(150% at ${x}px ${y}px)` },
-        ],
+        [{ clipPath: `circle(0px at ${x}px ${y}px)` }, { clipPath: `circle(150% at ${x}px ${y}px)` }],
         {
           duration: DURACION_TRANSICION_MS,
           easing: 'ease-out',

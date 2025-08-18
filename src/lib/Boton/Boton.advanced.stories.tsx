@@ -18,8 +18,7 @@ type Story = StoryObj<typeof meta>;
 export const VariantMatrix: Story = {
   render: () => (
     <div style={{ padding: '2rem' }}>
-      <h3
-        style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--color-secondary-text)' }}>
+      <h3 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--color-secondary-text)' }}>
         Matriz Completa de Variantes y Colores
       </h3>
 
@@ -170,8 +169,7 @@ export const VariantMatrix: Story = {
       </div>
 
       {/* Tamaños */}
-      <h4
-        style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--color-secondary-text)' }}>
+      <h4 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--color-secondary-text)' }}>
         Tamaños Disponibles
       </h4>
       <div
@@ -194,8 +192,7 @@ export const VariantMatrix: Story = {
       </div>
 
       {/* Estados especiales */}
-      <h4
-        style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--color-secondary-text)' }}>
+      <h4 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--color-secondary-text)' }}>
         Estados Especiales
       </h4>
       <div
@@ -222,10 +219,7 @@ export const VariantMatrix: Story = {
       </div>
 
       {/* Con iconos */}
-      <h4
-        style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--color-secondary-text)' }}>
-        Con Iconos
-      </h4>
+      <h4 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--color-secondary-text)' }}>Con Iconos</h4>
       <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
         <Boton startContent='⭐' color='primary'>
           Start Icon
@@ -391,9 +385,7 @@ const handleClick = (e: MouseEvent) => {
 
         {/* Personalización */}
         <div>
-          <h4 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>
-            5. Personalización
-          </h4>
+          <h4 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>5. Personalización</h4>
           <div
             style={{
               backgroundColor: 'var(--color-background-secondary)',

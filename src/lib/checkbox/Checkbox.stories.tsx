@@ -248,9 +248,7 @@ export const CustomRender: Story = {
             background: checked
               ? 'color-mix(in srgb, var(--brand-primary, #4caf50) 10%, var(--background, #fff) 90%)'
               : 'var(--background, #fff)',
-            border: checked
-              ? '2px solid var(--brand-primary, #4caf50)'
-              : '1px solid var(--surface-third, #bbb)',
+            border: checked ? '2px solid var(--brand-primary, #4caf50)' : '1px solid var(--surface-third, #bbb)',
             borderRadius: 12,
             padding: '14px 22px',
             margin: '14px 0',

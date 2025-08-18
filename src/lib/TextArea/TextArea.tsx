@@ -51,14 +51,7 @@ export type TextAreaProps = {
   disableAnimation?: boolean;
   classNames?: Partial<
     Record<
-      | 'base'
-      | 'label'
-      | 'inputWrapper'
-      | 'headerWrapper'
-      | 'innerWrapper'
-      | 'input'
-      | 'description'
-      | 'errorMessage',
+      'base' | 'label' | 'inputWrapper' | 'headerWrapper' | 'innerWrapper' | 'input' | 'description' | 'errorMessage',
       string
     >
   >;
@@ -119,8 +112,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
   const [enfocado, setEnfocado] = useState(false);
   const [errorInterno, setErrorInterno] = useState<string | null>(null);
   const invalidoComputado =
-    isInvalid ??
-    (validationState === 'invalid' ? true : validationState === 'valid' ? false : !!errorInterno);
+    isInvalid ?? (validationState === 'invalid' ? true : validationState === 'valid' ? false : !!errorInterno);
   const validacion: ResultadoValidacion = { invalido: !!invalidoComputado, mensaje: errorInterno };
 
   useEffect(() => {
@@ -182,8 +174,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
   });
 
   const puedeEjecutarEscuchar = puedeHablar && !escuchando && !hablando && !isDisabled && !!val;
-  const puedeEjecutarDictar =
-    puedeEscuchar && !hablando && !escuchando && !isDisabled && !isReadOnly;
+  const puedeEjecutarDictar = puedeEscuchar && !hablando && !escuchando && !isDisabled && !isReadOnly;
   const puedeDetenerHablar = puedeHablar && hablando;
   const puedeDetenerDictado = puedeEscuchar && escuchando;
 
@@ -201,10 +192,8 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
     requestAnimationFrame(() => taRef.current?.focus());
   };
 
-  const errorSlot =
-    typeof errorMessage === 'function' ? errorMessage(validacion) : (errorMessage ?? errorInterno);
-  const mostrarHeaderInside =
-    labelPlacement === 'inside' && (label || isClearable || puedeHablar || puedeEscuchar);
+  const errorSlot = typeof errorMessage === 'function' ? errorMessage(validacion) : (errorMessage ?? errorInterno);
+  const mostrarHeaderInside = labelPlacement === 'inside' && (label || isClearable || puedeHablar || puedeEscuchar);
   const mostrarLimpiar = isClearable && !!val && !isReadOnly && !isDisabled;
 
   const clasesBase = clsx(
@@ -243,11 +232,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
         </button>
       )}
       {mostrarLimpiar && (
-        <button
-          type='button'
-          className={estilos.boton_limpiar}
-          onMouseDown={limpiar}
-          title='Limpiar'>
+        <button type='button' className={estilos.boton_limpiar} onMouseDown={limpiar} title='Limpiar'>
           ×
         </button>
       )}
@@ -256,31 +241,15 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
 
   const Badges = ({ estirar = false }: { estirar?: boolean }) => (
     <>
-      {escuchando && (
-        <BadgeVoz
-          tipo='mic'
-          texto='Habla ahora'
-          size={size}
-          {...(estirar ? { estirar: true } : {})}
-        />
-      )}
-      {hablando && (
-        <BadgeVoz
-          tipo='tts'
-          texto='Reproduciendo'
-          size={size}
-          {...(estirar ? { estirar: true } : {})}
-        />
-      )}
+      {escuchando && <BadgeVoz tipo='mic' texto='Habla ahora' size={size} {...(estirar ? { estirar: true } : {})} />}
+      {hablando && <BadgeVoz tipo='tts' texto='Reproduciendo' size={size} {...(estirar ? { estirar: true } : {})} />}
     </>
   );
 
   const HeaderOutside = ({ conBadge = true }: { conBadge?: boolean }) => (
     <div className={estilos.fila_acciones}>
       {label && (
-        <label
-          className={clsx(estilos.etiqueta, estilos.etiqueta_externa, classNames?.label)}
-          htmlFor={inputId}>
+        <label className={clsx(estilos.etiqueta, estilos.etiqueta_externa, classNames?.label)} htmlFor={inputId}>
           {label} {isRequired && <span className={estilos.marca_requerido}>*</span>}
         </label>
       )}
@@ -300,9 +269,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
         {labelPlacement === 'inside' && mostrarHeaderInside && (
           <div className={clsx(estilos.encabezado_interno, classNames?.headerWrapper)}>
             {label && (
-              <label
-                className={clsx(estilos.etiqueta_interna, classNames?.label)}
-                htmlFor={inputId}>
+              <label className={clsx(estilos.etiqueta_interna, classNames?.label)} htmlFor={inputId}>
                 {label} {isRequired && <span className={estilos.marca_requerido}>*</span>}
               </label>
             )}
@@ -332,11 +299,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
             onChange={manejarCambio}
             onFocus={() => setEnfocado(true)}
             onBlur={() => setEnfocado(false)}
-            className={clsx(
-              estilos.entrada,
-              disableAutosize && estilos.sin_autosize,
-              classNames?.input
-            )}
+            className={clsx(estilos.entrada, disableAutosize && estilos.sin_autosize, classNames?.input)}
             readOnly={isReadOnly}
             disabled={isDisabled}
             rows={rows ?? minRows}
@@ -345,9 +308,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
         </div>
       </div>
 
-      {description && (
-        <div className={clsx(estilos.descripcion, classNames?.description)}>{description}</div>
-      )}
+      {description && <div className={clsx(estilos.descripcion, classNames?.description)}>{description}</div>}
       {(errorSlot || errorDictado) && (
         <div className={clsx(estilos.mensaje_error, classNames?.errorMessage)}>
           {errorSlot}

@@ -10,8 +10,8 @@
     "templates/**/*.ts",
     "templates/**/*.tsx",
     ".eslintrc.cjs",
-  "vitest.setup.ts",
-  "vitest.shims.d.ts"
+    "vitest.setup.ts",
+    "vitest.shims.d.ts"
   ],
   "exclude": ["dist"]
 }

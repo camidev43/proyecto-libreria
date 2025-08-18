@@ -6,9 +6,8 @@ import { fixupPluginRules } from '@eslint/compat';
 import eslint from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
-import prettierPlugin from 'eslint-plugin-prettier';
-import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import reactJSXRuntime from 'eslint-plugin-react/configs/jsx-runtime.js';
 import reactRecommended from 'eslint-plugin-react/configs/recommended.js';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
@@ -19,46 +18,37 @@ export default [
   eslint.configs.recommended,
   reactRecommended,
   reactJSXRuntime,
-  prettierRecommended,
+  // Desactiva reglas de estilo que chocarían con Prettier
+  eslintConfigPrettier,
 
   {
     files: ['**/*.{js,jsx,ts,tsx,cjs,mjs}'],
-    linterOptions: {
-      reportUnusedDisableDirectives: 'error',
-    },
+    linterOptions: { reportUnusedDisableDirectives: 'error' },
     languageOptions: {
       parser: tsParser,
       parserOptions: {
         ecmaFeatures: { jsx: true },
         ecmaVersion: 'latest',
         sourceType: 'module',
-        // Usa un TS config específico para lint (sin conflictos con el de build)
         project: './tsconfig.linter.json',
       },
-      // ⬇️ Globals de navegador y ES modernos (localStorage, window, etc.)
-      globals: {
-        ...globals.browser,
-        ...globals.es2021,
-      },
+      globals: { ...globals.browser, ...globals.es2021 },
     },
     settings: {
       react: { version: 'detect' },
-      'import/resolver': {
-        typescript: { project: './tsconfig.json' },
-      },
+      'import/resolver': { typescript: { project: './tsconfig.json' } },
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
       import: importPlugin,
-      prettier: prettierPlugin,
       'react-refresh': reactRefreshPlugin,
       'react-hooks': fixupPluginRules(reactHooksPlugin),
     },
     rules: {
-      // TS + Hooks recomendadas
       ...tsPlugin.configs.recommended.rules,
       ...reactHooksPlugin.configs.recommended.rules,
 
+      'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
@@ -73,8 +63,6 @@ export default [
           args: 'after-used',
         },
       ],
-
-      // Import hygiene
       'import/order': [
         'error',
         {
@@ -85,25 +73,7 @@ export default [
         },
       ],
       'import/no-cycle': 'error',
-
-      // Prettier como fuente de la verdad de estilo
-      'prettier/prettier': [
-        'error',
-        {
-          semi: true,
-          singleQuote: true,
-          jsxSingleQuote: true,
-          trailingComma: 'es5',
-          bracketSpacing: true,
-          jsxBracketSameLine: true,
-          bracketSameLine: true,
-          arrowParens: 'avoid',
-          endOfLine: 'auto',
-        },
-      ],
-
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-
       'no-const-assign': 'error',
     },
   },
@@ -112,7 +82,6 @@ export default [
     files: ['**/*.{spec,test}.{js,jsx,ts,tsx}', '**/vitest.setup.ts'],
     languageOptions: {
       globals: {
-        // Vitest globals (si los usas sin importar desde 'vitest')
         vi: 'readonly',
         describe: 'readonly',
         it: 'readonly',
@@ -126,12 +95,7 @@ export default [
     },
   },
 
-  {
-    files: ['**/*.stories.*'],
-    rules: {
-      'react-hooks/rules-of-hooks': 'off',
-    },
-  },
+  { files: ['**/*.stories.*'], rules: { 'react-hooks/rules-of-hooks': 'off' } },
 
   {
     files: ['src/lib/**/*.{js,jsx,ts,tsx}'],
@@ -139,13 +103,7 @@ export default [
       'no-restricted-imports': [
         'error',
         {
-          patterns: [
-            {
-              group: ['**/environment/**'],
-              message:
-                'No importes desde "environment" dentro de librería. Mantén la lib libre de dependencias de entorno.',
-            },
-          ],
+          patterns: [{ group: ['**/environment/**'], message: 'No importes desde "environment" dentro de la lib.' }],
         },
       ],
     },
@@ -157,18 +115,11 @@ export default [
       'no-restricted-imports': [
         'error',
         {
-          patterns: [
-            {
-              group: ['**/templates/**'],
-              message: 'No importes templates directamente desde el código fuente.',
-            },
-          ],
+          patterns: [{ group: ['**/templates/**'], message: 'No importes templates directamente.' }],
         },
       ],
     },
   },
 
-  {
-    ignores: ['node_modules/**', 'dist/**', 'storybook-static/**', '**/*.snap', 'coverage/**'],
-  },
+  { ignores: ['node_modules/**', 'dist/**', 'storybook-static/**', '**/*.snap', 'coverage/**'] },
 ];

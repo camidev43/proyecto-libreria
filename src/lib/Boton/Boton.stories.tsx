@@ -219,8 +219,7 @@ export const AllVariants: Story = {
           <h4 style={{ margin: '0 0 1rem 0', color: 'var(--color-secondary-text)' }}>
             {color[0].toUpperCase() + color.slice(1)}
           </h4>
-          <div
-            style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Boton variant='solid' color={color}>
               Solid
             </Boton>

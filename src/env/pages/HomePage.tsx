@@ -10,8 +10,8 @@ export default function HomePage() {
             Componentes React listos para <span className={estilos.texto_resaltado}>probar</span>
           </h1>
           <p className={estilos.parrafo_principal}>
-            Esto no es una librería pública, es un <strong>demo/laboratorio</strong> para validar
-            patrones de UI: estados, accesibilidad, tema claro/oscuro y tokens de diseño.
+            Esto no es una librería pública, es un <strong>demo/laboratorio</strong> para validar patrones de UI:
+            estados, accesibilidad, tema claro/oscuro y tokens de diseño.
           </p>
           <div className={estilos.acciones_hero}>
             <a href='/boton' className={estilos.cta_principal}>
@@ -72,8 +72,7 @@ export default function HomePage() {
               </li>
             </ul>
             <p className={estilos.texto_suave}>
-              Linting con ESLint/Prettier/Stylelint. Estilos modernos con{' '}
-              <em>postcss-preset-env</em>.
+              Linting con ESLint/Prettier/Stylelint. Estilos modernos con <em>postcss-preset-env</em>.
             </p>
           </article>
 

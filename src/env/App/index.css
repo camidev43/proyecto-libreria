@@ -216,11 +216,7 @@ body {
   --space-fluid-large: var(--gaps-5) var(--gaps-6);
   --space-fluid-square: var(--gaps-2) var(--gaps-2);
   --space-fluid-input: 0.75em var(--gaps-2);
-  --gradient-1: linear-gradient(
-    109.6deg,
-    rgb(61 245 167 / 100%) 11.2%,
-    rgb(9 111 224 / 100%) 91.1%
-  );
+  --gradient-1: linear-gradient(109.6deg, rgb(61 245 167 / 100%) 11.2%, rgb(9 111 224 / 100%) 91.1%);
   --ease-1: cubic-bezier(0.25, 0, 0.5, 1);
   --ease-2: cubic-bezier(0.25, 0, 0.4, 1);
   --ease-3: cubic-bezier(0.25, 0, 0.3, 1);
@@ -307,46 +303,24 @@ body {
   --golden-warning-mid: calc((var(--fundamental) * 1.07) * var(--size-factor));
   --golden-warning-min: calc((var(--fundamental) * 1.07));
   --title: clamp(var(--golden-tittle-min), var(--golden-tittle-mid), var(--golden-tittle-max));
-  --subtitle: clamp(
-    var(--golden-subtittle-1-min),
-    var(--golden-subtittle-1-mid),
-    var(--golden-subtittle-1-max)
-  );
-  --subtitle-2: clamp(
-    var(--golden-subtittle-1-min),
-    var(--golden-subtittle-1-mid),
-    var(--golden-subtittle-1-max)
-  );
-  --paragraph: clamp(
-    var(--golden-paragraph-min),
-    var(--golden-paragraph-mid),
-    var(--golden-paragraph-max)
-  );
+  --subtitle: clamp(var(--golden-subtittle-1-min), var(--golden-subtittle-1-mid), var(--golden-subtittle-1-max));
+  --subtitle-2: clamp(var(--golden-subtittle-1-min), var(--golden-subtittle-1-mid), var(--golden-subtittle-1-max));
+  --paragraph: clamp(var(--golden-paragraph-min), var(--golden-paragraph-mid), var(--golden-paragraph-max));
   --label: clamp(var(--golden-label-min), var(--golden-label-mid), var(--golden-label-max));
-  --messages: clamp(
-    var(--golden-warning-min),
-    var(--golden-warning-mid),
-    var(--golden-warning-max)
-  );
+  --messages: clamp(var(--golden-warning-min), var(--golden-warning-mid), var(--golden-warning-max));
   --icons-size: clamp(1rem, 2vmax, 1.25rem);
   --shadow-1: 0px 2px 5px -1px rgb(50 50 93 / 25%), 0px 1px 3px -1px rgb(0 0 0 / 30%);
   --shadow-2: 0px 2px 8px 0px rgb(99 99 99 / 20%);
   --shadow-3: 0px 1px 4px rgb(0 0 0 / 16%);
   --shadow-4: 1.95px 1.95px 2.6px rgb(0 0 0 / 15%);
   --shadow-5: 0px 8px 24px rgb(149 157 165 / 20%);
-  --shadow-6:
-    inset 0px 1px 1px 0px rgb(255 255 255 / 10%), 0px 50px 100px -20px rgb(50 50 93 / 25%),
+  --shadow-6: inset 0px 1px 1px 0px rgb(255 255 255 / 10%), 0px 50px 100px -20px rgb(50 50 93 / 25%),
     0px 30px 60px -30px rgb(0 0 0 / 30%);
-  --inner-shadow-0: inset 0 0 0 1px
-    hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
-  --inner-shadow-1: inset 0 1px 2px 0
-    hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
-  --inner-shadow-2: inset 0 1px 4px 0
-    hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
-  --inner-shadow-3: inset 0 2px 8px 0
-    hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
-  --inner-shadow-4: inset 0 2px 14px 0
-    hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
+  --inner-shadow-0: inset 0 0 0 1px hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
+  --inner-shadow-1: inset 0 1px 2px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
+  --inner-shadow-2: inset 0 1px 4px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
+  --inner-shadow-3: inset 0 2px 8px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
+  --inner-shadow-4: inset 0 2px 14px 0 hsl(var(--shadow-light) / calc(var(--shadow-strength-light) + 9%));
 
   font-family:
     'Nunito Sans',

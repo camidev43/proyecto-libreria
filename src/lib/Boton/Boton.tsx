@@ -1,11 +1,5 @@
 import clsx from 'clsx';
-import {
-  forwardRef,
-  type MouseEvent,
-  useRef,
-  type ButtonHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, useRef, type MouseEvent, type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 import styles from './Boton.module.css';
 
@@ -46,6 +40,7 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
       startContent,
       endContent,
       spinner,
+      spinnerPlacement, // reservado
       disableRipple = false,
       disableAnimation = false,
       children,
@@ -74,15 +69,28 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
       if (!disableRipple && !isDisabled && !isLoading && internalRef.current) {
-        const ripple = document.createElement('span');
-        ripple.className = styles.ripple;
-        const rect = internalRef.current.getBoundingClientRect();
-        const sizePx = Math.max(rect.width, rect.height);
-        ripple.style.width = ripple.style.height = `${sizePx * 2}px`;
-        ripple.style.left = `${e.clientX - rect.left}px`;
-        ripple.style.top = `${e.clientY - rect.top}px`;
-        internalRef.current.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 800);
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          const btn = internalRef.current;
+          const ripple = document.createElement('span');
+          ripple.className = styles.ripple;
+          ripple.setAttribute('aria-hidden', 'true');
+
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const dx = Math.max(x, rect.width - x);
+          const dy = Math.max(y, rect.height - y);
+          const radius = Math.hypot(dx, dy);
+          const size = radius * 2;
+
+          ripple.style.width = ripple.style.height = `${size}px`;
+          ripple.style.left = `${x}px`;
+          ripple.style.top = `${y}px`;
+
+          ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+          btn.appendChild(ripple);
+        }
       }
       props.onClick?.(e);
     };
@@ -103,17 +111,9 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
         <span className={styles.inner}>
           {startContent && !isLoading && <span className={styles.start}>{startContent}</span>}
 
-          {mostrarLabel && (
-            <span className={styles.label} style={{ opacity: isLoading ? 0.7 : 1 }}>
-              {children}
-            </span>
-          )}
+          {mostrarLabel && <span className={styles.label}>{children}</span>}
 
-          {isLoading && (
-            <span className={styles.spinner}>
-              {spinner ?? <div className={styles.modern_spinner} />}
-            </span>
-          )}
+          {isLoading && <span className={styles.spinner}>{spinner ?? <div className={styles.modern_spinner} />}</span>}
 
           {endContent && !isLoading && <span className={styles.end}>{endContent}</span>}
         </span>

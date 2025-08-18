@@ -233,12 +233,7 @@
 }
 
 .stage {
-  background:
-    radial-gradient(
-      80% 80% at 20% 0%,
-      color-mix(in oklab, var(--brand-1), transparent 80%),
-      transparent
-    ),
+  background: radial-gradient(80% 80% at 20% 0%, color-mix(in oklab, var(--brand-1), transparent 80%), transparent),
     var(--surface-first);
   border-radius: var(--radius-4);
   box-shadow:
@@ -334,12 +329,7 @@
 }
 
 .estado_panel {
-  background:
-    radial-gradient(
-      120% 120% at -10% 0%,
-      color-mix(in oklab, var(--brand-1), transparent 85%),
-      transparent
-    ),
+  background: radial-gradient(120% 120% at -10% 0%, color-mix(in oklab, var(--brand-1), transparent 85%), transparent),
     var(--surface-first);
   border-radius: var(--radius-4);
   box-shadow:

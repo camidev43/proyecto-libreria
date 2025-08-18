@@ -130,18 +130,9 @@ const CheckboxGroup = ({
           </>
         ) : null}
 
-        <div
-          className={clsx(
-            orientation === 'horizontal' ? styles.horizontal : styles.vertical,
-            className
-          )}>
+        <div className={clsx(orientation === 'horizontal' ? styles.horizontal : styles.vertical, className)}>
           {options.map(opt => (
-            <CheckboxOption
-              key={opt.value}
-              option={opt}
-              orientation={orientation}
-              classInterna={classInterna}
-            />
+            <CheckboxOption key={opt.value} option={opt} orientation={orientation} classInterna={classInterna} />
           ))}
         </div>
       </section>

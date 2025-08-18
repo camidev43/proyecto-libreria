@@ -65,8 +65,7 @@ export function useHablarEscuchar({
 
   const puedeHablar = typeof window !== 'undefined' && 'speechSynthesis' in window;
   const puedeEscuchar =
-    typeof window !== 'undefined' &&
-    (!!window.SpeechRecognition || !!window.webkitSpeechRecognition);
+    typeof window !== 'undefined' && (!!window.SpeechRecognition || !!window.webkitSpeechRecognition);
 
   const detenerHablar = () => {
     if (!puedeHablar) return;
@@ -116,9 +115,7 @@ export function useHablarEscuchar({
       return;
     }
 
-    const Ctor = (window.SpeechRecognition || window.webkitSpeechRecognition) as
-      | { new (): unknown }
-      | undefined;
+    const Ctor = (window.SpeechRecognition || window.webkitSpeechRecognition) as { new (): unknown } | undefined;
     if (!Ctor) {
       setErrorDictado('No se pudo iniciar el reconocimiento de voz.');
       return;

@@ -1,29 +1,39 @@
 :where(.boton) {
-  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out-fluid: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-quick: cubic-bezier(0.4, 0, 0.2, 1);
+  --color-dur: 360ms;
+  --shadow-dur: 480ms;
+  --transform-dur: 180ms;
   --ease-extra-smooth: cubic-bezier(0.2, 0, 0.2, 1);
+  --ripple-duration: 600ms;
+  --ripple-opacity: 0.3;
 }
 
 .boton {
   align-items: center;
+     appearance: none;
   background: transparent;
   border: none;
   color: var(--color-primary-text);
-  contain: layout style;
+  contain: paint;
   cursor: pointer;
   display: inline-flex;
-  font-family: inherit;
   font-size: var(--paragraph);
-  font-weight: 400;
+  font-weight: 500;
   isolation: isolate;
   justify-content: center;
-  line-height: 1;
+  line-height: normal;
   outline: none;
   overflow: hidden;
   position: relative;
+  touch-action: manipulation;
   transition:
-    transform 200ms var(--ease-quick),
-    opacity 300ms var(--ease-smooth);
+    background-color var(--color-dur) var(--ease-out-fluid),
+    color var(--color-dur) var(--ease-out-fluid),
+    border-color var(--color-dur) var(--ease-out-fluid),
+    box-shadow var(--shadow-dur) var(--ease-out-fluid),
+    opacity 220ms var(--ease-out-fluid),
+    transform var(--transform-dur) var(--ease-quick);
   user-select: none;
   vertical-align: middle;
 }
@@ -32,19 +42,40 @@
   align-items: center;
   display: inline-flex;
   gap: 0.5rem;
-  height: 100%;
   justify-content: center;
   position: relative;
-  width: 100%;
   z-index: 1;
 }
 
+.start,
+.end,
+.label,
+.spinner {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.start,
+.end {
+  font-size: 1em;
+  line-height: 1;
+}
+
+.start :where(svg, img),
+.end :where(svg, img) {
+  block-size: 1em;
+  display: block;
+  flex: 0 0 auto;
+  inline-size: 1em;
+}
+
 .ripple {
-  animation: ripple_effect 1000ms var(--ease-extra-smooth) forwards;
+  animation: ripple_effect var(--ripple-duration) var(--ease-extra-smooth) forwards;
   background-color: color-mix(in srgb, currentcolor 80%, transparent);
   border-radius: 50%;
   contain: strict;
-  opacity: 0.3;
+  opacity: var(--ripple-opacity);
   pointer-events: none;
   position: absolute;
   transform: translate(-50%, -50%) scale(0);
@@ -59,21 +90,32 @@
   }
 }
 
-.tap_animation:not(:active) {
-  transition: transform 200ms var(--ease-quick);
+@media (prefers-reduced-motion: reduce) {
+  .ripple {
+    animation-duration: 300ms;
+    opacity: 0.18;
+  }
+}
+
+.tap_animation {
   will-change: transform;
 }
 
 .tap_animation:active:not(:disabled) {
   transform: scale(0.98);
-  transition: transform 100ms var(--ease-quick);
+}
+
+.boton:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--btn-color), white 20%);
+  outline-offset: 2px;
+}
+
+.boton:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .spinner {
-  align-items: center;
-  display: inline-flex;
   height: 1em;
-  justify-content: center;
   width: 1em;
 }
 
@@ -95,26 +137,6 @@
   }
 }
 
-.spinner_loading {
-  animation: spin_loading 0.8s linear infinite;
-  border: 2px solid currentcolor;
-  border-radius: 50%;
-  border-top-color: transparent;
-  display: inline-block;
-  height: 1em;
-  width: 1em;
-}
-
-@keyframes spin_loading {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .loading {
   cursor: progress;
   opacity: 0.7;
@@ -132,42 +154,24 @@
 }
 
 .icon_only {
+  align-items: center;
   aspect-ratio: 1;
-  display: inline-grid;
-  inline-size: max-content;
-  place-items: center;
-  width: auto;
-}
-
-.icon_only .inner {
-  height: auto;
-  width: auto;
+  display: inline-flex;
+  inline-size: var(--icon-size, 2.5rem);
+  justify-content: center;
+  padding: 0 !important;
 }
 
 .icon_only.sm {
-  padding: 0.375rem;
+  --icon-size: 2.25rem;
 }
 
 .icon_only.md {
-  padding: 0.5rem;
+  --icon-size: 2.5rem;
 }
 
 .icon_only.lg {
-  padding: 0.625rem;
-}
-
-.label,
-.start,
-.end,
-.spinner {
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
-}
-
-.icon_only .label {
-  font-size: 1em;
-  line-height: 1;
+  --icon-size: 2.75rem;
 }
 
 .sm {
@@ -211,64 +215,77 @@
 .solid {
   background-color: var(--btn-color);
   color: white;
-  transition:
-    background-color 400ms var(--ease-smooth),
-    color 400ms var(--ease-smooth),
-    filter 400ms var(--ease-smooth);
 }
 
 .bordered {
   background: transparent;
   border: 2px solid var(--btn-text-color);
   color: var(--btn-text-color);
-  transition:
-    background-color 400ms var(--ease-smooth),
-    border-color 400ms var(--ease-smooth),
-    color 400ms var(--ease-smooth),
-    filter 400ms var(--ease-smooth);
 }
 
 .ghost {
   background: transparent;
   border: 2px solid var(--btn-text-color);
   color: var(--btn-text-color);
-  opacity: 0.8;
-  transition:
-    background-color 500ms var(--ease-extra-smooth),
-    border-color 500ms var(--ease-extra-smooth),
-    color 500ms var(--ease-extra-smooth),
-    opacity 500ms var(--ease-extra-smooth);
+  opacity: 0.9;
 }
 
 .light {
   background: transparent;
   border: none;
   color: var(--btn-text-color);
-  transition:
-    background-color 400ms var(--ease-smooth),
-    color 400ms var(--ease-smooth);
 }
 
 .faded {
   background-color: var(--theme-faded-bg);
   border: 2px solid var(--theme-faded-border);
   color: var(--btn-text-color);
-  transition:
-    background-color 400ms var(--ease-smooth),
-    border-color 400ms var(--ease-smooth);
 }
 
 .shadow {
   background-color: var(--btn-color);
   box-shadow:
-    0 2px 8px -1px color-mix(in srgb, var(--btn-shadow-color) 35%, transparent),
-    0 4px 12px -3px color-mix(in srgb, var(--btn-shadow-color) 25%, transparent);
+    0 12px 18px -10px color-mix(in oklab, var(--btn-shadow-color) 45%, transparent),
+    0 16px 36px -14px color-mix(in oklab, var(--btn-shadow-color) 35%, transparent);
   color: white;
-  transition:
-    background-color 400ms var(--ease-smooth),
-    box-shadow 400ms var(--ease-smooth),
-    color 400ms var(--ease-smooth),
-    filter 400ms var(--ease-smooth);
+}
+
+.solid:hover:not(:disabled, .loading),
+.shadow:hover:not(:disabled, .loading) {
+  background-color: color-mix(in oklab, var(--btn-color) 96%, white 4%);
+}
+
+.shadow:hover:not(:disabled, .loading) {
+  box-shadow:
+    0 12px 24px -12px color-mix(in oklab, var(--btn-shadow-color) 95%, transparent),
+    0 22px 44px -18px color-mix(in oklab, var(--btn-shadow-color) 45%, transparent);
+}
+
+.bordered:hover:not(:disabled, .loading) {
+  border-color: color-mix(in oklab, var(--btn-text-color) 86%, transparent);
+}
+
+.ghost:hover:not(:disabled, .loading) {
+  background-color: color-mix(in oklab, var(--btn-text-color) 8%, transparent);
+  border-color: color-mix(in oklab, var(--btn-text-color) 86%, transparent);
+  color: var(--btn-text-color);
+  opacity: 1;
+}
+
+.light:hover:not(:disabled, .loading) {
+  background-color: color-mix(in oklab, var(--btn-text-color) 15%, transparent);
+  color: var(--btn-text-color);
+}
+
+.faded:hover:not(:disabled, .loading) {
+  background-color: color-mix(in oklab, var(--btn-text-color) 10%, var(--theme-faded-bg));
+  border-color: color-mix(in oklab, var(--btn-text-color) 32%, var(--theme-faded-border));
+}
+
+.shadow:active:not(:disabled, .loading) {
+  box-shadow:
+    0 8px 18px -12px color-mix(in oklab, var(--btn-shadow-color) 60%, transparent),
+    0 16px 34px -20px color-mix(in oklab, var(--btn-shadow-color) 50%, transparent);
 }
 
 .primary {
@@ -278,7 +295,6 @@
   --btn-color-light: var(--brand-1);
   --btn-color-faded: var(--brand-4);
   --btn-shadow-color: var(--brand-6);
-  --btn-hover-brightness: 0.95;
 }
 
 .secondary {
@@ -288,7 +304,6 @@
   --btn-color-light: var(--brand-1-secondary);
   --btn-color-faded: var(--brand-4-secondary);
   --btn-shadow-color: var(--brand-5-secondary);
-  --btn-hover-brightness: 0.95;
 }
 
 .success {
@@ -298,7 +313,6 @@
   --btn-color-light: var(--color-add-green-1);
   --btn-color-faded: var(--color-add-green-5);
   --btn-shadow-color: var(--color-add-green-6);
-  --btn-hover-brightness: 0.92;
 }
 
 .warning {
@@ -308,7 +322,6 @@
   --btn-color-light: var(--color-add-orange-1);
   --btn-color-faded: var(--color-add-orange-5);
   --btn-shadow-color: var(--color-add-orange-6);
-  --btn-hover-brightness: 0.92;
 }
 
 .danger {
@@ -318,7 +331,6 @@
   --btn-color-light: var(--color-add-red-1);
   --btn-color-faded: var(--color-add-red-5);
   --btn-shadow-color: var(--color-add-red-6);
-  --btn-hover-brightness: 0.92;
 }
 
 .default {
@@ -328,38 +340,4 @@
   --btn-color-light: var(--gray-2);
   --btn-color-faded: var(--gray-5);
   --btn-shadow-color: var(--gray-6);
-  --btn-hover-brightness: 0.95;
-}
-
-.solid:hover:not(:disabled, .loading),
-.shadow:hover:not(:disabled, .loading),
-.bordered:hover:not(:disabled, .loading) {
-  filter: brightness(var(--btn-hover-brightness, 0.92));
-}
-
-.shadow:hover:not(:disabled, .loading) {
-  box-shadow:
-    0 3px 12px -2px color-mix(in srgb, var(--btn-shadow-color) 40%, transparent),
-    0 6px 16px -4px color-mix(in srgb, var(--btn-shadow-color) 30%, transparent);
-}
-
-.bordered:hover:not(:disabled, .loading) {
-  border-color: var(--btn-text-color);
-}
-
-.ghost:hover:not(:disabled, .loading) {
-  background-color: var(--btn-color);
-  border-color: var(--btn-color);
-  color: white;
-  opacity: 1;
-}
-
-.light:hover:not(:disabled, .loading) {
-  background-color: color-mix(in srgb, var(--btn-text-color) 15%, transparent);
-  color: var(--btn-text-color);
-}
-
-.faded:hover:not(:disabled, .loading) {
-  background-color: color-mix(in srgb, var(--btn-text-color) 10%, var(--theme-faded-bg));
-  border-color: color-mix(in srgb, var(--btn-text-color) 32%, var(--theme-faded-border));
 }

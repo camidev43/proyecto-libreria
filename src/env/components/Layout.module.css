@@ -42,12 +42,7 @@
 
 .barra_superior_vidrio {
   backdrop-filter: blur(10px) saturate(1.25);
-  background:
-    radial-gradient(
-      120% 120% at 0% -10%,
-      color-mix(in oklab, var(--brand-1), transparent 85%),
-      transparent
-    ),
+  background: radial-gradient(120% 120% at 0% -10%, color-mix(in oklab, var(--brand-1), transparent 85%), transparent),
     color-mix(in oklab, var(--surface-first), transparent 15%);
   box-shadow:
     0 10px 24px color-mix(in oklab, var(--brand-7), transparent 90%),

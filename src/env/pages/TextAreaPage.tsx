@@ -30,11 +30,7 @@ const TextAreaPage = () => {
     <div style={{ display: 'grid', gap: '1.25rem' }}>
       <Section title='Básico'>
         <Grid>
-          <TextArea
-            label='Descripción'
-            placeholder='Escribe algo…'
-            description='Autosize 3–8 por defecto.'
-          />
+          <TextArea label='Descripción' placeholder='Escribe algo…' description='Autosize 3–8 por defecto.' />
           <TextArea label='disableAutosize' disableAutosize placeholder='Con asa de redimensión' />
           <TextArea label='rows=6' disableAutosize rows={6} placeholder='6 filas fijas' />
           <TextArea label='cacheMeasurements' cacheMeasurements placeholder='Mide más eficiente' />
@@ -44,12 +40,7 @@ const TextAreaPage = () => {
       <Grid>
         <Section title='Variantes'>
           <Grid min={300}>
-            <TextArea
-              label='Flat deshabilitado'
-              variant='flat'
-              isDisabled
-              value='Camilo Andres zarta perez'
-            />
+            <TextArea label='Flat deshabilitado' variant='flat' isDisabled value='Camilo Andres zarta perez' />
             <TextArea label='Normal' variant='normal' placeholder='Fondo normal' />
             <TextArea label='Light' variant='light' placeholder='Fondo plano' />
             <TextArea label='Flat' variant='flat' placeholder='Fondo simple' />
@@ -61,11 +52,9 @@ const TextAreaPage = () => {
 
         <Section title='Colores'>
           <Grid min={300}>
-            {(['default', 'primary', 'secondary', 'success', 'warning', 'danger'] as const).map(
-              c => (
-                <TextArea key={c} label={`Color ${c}`} color={c} placeholder={`Color ${c}`} />
-              )
-            )}
+            {(['default', 'primary', 'secondary', 'success', 'warning', 'danger'] as const).map(c => (
+              <TextArea key={c} label={`Color ${c}`} color={c} placeholder={`Color ${c}`} />
+            ))}
           </Grid>
         </Section>
 
@@ -82,12 +71,7 @@ const TextAreaPage = () => {
       <Grid>
         <Section title='Colocación del label'>
           <Grid min={300}>
-            <TextArea
-              label='Inside (fijo)'
-              labelPlacement='inside'
-              placeholder='El label no se mueve'
-              badgeDentro
-            />
+            <TextArea label='Inside (fijo)' labelPlacement='inside' placeholder='El label no se mueve' badgeDentro />
             <TextArea
               label='Outside'
               labelPlacement='outside'
@@ -95,12 +79,7 @@ const TextAreaPage = () => {
               placeholder='Con botón limpiar'
               badgeDentro
             />
-            <TextArea
-              label='Outside'
-              labelPlacement='outside'
-              isClearable
-              placeholder='Con botón limpiar'
-            />
+            <TextArea label='Outside' labelPlacement='outside' isClearable placeholder='Con botón limpiar' />
 
             <div style={{ maxWidth: 380 }}>
               <TextArea label='No fullWidth' fullWidth={false} placeholder='Ancho contenido' />
@@ -136,11 +115,7 @@ const TextAreaPage = () => {
       <Grid>
         <Section title='Contenido & utilidades'>
           <Grid min={300}>
-            <TextArea
-              label='Con adornos'
-              endContent={<span>↵</span>}
-              placeholder='Iconos a los lados'
-            />
+            <TextArea label='Con adornos' endContent={<span>↵</span>} placeholder='Iconos a los lados' />
             <TextArea
               label='Con ayuda'
               description='Pequeña descripción del campo.'
@@ -148,17 +123,8 @@ const TextAreaPage = () => {
               isInvalid
               placeholder='Muestra description y error'
             />
-            <TextArea
-              label='Clearable + TTS'
-              isClearable
-              placeholder='Escribe algo y prueba los botones…'
-            />
-            <TextArea
-              label='Autosize limitado'
-              minRows={1}
-              maxRows={4}
-              placeholder='Crece hasta 4 filas.'
-            />
+            <TextArea label='Clearable + TTS' isClearable placeholder='Escribe algo y prueba los botones…' />
+            <TextArea label='Autosize limitado' minRows={1} maxRows={4} placeholder='Crece hasta 4 filas.' />
           </Grid>
         </Section>
       </Grid>

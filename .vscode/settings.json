@@ -1,11 +1,21 @@
 {
-  "eslint.run": "onSave",
+  "editor.formatOnSave": true,
 
+  // Prettier para TS/JS/etc.
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Stylelint como formateador de CSS/SCSS
+  "[css]": { "editor.defaultFormatter": "stylelint.vscode-stylelint" },
+  "[scss]": { "editor.defaultFormatter": "stylelint.vscode-stylelint" },
+
+  // Correcciones ESLint al guardar (explícitas)
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "always"
+    "source.fixAll.eslint": "explicit"
   },
 
-  "editor.formatOnSave": false,
+  // Ejecución de ESLint
+  "eslint.run": "onSave",
 
+  // Higiene
   "files.trimTrailingWhitespace": true
 }

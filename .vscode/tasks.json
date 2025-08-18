@@ -6,10 +6,7 @@
       "script": "dev",
       "label": "Levantar entorno (Vite)",
       "group": "build",
-      "icon": {
-        "id": "device-desktop",
-        "color": "terminal.ansiCyan"
-      },
+      "icon": { "id": "device-desktop", "color": "terminal.ansiCyan" },
       "detail": "Vite dev server para la librería"
     },
     {
@@ -17,10 +14,7 @@
       "script": "start:docs",
       "label": "Levantar Storybook",
       "group": "build",
-      "icon": {
-        "id": "notebook-template",
-        "color": "terminal.ansiYellow"
-      },
+      "icon": { "id": "notebook-template", "color": "terminal.ansiYellow" },
       "detail": "Storybook en modo dev"
     },
     {
@@ -55,10 +49,7 @@
       "type": "npm",
       "script": "test:unit",
       "label": "Test unitarios (watch)",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      },
+      "group": { "kind": "test", "isDefault": true },
       "detail": "Vitest (jsdom)"
     },
     {
@@ -86,14 +77,21 @@
       "label": "Checks (CI-like)",
       "type": "shell",
       "group": "test",
-      "command": "pnpm run lint:code && pnpm run lint:style && pnpm run test:ci",
-      "detail": "Lint + tests como en CI"
+      "command": "pnpm run lint:code && pnpm run lint:style && pnpm run lint:types && pnpm run test:ci",
+      "detail": "Lint + tipos + tests como en CI"
     },
     {
       "type": "Live Preview",
       "workspacePath": "c:\\proyecto-libreria",
       "problemMatcher": [],
       "label": "Live Preview: Ejecutar servidor"
+    },
+    {
+      "label": "Formatear TODO (Prettier + Stylelint + ESLint)",
+      "type": "shell",
+      "group": "build",
+      "command": "pnpm format && pnpm fix:style && pnpm fix:code",
+      "detail": "Auto-fix de todo el repo"
     }
   ]
 }

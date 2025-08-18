@@ -37,8 +37,8 @@ export function BotonPage() {
           <span className={estilos.hero_chip}>Laboratorio</span>
           <h1 className={estilos.hero_titulo}>Botones</h1>
           <p className={estilos.hero_parrafo}>
-            Playground visual con chips, colecciones rápidas en cinta y estados presentados en
-            paneles elevados. Sombras suaves, sin bordes.
+            Playground visual con chips, colecciones rápidas en cinta y estados presentados en paneles elevados. Sombras
+            suaves, sin bordes.
           </p>
         </div>
 
@@ -53,12 +53,8 @@ export function BotonPage() {
               className={estilos.hero_boton}
               style={
                 {
-                  '--delay': '0s',
-                  fontSize: '4rem',
                   borderRadius: '999px',
-                  color: '#d400ff',
                   textShadow: '0 0 16px #d400ff, 0 0 32px #d400ff',
-                  transition: 'box-shadow 0.4s cubic-bezier(.4,0,.2,1)',
                 } as CSSProperties
               }>
               ⚔️
@@ -135,36 +131,16 @@ export function BotonPage() {
 
             <div className={estilos.switches}>
               <label>
-                <input
-                  type='checkbox'
-                  checked={fullWidth}
-                  onChange={e => setFull(e.target.checked)}
-                />{' '}
-                fullWidth
+                <input type='checkbox' checked={fullWidth} onChange={e => setFull(e.target.checked)} /> fullWidth
               </label>
               <label>
-                <input
-                  type='checkbox'
-                  checked={isLoading}
-                  onChange={e => setLoad(e.target.checked)}
-                />{' '}
-                isLoading
+                <input type='checkbox' checked={isLoading} onChange={e => setLoad(e.target.checked)} /> isLoading
               </label>
               <label>
-                <input
-                  type='checkbox'
-                  checked={isDisabled}
-                  onChange={e => setDis(e.target.checked)}
-                />{' '}
-                isDisabled
+                <input type='checkbox' checked={isDisabled} onChange={e => setDis(e.target.checked)} /> isDisabled
               </label>
               <label>
-                <input
-                  type='checkbox'
-                  checked={isIconOnly}
-                  onChange={e => setIcon(e.target.checked)}
-                />{' '}
-                isIconOnly
+                <input type='checkbox' checked={isIconOnly} onChange={e => setIcon(e.target.checked)} /> isIconOnly
               </label>
             </div>
           </div>

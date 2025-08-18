@@ -7,5 +7,5 @@ import { afterEach, expect } from 'vitest';
 expect.extend(matchers); // registra toBeInTheDocument, etc.
 
 afterEach(() => {
-    cleanup(); // limpia el DOM tras cada test
+  cleanup(); // limpia el DOM tras cada test
 });
