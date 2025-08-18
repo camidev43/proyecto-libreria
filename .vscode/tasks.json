@@ -74,24 +74,24 @@
       "detail": "Vitest coverage (V8)"
     },
     {
+      "type": "npm",
+      "script": "check",
       "label": "Checks (CI-like)",
-      "type": "shell",
       "group": "test",
-      "command": "pnpm run lint:code && pnpm run lint:style && pnpm run lint:types && pnpm run test:ci",
       "detail": "Lint + tipos + tests como en CI"
+    },
+    {
+      "label": "Formatear TODO (Prettier + Stylelint + ESLint)",
+      "type": "npm",
+      "script": "format:all",
+      "group": "build",
+      "detail": "Auto-fix de todo el repo"
     },
     {
       "type": "Live Preview",
       "workspacePath": "c:\\proyecto-libreria",
       "problemMatcher": [],
       "label": "Live Preview: Ejecutar servidor"
-    },
-    {
-      "label": "Formatear TODO (Prettier + Stylelint + ESLint)",
-      "type": "shell",
-      "group": "build",
-      "command": "pnpm format && pnpm fix:style && pnpm fix:code",
-      "detail": "Auto-fix de todo el repo"
     }
   ]
 }

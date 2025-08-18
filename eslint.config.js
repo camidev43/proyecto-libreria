@@ -18,7 +18,6 @@ export default [
   eslint.configs.recommended,
   reactRecommended,
   reactJSXRuntime,
-  // Desactiva reglas de estilo que chocarían con Prettier
   eslintConfigPrettier,
 
   {
@@ -30,7 +29,6 @@ export default [
         ecmaFeatures: { jsx: true },
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: './tsconfig.linter.json',
       },
       globals: { ...globals.browser, ...globals.es2021 },
     },
@@ -121,5 +119,5 @@ export default [
     },
   },
 
-  { ignores: ['node_modules/**', 'dist/**', 'storybook-static/**', '**/*.snap', 'coverage/**'] },
+  { ignores: ['eslint.config.js', 'node_modules/**', 'dist/**', 'storybook-static/**', '**/*.snap', 'coverage/**'] },
 ];
