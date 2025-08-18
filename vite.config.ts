@@ -47,7 +47,7 @@ export default defineConfig({
             provider: 'playwright',
             instances: [{ browser: 'chromium' }],
           },
-          setupFiles: ['.storybook/vitest.setup.ts'], // 👈 el nuevo setup
+          setupFiles: ['.storybook/vitest.setup.ts'],
         },
       },
     ],

@@ -1,5 +1,3 @@
-/* stylelint-disable selector-class-pattern no-descending-specificity */
-
 /* =========================================================
    Storybook Docs — Tema claro/oscuro (solo color & bordes)
    Sin márgenes/paddings, no afecta el canvas de componentes.
@@ -22,10 +20,10 @@ html.dark .sbdocs.sbdocs-wrapper {
 
 html.light .sbdocs .sbdocs-content {
   color: #1f2937;
-} /* gray-800 */
+}
 html.dark .sbdocs .sbdocs-content {
   color: #e6edf3;
-} /* claro */
+}
 
 html.light .sbdocs .sbdocs-content h1,
 html.light .sbdocs .sbdocs-content h2,
@@ -66,7 +64,7 @@ html.dark .sbdocs .sbdocs-content a {
 }
 
 html.dark .sbdocs .sbdocs-content .css-x28zkw :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)) {
-  color: #e6edf3 !important; /* fuerza contraste en modo oscuro */
+  color: #e6edf3 !important;
 }
 
 html.dark .sbdocs .sbdocs-content > p {

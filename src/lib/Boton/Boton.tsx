@@ -40,7 +40,7 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
       startContent,
       endContent,
       spinner,
-      spinnerPlacement, // reservado
+      spinnerPlacement,
       disableRipple = false,
       disableAnimation = false,
       children,

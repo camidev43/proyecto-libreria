@@ -1,4 +1,3 @@
-// .storybook/preview.ts
 import { withThemeByClassName, withThemeByDataAttribute } from '@storybook/addon-themes';
 import type { Preview } from '@storybook/react';
 
@@ -9,17 +8,16 @@ export const decorators = [
   withThemeByDataAttribute({
     themes: { light: 'light', dark: 'dark' },
     defaultTheme: 'light',
-    attributeName: 'data-theme', // canvas (tu app)
+    attributeName: 'data-theme',
     parentSelector: 'html',
   }),
   withThemeByClassName({
     themes: { light: 'light', dark: 'dark' },
     defaultTheme: 'light',
-    parentSelector: 'html', // Docs (usa html.light/.dark)
+    parentSelector: 'html',
   }),
 ];
 
-// (opcional) toolbar explícita para cambiar el tema
 export const globalTypes = {
   theme: {
     name: 'Tema',
@@ -48,9 +46,6 @@ const preview: Preview = {
     },
     viewport: { defaultViewport: 'responsive' },
     a11y: {
-      // 'todo' - show a11y violations in the test UI only
-      // 'error' - fail CI on a11y violations
-      // 'off' - skip a11y checks entirely
       test: 'warn',
     },
 
