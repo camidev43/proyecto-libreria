@@ -25,6 +25,6 @@
     }
   },
   "include": ["src", "templates/**/*.ts", "templates/**/*.tsx", "vitest.setup.ts"],
-  "exclude": ["**/*.stories.*", "dist", "node_modules"],
+  "exclude": ["**/*.stories.*", "**/*.mdx", "dist", "node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

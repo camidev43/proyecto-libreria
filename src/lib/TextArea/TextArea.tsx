@@ -205,6 +205,8 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
     fullWidth && estilos.ancho_total,
     disableAnimation && estilos.sin_animacion,
     isDisabled && estilos.deshabilitado,
+    labelPlacement === 'outside' && estilos.label_outside,
+
     invalidoComputado && estilos.invalido,
     enfocado && estilos.enfocado,
     classNames?.base

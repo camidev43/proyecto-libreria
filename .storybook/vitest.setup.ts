@@ -1,12 +1,8 @@
-import '@testing-library/jest-dom/vitest';
+import * as a11yAddonAnnotations from '@storybook/addon-a11y/preview';
 import { setProjectAnnotations } from '@storybook/react-vite';
-import { cleanup } from '@testing-library/react';
-import { afterEach, beforeAll } from 'vitest';
 
-import * as preview from './preview';
+import * as projectAnnotations from './preview';
 
-const annotations = setProjectAnnotations([preview]);
-
-beforeAll(annotations.beforeAll);
-
-afterEach(() => cleanup());
+// This is an important step to apply the right configuration when testing your stories.
+// More info at: https://storybook.js.org/docs/api/portable-stories/portable-stories-vitest#setprojectannotations
+setProjectAnnotations([a11yAddonAnnotations, projectAnnotations]);
