@@ -33,7 +33,6 @@ const TextAreaPage = () => {
           <TextArea label='Descripción' placeholder='Escribe algo…' description='Autosize 3–8 por defecto.' />
           <TextArea label='disableAutosize' disableAutosize placeholder='Con asa de redimensión' />
           <TextArea label='rows=6' disableAutosize rows={6} placeholder='6 filas fijas' />
-          <TextArea label='cacheMeasurements' cacheMeasurements placeholder='Mide más eficiente' />
         </Grid>
       </Section>
 

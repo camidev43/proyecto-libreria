@@ -12,10 +12,10 @@ import {
 
 import TransicionDesvanecerDeslizar from '@/animaciones/TransicionDesvanecerDeslizar';
 
-import type { TextAreaProps } from '.';
 import BadgeVoz from './BadgeVoz';
 import { GrabacionIcono, MicrofonoIcono, SonidoIcono } from './Iconografia';
 import estilos from './TextArea.module.css';
+import type { TextAreaProps } from './types';
 import { useHablarEscuchar } from './useHablarEscuchar';
 import type { ResultadoValidacion } from './useLogic';
 

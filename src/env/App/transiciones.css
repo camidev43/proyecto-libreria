@@ -19,7 +19,7 @@
 }
 
 .transicion_desvanecer_deslizar_entrada {
-  animation: desvanecer_deslizar_entrada 180ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: desvanecer_deslizar_entrada 380ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
   backface-visibility: hidden;
   will-change: transform, opacity, filter;
 }
