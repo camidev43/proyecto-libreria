@@ -19,7 +19,7 @@ export default defineConfig({
     sourcemap: true,
     lib: {
       entry: path.resolve(__dirname, 'src/lib/index.ts'),
-      name: 'Library name',
+      name: 'PC DEMO',
       fileName: 'index',
     },
     rollupOptions: { external: external(), output: { globals: { react: 'React' } } },

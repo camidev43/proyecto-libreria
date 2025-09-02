@@ -1,0 +1,25 @@
+@keyframes desvanecer_deslizar_entrada {
+  0% {
+    filter: blur(2px);
+    opacity: 0;
+    transform: translateY(-8px) scale(0.985) skewY(-1.2deg);
+  }
+
+  60% {
+    filter: blur(0.3px);
+    opacity: 0.92;
+    transform: translateY(2px) scale(1.012) skewY(0.15deg);
+  }
+
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0) scale(1) skewY(0);
+  }
+}
+
+.transicion_desvanecer_deslizar_entrada {
+  animation: desvanecer_deslizar_entrada 180ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
+}

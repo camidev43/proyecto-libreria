@@ -71,14 +71,8 @@ const TextAreaPage = () => {
       <Grid>
         <Section title='Colocación del label'>
           <Grid min={300}>
-            <TextArea label='Inside (fijo)' labelPlacement='inside' placeholder='El label no se mueve' badgeDentro />
-            <TextArea
-              label='Outside'
-              labelPlacement='outside'
-              isClearable
-              placeholder='Con botón limpiar'
-              badgeDentro
-            />
+            <TextArea label='Inside (fijo)' labelPlacement='inside' placeholder='El label no se mueve' />
+            <TextArea label='Outside' labelPlacement='outside' isClearable placeholder='Con botón limpiar' />
             <TextArea label='Outside' labelPlacement='outside' isClearable placeholder='Con botón limpiar' />
 
             <div style={{ maxWidth: 380 }}>

@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './env/App/index.css';
 
+import './env/App/index.css';
+import './env/App/transiciones.css';
 import App from '@/env/App/App.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

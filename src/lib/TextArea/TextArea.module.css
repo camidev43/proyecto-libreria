@@ -1,9 +1,21 @@
+/* Variables por si no están globales */
+:root {
+  --dur-enter: 800ms;
+  --dur-exit: 600ms;
+  --ease-emph: cubic-bezier(0.2, 0.7, 0, 1);
+  --ease-emph-in: cubic-bezier(0.3, 0, 0.8, 0.15);
+}
+
 /* ===== contenedor base ===== */
 .contenedor_base {
   display: grid;
   gap: var(--gaps-1);
   width: 100%;
 }
+
+/* (opcional) clase marcador de foco externo
+.enfocado {}
+*/
 
 .etiqueta {
   color: var(--color-secondary-text);
@@ -44,7 +56,7 @@
   align-items: center;
   display: grid;
   gap: 0.5rem;
-  grid-template-columns: 1fr auto; /* label a la izq, acciones a la der */
+  grid-template-columns: 1fr auto; /* label izq, acciones der */
   padding: 0.4rem 0.9rem 0.15rem;
 }
 
@@ -198,7 +210,6 @@
 }
 
 /* ===== estados ===== */
-
 .deshabilitado {
   opacity: 0.8;
   pointer-events: none;
@@ -250,15 +261,11 @@
   resize: vertical;
 }
 
+/* ===== estado interno (fila debajo del wrapper) ===== */
 .estado_interno {
   display: flex;
   justify-content: flex-end;
   padding: 0.25rem 0.75rem;
-}
-
-.estado_interno:empty {
-  display: none;
-  padding: 0;
 }
 
 /* ===== tamaños ===== */
@@ -379,6 +386,24 @@
 
 /* ===== badges ===== */
 
+/* IMPORTANTE:
+   Para evitar el hueco al final de las acciones, cuando está oculto no participa en el layout.
+*/
+.badges_wrap {
+  display: none;
+}
+
+.badges_wrap_visible {
+  display: inline-grid;
+  opacity: 1;
+}
+
+.acciones_grupo > .badges_wrap_visible {
+  margin-inline-start: 0.35rem;
+}
+
+/* (el badge en sí ya anima con TransicionDesvanecerDeslizar) */
+
 .badge_voz {
   align-items: center;
   backdrop-filter: blur(6px);
@@ -485,7 +510,6 @@
   width: 2px;
 }
 
-/* luego los nth-child (más específicos) */
 .badge_mic .badge_ondas span:nth-child(2) {
   animation-delay: 0.35s;
 }
@@ -506,7 +530,6 @@
   animation-delay: 450ms;
 }
 
-/* keyframes de badges */
 @keyframes badge_onda {
   0% {
     opacity: 0.85;
@@ -534,16 +557,12 @@
   }
 }
 
+/* Respeto a usuarios con movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
   .badge_mic .badge_ondas span,
   .badge_tts .badge_eq span {
     animation: none !important;
   }
-}
-
-/* alineación fina */
-.acciones_grupo + .badge_voz {
-  margin-inline-start: 0.35rem;
 }
 
 /* ===== ayuda y error ===== */
