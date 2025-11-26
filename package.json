@@ -2,7 +2,7 @@
   "name": "corekit-ui",
   "homepage": "https://camidev43.github.io/proyecto-libreria/",
   "private": false,
-  "version": "0.1.3",
+  "version": "0.1.4",
   "type": "module",
   "files": [
     "dist"
@@ -10,7 +10,9 @@
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
