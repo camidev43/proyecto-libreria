@@ -48,7 +48,7 @@ export type FirmaManualRef = {
  *
  */
 
-export const FirmaManual = forwardRef<FirmaManualRef, Props>(
+const FirmaManual = forwardRef<FirmaManualRef, Props>(
   (
     {
       isOpen = false,
@@ -357,4 +357,4 @@ export const FirmaManual = forwardRef<FirmaManualRef, Props>(
 
 FirmaManual.displayName = 'FirmaManual';
 
-export default FirmaManual;
+export { FirmaManual };

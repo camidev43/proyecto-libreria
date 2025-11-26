@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type React from 'react';
 
-import TextArea from '@/lib/TextArea/TextArea';
+import { TextArea } from '@/lib';
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section style={{ display: 'grid', gap: '0.75rem' }}>
