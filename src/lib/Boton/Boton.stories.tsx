@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within, expect } from '@storybook/test';
 import React from 'react';
 
-import Boton from './Boton';
+import { Boton } from './Boton';
 
 const meta = {
   title: 'Componentes/Boton',
