@@ -7,7 +7,7 @@ import type { CheckboxGroupProps } from './types';
 import { GrupoContexto } from './useCheckbox';
 
 const CheckboxGroup = ({
-  options,
+  options = [],
   orientation = 'vertical',
   valores,
   valoresIniciales = [],
@@ -108,7 +108,6 @@ const CheckboxGroup = ({
       <section
         className={clsx(styles.group)}
         aria-disabled={disabled || readOnly}
-        aria-required={required}
         role='group'
         aria-label={typeof label === 'string' ? label : undefined}>
         {showLabel ? (
@@ -131,7 +130,7 @@ const CheckboxGroup = ({
         ) : null}
 
         <div className={clsx(orientation === 'horizontal' ? styles.horizontal : styles.vertical, className)}>
-          {options.map(opt => (
+          {options?.map(opt => (
             <CheckboxOption key={opt.value} option={opt} orientation={orientation} classInterna={classInterna} />
           ))}
         </div>

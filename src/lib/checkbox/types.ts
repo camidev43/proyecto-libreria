@@ -69,6 +69,8 @@ export type CheckBoxIndicadorProps = {
   borderColor?: string;
   /**Si al estar checked se pone una línea como simulando el tachar de una lista */
   tachado?: boolean;
+  /** Etiqueta accesible para el input */
+  ariaLabel?: string;
 };
 
 export type CheckboxOptions = {

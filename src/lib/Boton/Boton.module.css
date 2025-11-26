@@ -11,7 +11,7 @@
 
 .boton {
   align-items: center;
-     appearance: none;
+  appearance: none;
   background: transparent;
   border: none;
   color: var(--color-primary-text);
@@ -298,30 +298,30 @@
 }
 
 .secondary {
-  --btn-color: var(--brand-5-secondary);
-  --btn-text-color: light-dark(var(--brand-5-secondary), var(--brand-4-secondary));
+  --btn-color: #3d6b0c;
+  --btn-text-color: light-dark(#3d6b0c, var(--brand-4-secondary));
   --btn-color-foreground: var(--base);
   --btn-color-light: var(--brand-1-secondary);
-  --btn-color-faded: var(--brand-4-secondary);
-  --btn-shadow-color: var(--brand-5-secondary);
+  --btn-color-faded: #3d6b0c;
+  --btn-shadow-color: #3d6b0c;
 }
 
 .success {
-  --btn-color: var(--color-add-green-6);
-  --btn-text-color: light-dark(var(--color-add-green-6), var(--color-add-green-4));
+  --btn-color: #246f2e;
+  --btn-text-color: light-dark(#246f2e, var(--color-add-green-4));
   --btn-color-foreground: var(--base);
   --btn-color-light: var(--color-add-green-1);
-  --btn-color-faded: var(--color-add-green-5);
-  --btn-shadow-color: var(--color-add-green-6);
+  --btn-color-faded: #246f2e;
+  --btn-shadow-color: #246f2e;
 }
 
 .warning {
-  --btn-color: var(--color-add-orange-6);
-  --btn-text-color: light-dark(var(--color-add-orange-6), var(--color-add-orange-4));
+  --btn-color: #a04d00;
+  --btn-text-color: light-dark(#a04d00, var(--color-add-orange-4));
   --btn-color-foreground: var(--base);
   --btn-color-light: var(--color-add-orange-1);
-  --btn-color-faded: var(--color-add-orange-5);
-  --btn-shadow-color: var(--color-add-orange-6);
+  --btn-color-faded: #a04d00;
+  --btn-shadow-color: #a04d00;
 }
 
 .danger {

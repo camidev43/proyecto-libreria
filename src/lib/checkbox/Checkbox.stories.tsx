@@ -167,9 +167,9 @@ export const Accesible: Story = {
     const headingId = 'chk-heading';
     return (
       <div role='group' aria-labelledby={headingId}>
-        <h2 id={headingId} style={{ fontSize: 16, margin: '8px 0' }}>
+        <h3 id={headingId} style={{ fontSize: 16, margin: '8px 0' }}>
           Preferencias
-        </h2>
+        </h3>
         <CheckboxGroup {...args} label={undefined} />
       </div>
     );
@@ -238,9 +238,6 @@ export const CustomRender: Story = {
       }}>
       {(opcion, { checked, alternar, disabled }) => (
         <div
-          role='button'
-          tabIndex={0}
-          onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && !disabled && alternar()}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -259,13 +256,13 @@ export const CustomRender: Story = {
             cursor: disabled ? 'not-allowed' : 'pointer',
             minWidth: 260,
             width: 420,
-          }}
-          onClick={() => !disabled && alternar()}>
+          }}>
           <input
             type='checkbox'
             checked={checked}
             onChange={alternar}
             disabled={disabled}
+            aria-label={opcion.label}
             style={{
               accentColor: 'var(--brand-primary, #4caf50)',
               width: 22,

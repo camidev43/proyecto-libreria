@@ -14,6 +14,7 @@ const CheckBoxIndicador = ({
   radius = 'var(--radius-2)',
   color = 'var(--brand-primary)',
   borderColor = 'var(--surface-third)',
+  ariaLabel,
 }: CheckBoxIndicadorProps) => {
   const id = useId();
   const isControlled = typeof checked !== 'undefined';
@@ -47,6 +48,7 @@ const CheckBoxIndicador = ({
         checked={actual}
         onChange={handleChange}
         disabled={disabled}
+        aria-label={ariaLabel}
         className={clsx(estilos.ui_checkbox, disabled ? estilos.disabled : '')}
         style={{
           ...styleVars,
@@ -63,6 +65,7 @@ const CheckBoxIndicador = ({
         checked={actual}
         onChange={handleChange}
         disabled={disabled}
+        aria-label={ariaLabel}
         className={estilos.input_oculto}
       />
 

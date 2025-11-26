@@ -44,10 +44,11 @@ const CheckboxOption = ({ option, orientation, className, classInterna }: Checkb
         radius={radius}
         size={size}
         alternar={() => alternar(option.value)}
+        ariaLabel={option.label}
       />
 
       <div className={clsx(styles.texts, classInterna, tachado && checked && styles.tachado)}>
-        <h5 className={styles.label}>{option.label}</h5>
+        <div className={styles.label}>{option.label}</div>
         {option.descripcion && <p className={styles.description}>{option.descripcion}</p>}
       </div>
     </label>

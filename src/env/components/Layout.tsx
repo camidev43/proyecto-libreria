@@ -22,13 +22,26 @@ export default function Layout({ children }: { children: ReactNode }) {
       descripcion: 'Variantes y estados',
       color: 'var(--brand-5-secondary)',
     },
-
     {
       path: '/textarea',
       icono: '📝',
       etiqueta: 'TextArea',
       descripcion: 'Área de texto',
       color: 'var(--brand-5-tertiary)',
+    },
+    {
+      path: '/checkbox',
+      icono: '☑️',
+      etiqueta: 'Checkbox',
+      descripcion: 'Checkbox demos',
+      color: 'var(--brand-5-secondary)',
+    },
+    {
+      path: '/firma',
+      icono: '✍️',
+      etiqueta: 'Firma Manual',
+      descripcion: 'Captura de firma',
+      color: 'var(--color-add-blue-5)',
     },
   ];
 
