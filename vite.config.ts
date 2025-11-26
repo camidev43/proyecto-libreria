@@ -8,13 +8,14 @@ import external from '@yelo/rollup-node-external';
 import hq from 'alias-hq';
 import postcssPresetEnv from 'postcss-preset-env';
 import { defineConfig } from 'vite';
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import dts from 'vite-plugin-dts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   resolve: { alias: hq.get('rollup') },
-  plugins: [react(), dts({ rollupTypes: true, exclude: ['**/*.stories.{ts,tsx}'] })],
+  plugins: [react(), cssInjectedByJsPlugin(), dts({ rollupTypes: true, exclude: ['**/*.stories.{ts,tsx}'] })],
   build: {
     sourcemap: true,
     lib: {
