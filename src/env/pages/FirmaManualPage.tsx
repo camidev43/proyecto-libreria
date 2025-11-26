@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
+import { FirmaManual } from '@/lib';
+
 import estilos from './FirmaManualPage.module.css';
-import { FirmaManual } from '../../lib/FirmaManual';
 
 export const FirmaManualPage = () => {
   const [modalAbierto, setModalAbierto] = useState(false);
