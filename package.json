@@ -17,6 +17,9 @@
       "require": "./dist/index.umd.cjs"
     }
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "dev": "vite --port 3000",
     "clean:lib": "rimraf dist",
