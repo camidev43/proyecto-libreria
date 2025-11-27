@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 import styles from './Checkbox.module.css';
-import CheckBoxIndicador from './ChekboxIndicador';
+import { CheckBoxIndicador } from './ChekboxIndicador';
 import type { CheckboxOptions } from './types';
 import { useCheckboxGroup } from './useCheckbox';
 
@@ -32,9 +32,10 @@ const CheckboxOption = ({ option, orientation, className, classInterna }: Checkb
         lineaMitad && styles.linea,
         (disabled || readOnly) && styles.disabled,
         disabledOpcion && styles.deshabilitado_limite,
-        className
+        className,
       )}
-      aria-disabled={disabledOpcion}>
+      aria-disabled={disabledOpcion}
+    >
       <CheckBoxIndicador
         relleno={relleno}
         checked={checked}

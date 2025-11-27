@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { within, userEvent, expect } from '@storybook/test';
 import { useState } from 'react';
-import { userEvent, within, expect } from 'storybook/test';
 
-import CheckboxGroup from './CheckboxGroup';
-import CheckboxGroupCustom from './CheckboxGroupCustom';
-import type { Option } from './types';
+import { CheckboxGroup } from './CheckboxGroup';
+import { CheckboxGroupCustom } from './CheckboxGroupCustom';
+import type { Option, CheckboxGroupProps } from './types';
 
 const opciones: Option[] = [
   { value: 'uno', label: 'Uno', descripcion: 'Primera opción' },
@@ -33,7 +33,8 @@ const meta: Meta<typeof CheckboxGroup> = {
           alignItems: 'center',
           minHeight: 320,
           width: 520,
-        }}>
+        }}
+      >
         <Story />
       </div>
     ),
@@ -101,6 +102,8 @@ export default meta;
 
 type Story = StoryObj<typeof CheckboxGroup>;
 
+type Args = Partial<CheckboxGroupProps> & { onChange?: (vals: string[]) => void } & Record<string, unknown>;
+
 export const Basico: Story = {
   args: { options: opciones, label: 'Básico' },
 };
@@ -144,13 +147,13 @@ export const Requerido: Story = {
 
 export const Controlado: Story = {
   name: 'Modo controlado',
-  render: args => {
+  render: (args: Args) => {
     const [vals, setVals] = useState<string[]>(['uno']);
     return (
       <CheckboxGroup
-        {...args}
+        {...(args as CheckboxGroupProps)}
         value={vals}
-        onChange={v => {
+        onChange={(v: string[]) => {
           setVals(v);
           args.onChange?.(v); // Actions
         }}
@@ -163,14 +166,14 @@ export const Controlado: Story = {
 /** A11y: agrega semántica accesible alrededor para que axe lo evalúe mejor */
 export const Accesible: Story = {
   name: 'Accesible (role & aria-labelledby)',
-  render: args => {
+  render: (args: Args) => {
     const headingId = 'chk-heading';
     return (
-      <div role='group' aria-labelledby={headingId}>
+      <div role="group" aria-labelledby={headingId}>
         <h3 id={headingId} style={{ fontSize: 16, margin: '8px 0' }}>
           Preferencias
         </h3>
-        <CheckboxGroup {...args} label={undefined} />
+        <CheckboxGroup {...(args as CheckboxGroupProps)} label={undefined} />
       </div>
     );
   },
@@ -187,8 +190,9 @@ export const Accesible: Story = {
 export const Interactivo: Story = {
   name: 'Interactivo (play)',
   args: { options: opciones, label: 'Interactivo' },
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  play: async ({ canvasElement, step }: any) => {
+    const canvas = within(canvasElement as unknown as HTMLElement);
 
     await step('Marca "dos" y "tres"', async () => {
       const dos = canvas.getByRole('checkbox', { name: /dos/i });
@@ -211,8 +215,9 @@ export const Interactivo: Story = {
 export const Teclado: Story = {
   name: 'Accesibilidad por teclado',
   args: { options: opciones, label: 'Con teclado' },
-  play: async ({ canvasElement, step }) => {
-    const c = within(canvasElement);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  play: async ({ canvasElement, step }: any) => {
+    const c = within(canvasElement as unknown as HTMLElement);
     const primero = c.getByRole('checkbox', { name: /uno/i });
 
     await step('Foco al primer checkbox', async () => {
@@ -235,8 +240,12 @@ export const CustomRender: Story = {
       onChange={vals => {
         // lo verás en la consola del iframe y en Actions si conectas args.onChange
         console.log('onChange', vals);
-      }}>
-      {(opcion, { checked, alternar, disabled }) => (
+      }}
+    >
+      {(
+        opcion: Option,
+        { checked, alternar, disabled }: { checked: boolean; alternar: () => void; disabled: boolean },
+      ) => (
         <div
           style={{
             display: 'flex',
@@ -256,9 +265,10 @@ export const CustomRender: Story = {
             cursor: disabled ? 'not-allowed' : 'pointer',
             minWidth: 260,
             width: 420,
-          }}>
+          }}
+        >
           <input
-            type='checkbox'
+            type="checkbox"
             checked={checked}
             onChange={alternar}
             disabled={disabled}
@@ -277,7 +287,8 @@ export const CustomRender: Story = {
                 fontSize: 17,
                 color: disabled ? 'var(--text-disabled, #aaa)' : 'var(--text-primary, #222)',
                 letterSpacing: 0.1,
-              }}>
+              }}
+            >
               {opcion.label}
             </span>
             {opcion.descripcion && (

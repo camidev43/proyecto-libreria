@@ -6,7 +6,7 @@ import CheckboxOption from './CheckboxOpciones';
 import type { CheckboxGroupProps } from './types';
 import { GrupoContexto } from './useCheckbox';
 
-const CheckboxGroup = ({
+export const CheckboxGroup = ({
   options = [],
   orientation = 'vertical',
   valores,
@@ -42,7 +42,7 @@ const CheckboxGroup = ({
       const yaMarcada = actuales.includes(valor);
       return limiteAlcanzado && !yaMarcada;
     },
-    [actuales, disabled, readOnly, limite, limiteAlcanzado]
+    [actuales, disabled, readOnly, limite, limiteAlcanzado],
   );
 
   const alternar = useCallback(
@@ -62,7 +62,7 @@ const CheckboxGroup = ({
       }
       onChange?.(siguiente);
     },
-    [actuales, valores, onChange, isOpcionDisabled]
+    [actuales, valores, onChange, isOpcionDisabled],
   );
 
   const ctxValue = useMemo(
@@ -97,7 +97,7 @@ const CheckboxGroup = ({
       readOnly,
       limiteAlcanzado,
       isOpcionDisabled,
-    ]
+    ],
   );
 
   const showLabel = !!label;
@@ -108,21 +108,22 @@ const CheckboxGroup = ({
       <section
         className={clsx(styles.group)}
         aria-disabled={disabled || readOnly}
-        role='group'
-        aria-label={typeof label === 'string' ? label : undefined}>
+        role="group"
+        aria-label={typeof label === 'string' ? label : undefined}
+      >
         {showLabel ? (
           <>
             <h6 className={clsx(styles.label, required && styles.required)}>
               {label}
               {mustAsterisk && (
-                <span className={styles.asterisk} aria-hidden='true'>
+                <span className={styles.asterisk} aria-hidden="true">
                   *
                 </span>
               )}
             </h6>
 
             {limite > 0 && (
-              <div className={styles.maxHint} aria-live='polite'>
+              <div className={styles.maxHint} aria-live="polite">
                 Opciones máximas ({limite})
               </div>
             )}
@@ -138,5 +139,3 @@ const CheckboxGroup = ({
     </GrupoContexto.Provider>
   );
 };
-
-export default CheckboxGroup;

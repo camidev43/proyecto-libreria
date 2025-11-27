@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 
 import type { CheckboxGroupCustomProps } from './types';
 
-const CheckboxGroupCustom = <T extends { value: string }>({
+export const CheckboxGroupCustom = <T extends { value: string }>({
   opciones,
   valoresIniciales = [],
   onChange,
@@ -19,7 +19,7 @@ const CheckboxGroupCustom = <T extends { value: string }>({
         return next;
       });
     },
-    [onChange]
+    [onChange],
   );
 
   const ctx = useMemo(() => ({ selected, toggle, disabled }), [selected, toggle, disabled]);
@@ -42,5 +42,3 @@ const CheckboxGroupCustom = <T extends { value: string }>({
     </>
   );
 };
-
-export default CheckboxGroupCustom;

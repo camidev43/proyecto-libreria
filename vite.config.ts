@@ -1,56 +1,57 @@
-// vite.config.ts
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+/// <reference types="vitest" />
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import react from '@vitejs/plugin-react';
-import external from '@yelo/rollup-node-external';
-import hq from 'alias-hq';
-import postcssPresetEnv from 'postcss-preset-env';
-import { defineConfig } from 'vite';
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import dts from 'vite-plugin-dts';
+import { defineConfig } from 'vitest/config';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-export default defineConfig({
-  resolve: { alias: hq.get('rollup') },
-  plugins: [react(), cssInjectedByJsPlugin(), dts({ rollupTypes: true, exclude: ['**/*.stories.{ts,tsx}'] })],
-  build: {
-    sourcemap: true,
-    lib: {
-      entry: path.resolve(__dirname, 'src/lib/index.ts'),
-      name: 'PC DEMO',
-      fileName: 'index',
+export default defineConfig(({ mode }) => {
+  const isLibraryBuild = mode === 'production';
+
+  return {
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, './src'),
+      },
     },
-    rollupOptions: { external: external(), output: { globals: { react: 'React' } } },
-  },
-  css: {
-    modules: { localsConvention: 'camelCase' },
-    postcss: { plugins: [postcssPresetEnv({ stage: 1 })] },
-  },
+    plugins: [
+      react(),
 
-  test: {
-    projects: [
-      {
-        extends: true,
-        plugins: [
-          storybookTest({
-            configDir: path.join(__dirname, '.storybook'),
-            // opcional: startScript: 'pnpm start:docs --quiet'
-          }),
-        ],
-        test: {
-          name: 'storybook',
-          browser: {
-            enabled: true,
-            headless: true,
-            provider: 'playwright',
-            instances: [{ browser: 'chromium' }],
+      isLibraryBuild &&
+        dts({
+          include: ['src/lib'],
+          rollupTypes: true,
+        }),
+    ],
+    build: {
+      lib: {
+        entry: resolve(__dirname, 'src/lib/index.ts'),
+        formats: ['es', 'umd'],
+        name: 'CoreKitUI',
+        fileName: format => `index.${format === 'es' ? 'js' : 'umd.cjs'}`,
+      },
+      rollupOptions: {
+        external: ['react', 'react-dom', 'react/jsx-runtime'],
+        output: {
+          globals: {
+            react: 'React',
+            'react-dom': 'ReactDOM',
           },
-          setupFiles: ['.storybook/vitest.setup.ts'],
         },
       },
-    ],
-  },
+    },
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './src/test/vitest.setup.ts',
+      css: true,
+      alias: {
+        '@': resolve(__dirname, './src'),
+      },
+    },
+  };
 });

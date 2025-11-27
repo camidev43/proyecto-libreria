@@ -2,7 +2,6 @@
 /**
  * ESLint 9 (flat config) para React + TypeScript + Vite + Vitest + Storybook
  */
-import { fixupPluginRules } from '@eslint/compat';
 import eslint from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
@@ -30,7 +29,11 @@ export default [
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      globals: { ...globals.browser, ...globals.es2021 },
+      globals: {
+        ...globals.browser,
+        ...globals.es2021,
+        React: 'readonly',
+      },
     },
     settings: {
       react: { version: 'detect' },
@@ -40,13 +43,16 @@ export default [
       '@typescript-eslint': tsPlugin,
       import: importPlugin,
       'react-refresh': reactRefreshPlugin,
-      'react-hooks': fixupPluginRules(reactHooksPlugin),
+      'react-hooks': reactHooksPlugin,
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
       ...reactHooksPlugin.configs.recommended.rules,
 
-      'react/react-in-jsx-scope': 'off',
+      'no-undef': 'off', // TypeScript ya se encarga de validar variables no definidas
+      'react/react-in-jsx-scope': 'off', // No necesario en React 17+
+      'react/prop-types': 'off', // No necesario usando TypeScript
+
       '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],

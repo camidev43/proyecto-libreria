@@ -1,3 +1,8 @@
 {
-  "recommendations": ["unifiedjs.vscode-mdx", "riccardoforina.storybook-helper"]
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "unifiedjs.vscode-mdx"
+  ]
 }

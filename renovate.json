@@ -8,5 +8,5 @@
       "concurrentRequestLimit": 23
     }
   ],
-  "baseBranchPatterns": ["master", "tailwind"]
+  "baseBranchPatterns": ["main"]
 }

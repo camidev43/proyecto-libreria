@@ -47,7 +47,7 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
       className,
       ...props
     },
-    ref
+    ref,
   ) => {
     const internalRef = useRef<HTMLButtonElement>(null);
 
@@ -62,7 +62,7 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
       isIconOnly && styles.icon_only,
       isLoading && styles.loading,
       !disableAnimation && styles.tap_animation,
-      className
+      className,
     );
 
     const mostrarLabel = !!children && (!isLoading || !isIconOnly);
@@ -100,14 +100,19 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
         {...props}
         aria-busy={isLoading}
         ref={instance => {
-          internalRef.current = instance;
-          if (typeof ref === 'function') ref(instance);
-          else if (ref) ref.current = instance;
+          (internalRef as React.MutableRefObject<HTMLButtonElement | null>).current = instance;
+
+          if (typeof ref === 'function') {
+            ref(instance);
+          } else if (ref && 'current' in ref) {
+            (ref as React.MutableRefObject<HTMLButtonElement | null>).current = instance;
+          }
         }}
         type={props.type || 'button'}
         className={classes}
         disabled={isDisabled || isLoading}
-        onClick={handleClick}>
+        onClick={handleClick}
+      >
         <span className={styles.inner}>
           {startContent && !isLoading && <span className={styles.start}>{startContent}</span>}
 
@@ -119,7 +124,7 @@ const Boton = forwardRef<HTMLButtonElement, BotonProps>(
         </span>
       </button>
     );
-  }
+  },
 );
 
 Boton.displayName = 'Boton';

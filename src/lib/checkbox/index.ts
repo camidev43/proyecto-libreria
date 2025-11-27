@@ -1,13 +1,11 @@
-import CheckboxContenedor from './ChecboxContenedor';
-import CheckboxGroup from './CheckboxGroup';
-import CheckboxGroupCustom from './CheckboxGroupCustom';
-import CheckBoxIndicador from './ChekboxIndicador';
+/**
+ * Barrel de `checkbox` — exportaciones nombradas (estilo `Boton/index.ts`)
+ */
 
-const Checkbox = {
-  Grupo: CheckboxGroup,
-  Personalizado: CheckboxGroupCustom,
-  Indicador: CheckBoxIndicador,
-  Contenedor: CheckboxContenedor,
-};
+// Exportaciones nombradas (estilo `Boton/index.ts`)
+export { CheckboxContenedor } from './ChecboxContenedor';
+export { CheckboxGroup } from './CheckboxGroup';
+export { CheckboxGroupCustom } from './CheckboxGroupCustom';
+export { CheckBoxIndicador } from './ChekboxIndicador';
 
-export default Checkbox;
+export * from './types';

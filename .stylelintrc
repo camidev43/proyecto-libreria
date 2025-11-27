@@ -1,10 +1,10 @@
 {
   "extends": ["stylelint-config-standard"],
   "plugins": ["stylelint-order"],
-  "ignoreFiles": ["**/*.snap", "dist/**", ".storybook/preview.css"],
+  "ignoreFiles": ["**/*.snap", "dist/**", "storybook-static/**", "coverage/**", ".storybook/preview.css"],
   "rules": {
-    "selector-class-pattern": "^[a-z][a-z0-9_-]*$",
-    "keyframes-name-pattern": "^[a-z][a-z0-9_-]*$",
+    "selector-class-pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)*$",
+    "keyframes-name-pattern": "^[a-z][a-zA-Z0-9]*$",
 
     "function-calc-no-unspaced-operator": true,
     "order/order": ["custom-properties", "declarations"],

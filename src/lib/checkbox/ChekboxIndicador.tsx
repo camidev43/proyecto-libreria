@@ -5,7 +5,7 @@ import { useId, useState } from 'react';
 import estilos from './EstCheckbox.module.css';
 import type { CheckBoxIndicadorProps } from './types';
 
-const CheckBoxIndicador = ({
+export const CheckBoxIndicador = ({
   relleno = true,
   checked,
   alternar,
@@ -44,7 +44,7 @@ const CheckBoxIndicador = ({
     return (
       <input
         id={id}
-        type='checkbox'
+        type="checkbox"
         checked={actual}
         onChange={handleChange}
         disabled={disabled}
@@ -61,7 +61,7 @@ const CheckBoxIndicador = ({
     <label htmlFor={id} className={estilos.container} style={styleVars}>
       <input
         id={id}
-        type='checkbox'
+        type="checkbox"
         checked={actual}
         onChange={handleChange}
         disabled={disabled}
@@ -69,12 +69,10 @@ const CheckBoxIndicador = ({
         className={estilos.input_oculto}
       />
 
-      <svg className={clsx(estilos.svg)} width={size} height={size} viewBox='0 0 18 18'>
-        <rect x='1' y='1' width='16' height='16' rx='3' className={estilos.svg_rect} />
-        <polyline transform='translate(0,1)' points='4 9 7 12 14 5' className={estilos.svg_check} />
+      <svg className={clsx(estilos.svg)} width={size} height={size} viewBox="0 0 18 18">
+        <rect x="1" y="1" width="16" height="16" rx="3" className={estilos.svg_rect} />
+        <polyline transform="translate(0,1)" points="4 9 7 12 14 5" className={estilos.svg_check} />
       </svg>
     </label>
   );
 };
-
-export default CheckBoxIndicador;

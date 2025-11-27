@@ -103,7 +103,7 @@ export type CheckboxGroupCustomProps<T extends { value: string }> = {
       checked: boolean;
       alternar: () => void;
       disabled: boolean;
-    }
+    },
   ) => React.ReactNode;
 };
 

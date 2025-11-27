@@ -2,96 +2,127 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "🚀 Dev: Iniciar Entorno (Vite)",
       "type": "npm",
       "script": "dev",
-      "label": "Levantar entorno (Vite)",
-      "group": "build",
-      "icon": { "id": "device-desktop", "color": "terminal.ansiCyan" },
-      "detail": "Vite dev server para la librería"
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "icon": {
+        "id": "play",
+        "color": "terminal.ansiGreen"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "detail": "Inicia el servidor de desarrollo local en puerto 3000."
     },
     {
+      "label": "📚 Storybook: Iniciar",
       "type": "npm",
-      "script": "start:docs",
-      "label": "Levantar Storybook",
-      "group": "build",
-      "icon": { "id": "notebook-template", "color": "terminal.ansiYellow" },
-      "detail": "Storybook en modo dev"
-    },
-    {
-      "type": "npm",
-      "script": "build",
-      "label": "Build librería",
-      "group": "build",
-      "detail": "Compila la librería (Vite + dts)"
-    },
-    {
-      "type": "npm",
-      "script": "build:docs",
-      "label": "Build docs (Storybook)",
-      "group": "build",
-      "detail": "Genera storybook-static para Pages"
-    },
-    {
-      "type": "npm",
-      "script": "lint:code",
-      "label": "Lint código",
+      "script": "storybook",
       "group": "test",
-      "detail": "ESLint"
+      "icon": {
+        "id": "book",
+        "color": "terminal.ansiMagenta"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "detail": "Levanta el entorno de documentación Storybook en puerto 6006."
     },
     {
-      "type": "npm",
-      "script": "lint:style",
-      "label": "Lint estilos",
-      "group": "test",
-      "detail": "Stylelint"
-    },
-    {
-      "type": "npm",
-      "script": "test:unit",
-      "label": "Test unitarios (watch)",
-      "group": { "kind": "test", "isDefault": true },
-      "detail": "Vitest (jsdom)"
-    },
-    {
-      "type": "npm",
-      "script": "test:sb",
-      "label": "Test Storybook (browser, watch)",
-      "group": "test",
-      "detail": "Runner de stories en Chromium"
-    },
-    {
+      "label": "🧪 Test: Ejecutar Todos (Unit + Stories)",
       "type": "npm",
       "script": "test",
-      "label": "Test: todo (watch)",
       "group": "test",
-      "detail": "Unit + Storybook"
+      "icon": {
+        "id": "beaker",
+        "color": "terminal.ansiYellow"
+      },
+      "detail": "Ejecuta Vitest una sola vez para verificar todos los componentes."
     },
     {
+      "label": "👀 Test: Modo UI (Interactivo)",
       "type": "npm",
-      "script": "test:coverage",
-      "label": "Cobertura (unit)",
+      "script": "test:ui",
       "group": "test",
-      "detail": "Vitest coverage (V8)"
+      "icon": {
+        "id": "eye",
+        "color": "terminal.ansiCyan"
+      },
+      "detail": "Abre la interfaz gráfica de Vitest en el navegador."
     },
     {
+      "label": "❤️‍🩹 Limpieza y depuración de archivos.",
+      "type": "shell",
+      "command": "Stop-Process -Name node -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 1; Remove-Item -Recurse -Force dist, storybook-static, node_modules -ErrorAction SilentlyContinue; Write-Host '✅ Limpieza completada'; exit 0",
+      "group": "none",
+      "icon": {
+        "id": "flame",
+        "color": "terminal.ansiRed"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": [],
+      "detail": "Detiene todos los procesos de Node.js y elimina las carpetas 'node_modules', 'dist', 'storybook-static' y  para reinstalar desde cero."
+    },
+
+    {
+      "label": "🏗️ Build: Librería (Producción)",
+      "type": "npm",
+      "script": "build",
+      "group": "build",
+      "dependsOn": ["🧹 Limpiar: Borrar carpetas dist/node_modules"],
+      "icon": {
+        "id": "package",
+        "color": "terminal.ansiBlue"
+      },
+      "detail": "Limpia y compila la librería lista para publicar en NPM."
+    },
+    {
+      "label": "📑 Build: Documentación Storybook",
+      "type": "npm",
+      "script": "build:storybook",
+      "group": "build",
+      "icon": {
+        "id": "library",
+        "color": "terminal.ansiMagenta"
+      },
+      "detail": "Compila Storybook estático para desplegar en Vercel/Netlify."
+    },
+    {
+      "label": "🔍 Calidad: Check Completo (Lint + Types + Test)",
       "type": "npm",
       "script": "check",
-      "label": "Checks (CI-like)",
       "group": "test",
-      "detail": "Lint + tipos + tests como en CI"
+      "icon": {
+        "id": "shield",
+        "color": "terminal.ansiGreen"
+      },
+      "detail": "Ejecuta validación de tipos, linter y tests. Úsalo antes de push."
     },
     {
-      "label": "Formatear TODO (Prettier + Stylelint + ESLint)",
+      "label": "🧩 Generar: Nuevo Componente",
       "type": "npm",
-      "script": "format:all",
-      "group": "build",
-      "detail": "Auto-fix de todo el repo"
-    },
-    {
-      "type": "Live Preview",
-      "workspacePath": "c:\\proyecto-libreria",
+      "script": "gen",
+      "icon": {
+        "id": "add",
+        "color": "terminal.ansiWhite"
+      },
+      "presentation": {
+        "focus": true,
+        "panel": "shared",
+        "reveal": "always"
+      },
+      "isBackground": false,
       "problemMatcher": [],
-      "label": "Live Preview: Ejecutar servidor"
+      "detail": "Usa Plop para crear un nuevo componente con sus historias y tests."
     }
   ]
 }

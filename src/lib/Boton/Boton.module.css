@@ -71,7 +71,7 @@
 }
 
 .ripple {
-  animation: ripple_effect var(--ripple-duration) var(--ease-extra-smooth) forwards;
+  animation: rippleEffect var(--ripple-duration) var(--ease-extra-smooth) forwards;
   background-color: color-mix(in srgb, currentcolor 80%, transparent);
   border-radius: 50%;
   contain: strict;
@@ -83,7 +83,7 @@
   z-index: 0;
 }
 
-@keyframes ripple_effect {
+@keyframes rippleEffect {
   to {
     opacity: 0;
     transform: translate(-50%, -50%) scale(1);
@@ -120,7 +120,7 @@
 }
 
 .modern_spinner {
-  animation: spinner_rotate 1s infinite linear;
+  animation: spinnerRotate 1s infinite linear;
   background:
     radial-gradient(farthest-side, currentcolor 94%, transparent) top/0.16em 0.16em no-repeat,
     conic-gradient(transparent 30%, currentcolor);
@@ -131,7 +131,7 @@
   will-change: transform;
 }
 
-@keyframes spinner_rotate {
+@keyframes spinnerRotate {
   100% {
     transform: rotate(1turn);
   }
