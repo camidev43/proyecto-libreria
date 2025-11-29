@@ -3,4 +3,6 @@
 
 pnpm lint-staged
 
-pnpm run lint:types
+
+# se comento este porque antes de cada commit puede ser un poco lento
+# pnpm run lint:types

@@ -10,42 +10,11 @@ import {
 } from 'react';
 
 import estilos from './FirmaManual.module.css';
+import { IconUndo, IconTrash, IconUpload, IconClose } from './Iconografia';
+import type { FirmaManualRef, FirmaManualProps } from './TypesFirma';
 import useFirmaLogica from './useFirmaLogica';
-import { IconUndo, IconTrash, IconUpload, IconClose } from '../Iconografia';
 
-export type Props = {
-  isOpen?: boolean;
-  onClose?: () => void;
-  onConfirm?: (signatureData: string) => void;
-  titulo?: string;
-  textoGuardar?: string;
-  textoModificar?: string;
-  textoDeshacer?: string;
-  textoLimpiar?: string;
-  textoAdjuntar?: string;
-  ancho?: number;
-  alto?: number;
-  className?: string;
-  textoConsentimiento?: string;
-  mostrarBotonSubir?: boolean;
-  cerrarAlGuardar?: boolean;
-};
-export type FirmaManualRef = {
-  limpiar: () => void;
-  obtenerDatosFirma: () => string | null;
-  estaVacio: () => boolean;
-};
-/**
- * FirmaManual - Componente para capturar una firma a mano o subir una imagen
- *
- * Props principales:
- * - `isOpen`: control booleano para abrir/ cerrar
- * - `onClose`: callback cuando el modal se cierra
- * - `onConfirm`: callback con data URL PNG al guardar
- *
- */
-
-const FirmaManual = forwardRef<FirmaManualRef, Props>(
+const FirmaManual = forwardRef<FirmaManualRef, FirmaManualProps>(
   (
     {
       isOpen = false,
@@ -54,13 +23,13 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
       titulo = 'Firmar el contrato',
       textoGuardar = 'Guardar firma',
       textoModificar = 'Modificar firma',
-      textoDeshacer = 'Atrás',
+      textoDeshacer = 'Deshacer',
       textoLimpiar = 'Limpiar',
       textoAdjuntar = 'Adjuntar firma',
       ancho = 500,
       alto = 200,
       className,
-      textoConsentimiento = 'Al firmar, confirmo que he leído y acepto todos los términos contractuales, los cuales se vuelven legalmente vinculantes',
+      textoConsentimiento = 'Al firmar, confirmo que he leído y acepto todos los términos contractuales',
       mostrarBotonSubir = false,
       cerrarAlGuardar = false,
     },
@@ -75,6 +44,7 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
       configurarCanvas,
       puedeDeshacer,
     } = useFirmaLogica();
+
     const dialogRef = useRef<HTMLDialogElement>(null);
     const inputArchivoRef = useRef<HTMLInputElement>(null);
     const [aceptoTerminos, setAceptoTerminos] = useState(false);
@@ -99,7 +69,6 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
 
         const esFondoOscuro = detectarModoOscuro();
         const colorFirma = esFondoOscuro ? '#ffffff' : '#000000';
-
         const limpiarEventos = configurarCanvas(colorFirma, !imagenAdjunta);
 
         const observador = new MutationObserver(() => {
@@ -115,7 +84,7 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
 
         observador.observe(document.documentElement, {
           attributes: true,
-          attributeFilter: ['style', 'class'],
+          attributeFilter: ['data-theme'],
         });
 
         return () => {
@@ -125,7 +94,6 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
       }
     }, [isOpen, configurarCanvas, canvasRef, imagenAdjunta]);
 
-    // Manejar apertura/cierre del dialog y prevenir scroll del body
     useEffect(() => {
       const dialog = dialogRef.current;
       if (!dialog) return;
@@ -162,13 +130,9 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
       };
 
       document.addEventListener('keydown', manejarTeclaESC);
-
-      return () => {
-        document.removeEventListener('keydown', manejarTeclaESC);
-      };
+      return () => document.removeEventListener('keydown', manejarTeclaESC);
     }, [isOpen, manejarCerrar]);
 
-    // Cerrar al hacer click en el backdrop (área fuera del modal)
     const manejarClickDialog = useCallback(
       (evento: MouseEvent<HTMLDialogElement>) => {
         const dialog = dialogRef.current;
@@ -188,10 +152,6 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
       [manejarCerrar],
     );
 
-    /**
-     * Save the current signature (image or drawing) and call onConfirm
-     * Only works if terms are accepted. If cerrarAlGuardar is true, it also closes the dialog.
-     */
     const manejarGuardar = () => {
       const datosFirma = obtenerDatosFirma();
       if (datosFirma && onConfirm && aceptoTerminos) {
@@ -203,14 +163,12 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
       }
     };
 
-    /** Modify the signature: unlock the canvas and clear the existing image/strokes */
     const manejarModificar = () => {
       setFirmaGuardada(false);
       setImagenAdjunta(false);
       limpiarCanvas();
     };
 
-    /** Load an image from the provided file input into the canvas and lock drawing */
     const manejarAdjuntarImagen = (evento: ChangeEvent<HTMLInputElement>) => {
       const archivo = evento.target.files?.[0];
       if (!archivo || !canvasRef.current) return;
@@ -262,15 +220,23 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
     if (!isOpen) return null;
 
     return (
-      <dialog ref={dialogRef} className={`${estilos.dialog} ${className || ''}`} onClick={manejarClickDialog}>
+      <dialog
+        ref={dialogRef}
+        className={`${estilos.dialog} ${className || ''}`}
+        onClick={manejarClickDialog}
+        aria-labelledby="firma-titulo"
+        aria-describedby="firma-consentimiento"
+      >
         <div className={estilos.modal}>
-          <div className={estilos.encabezado}>
-            <h2 className={estilos.titulo}>{titulo}</h2>
+          <header className={estilos.encabezado}>
+            <h2 id="firma-titulo" className={estilos.titulo}>
+              {titulo}
+            </h2>
             <button className={estilos.boton_cerrar} onClick={manejarCerrar} type="button" aria-label="Cerrar">
               <span className={estilos.texto_esc}>ESC</span>
               <IconClose className={estilos.icono_x} />
             </button>
-          </div>
+          </header>
 
           <div className={estilos.contenedor_lienzo}>
             <div className={estilos.area_firma}>
@@ -279,33 +245,34 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
                 className={`${estilos.lienzo} ${firmaDeshabilitada ? estilos.lienzo_deshabilitado : ''}`}
                 width={ancho * 2}
                 height={alto * 2}
-                style={{
-                  pointerEvents: firmaDeshabilitada ? 'none' : 'auto',
-                }}
+                style={{ pointerEvents: firmaDeshabilitada ? 'none' : 'auto' }}
+                aria-label="Área de firma"
               />
 
-              <div className={estilos.barra_acciones}>
+              <div className={estilos.barra_acciones} role="toolbar" aria-label="Herramientas de firma">
                 <div className={estilos.grupo_izquierda}>
                   <button
                     className={estilos.boton_accion}
                     onClick={deshacerUltimoTrazo}
                     type="button"
                     disabled={!puedeDeshacer || firmaDeshabilitada}
-                    title={textoDeshacer}
+                    aria-label={textoDeshacer}
                   >
-                    <IconUndo className={estilos.icono} />
-                    {textoDeshacer}
+                    <IconUndo className={estilos.icono} aria-hidden="true" />
+                    <span>{textoDeshacer}</span>
                   </button>
-                  <span className={estilos.separador}>|</span>
+                  <span className={estilos.separador} aria-hidden="true">
+                    |
+                  </span>
                   <button
                     className={estilos.boton_accion}
                     onClick={limpiarCanvas}
                     type="button"
                     disabled={estaVacio || firmaDeshabilitada}
-                    title={textoLimpiar}
+                    aria-label={textoLimpiar}
                   >
-                    <IconTrash className={estilos.icono} />
-                    {textoLimpiar}
+                    <IconTrash className={estilos.icono} aria-hidden="true" />
+                    <span>{textoLimpiar}</span>
                   </button>
                 </div>
                 <button
@@ -327,9 +294,12 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
                 className={estilos.checkbox_nativo}
                 checked={aceptoTerminos}
                 onChange={e => setAceptoTerminos(e.target.checked)}
+                aria-describedby="firma-consentimiento"
               />
-              <span className={estilos.checkbox_custom}></span>
-              <span className={estilos.texto_consentimiento}>{textoConsentimiento}</span>
+              <span className={estilos.checkbox_custom} aria-hidden="true" />
+              <span id="firma-consentimiento" className={estilos.texto_consentimiento}>
+                {textoConsentimiento}
+              </span>
             </label>
           </div>
 
@@ -341,9 +311,10 @@ const FirmaManual = forwardRef<FirmaManualRef, Props>(
                 accept="image/*"
                 className={estilos.input_archivo}
                 onChange={manejarAdjuntarImagen}
+                aria-label="Subir imagen de firma"
               />
               <button className={estilos.boton_subir} onClick={manejarClickAdjuntar} type="button">
-                <IconUpload className={estilos.icono} />
+                <IconUpload className={estilos.icono} aria-hidden="true" />
                 {textoAdjuntar}
               </button>
             </div>

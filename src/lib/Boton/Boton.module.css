@@ -1,41 +1,72 @@
 :where(.boton) {
-  --ease-out-fluid: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-quick: cubic-bezier(0.4, 0, 0.2, 1);
-  --color-dur: 360ms;
-  --shadow-dur: 480ms;
-  --transform-dur: 180ms;
-  --ease-extra-smooth: cubic-bezier(0.2, 0, 0.2, 1);
-  --ripple-duration: 600ms;
-  --ripple-opacity: 0.3;
+  --ease-out-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-ripple: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --color-dur: 200ms;
+  --shadow-dur: 300ms;
+  --ripple-duration: 1200ms;
+  --ripple-opacity: 0.2;
 }
 
 .boton {
   align-items: center;
   appearance: none;
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
+  box-sizing: border-box;
   color: var(--color-primary-text);
-  contain: paint;
+  contain: layout style paint;
   cursor: pointer;
   display: inline-flex;
-  font-size: var(--paragraph);
-  font-weight: 500;
+  font-family: inherit;
+  font-weight: 600;
+  gap: 0.5rem;
   isolation: isolate;
   justify-content: center;
-  line-height: normal;
+  line-height: 1.25;
+  margin: 0;
+  max-inline-size: 100%;
   outline: none;
   overflow: hidden;
   position: relative;
+  text-decoration: none;
+  text-overflow: ellipsis;
   touch-action: manipulation;
-  transition:
-    background-color var(--color-dur) var(--ease-out-fluid),
-    color var(--color-dur) var(--ease-out-fluid),
-    border-color var(--color-dur) var(--ease-out-fluid),
-    box-shadow var(--shadow-dur) var(--ease-out-fluid),
-    opacity 220ms var(--ease-out-fluid),
-    transform var(--transform-dur) var(--ease-quick);
+  transform: translateZ(0);
+  transition-duration: var(--color-dur), var(--color-dur), var(--color-dur), var(--shadow-dur), 200ms, 100ms;
+  transition-property: background-color, color, border-color, box-shadow, opacity, transform;
+  transition-timing-function: var(--ease-out-fluid);
   user-select: none;
   vertical-align: middle;
+  white-space: nowrap;
+  will-change: transform, box-shadow;
+}
+
+.boton::after {
+  content: '';
+  height: 100%;
+  left: 50%;
+  min-height: 44px;
+  min-width: 44px;
+  pointer-events: auto;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: -1;
+}
+
+.boton:focus {
+  outline: none;
+}
+
+.boton:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--btn-color), white 20%);
+  outline-offset: 2px;
+  z-index: 10;
+}
+
+.tap_animation:active:not(:disabled, .loading) {
+  transform: scale(0.97);
 }
 
 .inner {
@@ -43,39 +74,40 @@
   display: inline-flex;
   gap: 0.5rem;
   justify-content: center;
+  max-inline-size: 100%;
+  pointer-events: none;
   position: relative;
   z-index: 1;
 }
 
 .start,
 .end,
-.label,
 .spinner {
   align-items: center;
   display: inline-flex;
+  flex-shrink: 0;
   justify-content: center;
-}
-
-.start,
-.end {
-  font-size: 1em;
-  line-height: 1;
 }
 
 .start :where(svg, img),
 .end :where(svg, img) {
-  block-size: 1em;
+  block-size: 1.125em;
   display: block;
   flex: 0 0 auto;
-  inline-size: 1em;
+  inline-size: 1.125em;
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ripple {
-  animation: rippleEffect var(--ripple-duration) var(--ease-extra-smooth) forwards;
-  background-color: color-mix(in srgb, currentcolor 80%, transparent);
+  animation: rippleEffect var(--ripple-duration) var(--ease-ripple) forwards;
+  background-color: currentcolor;
   border-radius: 50%;
   contain: strict;
-  opacity: var(--ripple-opacity);
   pointer-events: none;
   position: absolute;
   transform: translate(-50%, -50%) scale(0);
@@ -84,43 +116,103 @@
 }
 
 @keyframes rippleEffect {
-  to {
+  0% {
+    opacity: var(--ripple-opacity);
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  40% {
+    opacity: var(--ripple-opacity);
+  }
+
+  100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(2.5);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .ripple {
-    animation-duration: 300ms;
-    opacity: 0.18;
-  }
+.shadow {
+  background-color: var(--btn-color);
+  border-color: var(--btn-color);
+  box-shadow:
+    0 4px 6px -1px color-mix(in oklab, var(--btn-shadow-color) 40%, transparent),
+    0 2px 4px -1px color-mix(in oklab, var(--btn-shadow-color) 20%, transparent);
+  color: white;
 }
 
-.tap_animation {
-  will-change: transform;
+.shadow:hover:not(:disabled, .loading) {
+  background-color: color-mix(in oklab, var(--btn-color) 92%, white 8%);
+  box-shadow:
+    0 6px 8px -1px color-mix(in oklab, var(--btn-shadow-color) 50%, transparent),
+    0 3px 6px -1px color-mix(in oklab, var(--btn-shadow-color) 30%, transparent);
 }
 
-.tap_animation:active:not(:disabled) {
-  transform: scale(0.98);
+.shadow:active:not(:disabled, .loading) {
+  box-shadow:
+    0 2px 3px -1px color-mix(in oklab, var(--btn-shadow-color) 50%, transparent),
+    0 1px 2px 0 color-mix(in oklab, var(--btn-shadow-color) 30%, transparent);
 }
 
-.boton:focus-visible {
-  outline: 3px solid color-mix(in oklab, var(--btn-color), white 20%);
-  outline-offset: 2px;
+.solid {
+  background-color: var(--btn-color);
+  border-color: var(--btn-color);
+  color: white;
 }
 
-.boton:focus:not(:focus-visible) {
-  outline: none;
+.solid:hover:not(:disabled, .loading) {
+  background-color: color-mix(in oklab, var(--btn-color) 90%, white 10%);
+}
+
+.bordered {
+  background: transparent;
+  border-color: var(--btn-text-color);
+  color: var(--btn-text-color);
+}
+
+.bordered:hover:not(:disabled, .loading) {
+  background-color: color-mix(in oklab, var(--btn-text-color) 5%, transparent);
+}
+
+.ghost {
+  background: transparent;
+  border-color: var(--btn-text-color);
+  color: var(--btn-text-color);
+}
+
+.ghost:hover:not(:disabled, .loading) {
+  background-color: var(--btn-color);
+  border-color: var(--btn-color);
+  color: white;
+}
+
+.light {
+  background: transparent;
+  border-color: transparent;
+  color: var(--btn-text-color);
+}
+
+.light:hover:not(:disabled, .loading) {
+  background-color: color-mix(in oklab, var(--btn-text-color) 8%, transparent);
+}
+
+.faded {
+  background-color: var(--theme-faded-bg);
+  border-color: var(--theme-faded-border);
+  color: var(--btn-text-color);
+}
+
+.faded:hover:not(:disabled, .loading) {
+  background-color: color-mix(in oklab, var(--btn-text-color) 10%, var(--theme-faded-bg));
 }
 
 .spinner {
+  flex-shrink: 0;
   height: 1em;
   width: 1em;
 }
 
 .modern_spinner {
-  animation: spinnerRotate 1s infinite linear;
+  animation: spinnerRotate 0.8s infinite linear;
   background:
     radial-gradient(farthest-side, currentcolor 94%, transparent) top/0.16em 0.16em no-repeat,
     conic-gradient(transparent 30%, currentcolor);
@@ -138,58 +230,59 @@
 }
 
 .loading {
-  cursor: progress;
-  opacity: 0.7;
   pointer-events: none;
 }
 
+.only_loading .inner > *:not(.spinner) {
+  display: none;
+}
+
 .disabled {
-  cursor: not-allowed;
   opacity: 0.5;
   pointer-events: none;
 }
 
 .full_width {
-  width: 100%;
+  inline-size: 100%;
+}
+
+.sm {
+  block-size: 2rem;
+  font-size: 0.875rem;
+  min-inline-size: 5rem;
+  padding-inline: 0.75rem;
+}
+
+.md {
+  block-size: 2.25rem;
+  font-size: 0.875rem;
+  min-inline-size: 6.5rem;
+  padding-inline: 1rem;
+}
+
+.lg {
+  block-size: 2.75rem;
+  font-size: 1rem;
+  min-inline-size: 8rem;
+  padding-inline: 1.5rem;
 }
 
 .icon_only {
-  align-items: center;
   aspect-ratio: 1;
-  display: inline-flex;
-  inline-size: var(--icon-size, 2.5rem);
-  justify-content: center;
+  min-inline-size: 0 !important;
   padding: 0 !important;
 }
 
 .icon_only.sm {
-  --icon-size: 2.25rem;
+  inline-size: 2rem;
 }
 
 .icon_only.md {
-  --icon-size: 2.5rem;
+  inline-size: 2.25rem;
 }
 
 .icon_only.lg {
-  --icon-size: 2.75rem;
-}
-
-.sm {
-  font-size: 0.875rem;
-  padding-block: var(--gaps-1);
-  padding-inline: var(--gaps-3);
-}
-
-.md {
-  font-size: var(--paragraph);
-  padding-block: var(--gaps-2);
-  padding-inline: var(--gaps-4);
-}
-
-.lg {
-  font-size: var(--subtitle);
-  padding-block: var(--gaps-2);
-  padding-inline: var(--gaps-5);
+  inline-size: 2.75rem;
 }
 
 .radius_none {
@@ -197,147 +290,53 @@
 }
 
 .radius_sm {
-  border-radius: var(--radius-1);
+  border-radius: calc(var(--radius-md, 0.5rem) - 2px);
 }
 
 .radius_md {
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-md, 0.5rem);
 }
 
 .radius_lg {
-  border-radius: var(--radius-3);
+  border-radius: var(--radius-lg, 0.75rem);
 }
 
 .radius_full {
-  border-radius: var(--radius-round);
-}
-
-.solid {
-  background-color: var(--btn-color);
-  color: white;
-}
-
-.bordered {
-  background: transparent;
-  border: 2px solid var(--btn-text-color);
-  color: var(--btn-text-color);
-}
-
-.ghost {
-  background: transparent;
-  border: 2px solid var(--btn-text-color);
-  color: var(--btn-text-color);
-  opacity: 0.9;
-}
-
-.light {
-  background: transparent;
-  border: none;
-  color: var(--btn-text-color);
-}
-
-.faded {
-  background-color: var(--theme-faded-bg);
-  border: 2px solid var(--theme-faded-border);
-  color: var(--btn-text-color);
-}
-
-.shadow {
-  background-color: var(--btn-color);
-  box-shadow:
-    0 12px 18px -10px color-mix(in oklab, var(--btn-shadow-color) 45%, transparent),
-    0 16px 36px -14px color-mix(in oklab, var(--btn-shadow-color) 35%, transparent);
-  color: white;
-}
-
-.solid:hover:not(:disabled, .loading),
-.shadow:hover:not(:disabled, .loading) {
-  background-color: color-mix(in oklab, var(--btn-color) 96%, white 4%);
-}
-
-.shadow:hover:not(:disabled, .loading) {
-  box-shadow:
-    0 12px 24px -12px color-mix(in oklab, var(--btn-shadow-color) 95%, transparent),
-    0 22px 44px -18px color-mix(in oklab, var(--btn-shadow-color) 45%, transparent);
-}
-
-.bordered:hover:not(:disabled, .loading) {
-  border-color: color-mix(in oklab, var(--btn-text-color) 86%, transparent);
-}
-
-.ghost:hover:not(:disabled, .loading) {
-  background-color: color-mix(in oklab, var(--btn-text-color) 8%, transparent);
-  border-color: color-mix(in oklab, var(--btn-text-color) 86%, transparent);
-  color: var(--btn-text-color);
-  opacity: 1;
-}
-
-.light:hover:not(:disabled, .loading) {
-  background-color: color-mix(in oklab, var(--btn-text-color) 15%, transparent);
-  color: var(--btn-text-color);
-}
-
-.faded:hover:not(:disabled, .loading) {
-  background-color: color-mix(in oklab, var(--btn-text-color) 10%, var(--theme-faded-bg));
-  border-color: color-mix(in oklab, var(--btn-text-color) 32%, var(--theme-faded-border));
-}
-
-.shadow:active:not(:disabled, .loading) {
-  box-shadow:
-    0 8px 18px -12px color-mix(in oklab, var(--btn-shadow-color) 60%, transparent),
-    0 16px 34px -20px color-mix(in oklab, var(--btn-shadow-color) 50%, transparent);
+  border-radius: 9999px;
 }
 
 .primary {
   --btn-color: var(--brand-6);
   --btn-text-color: light-dark(var(--brand-6), var(--brand-4));
-  --btn-color-foreground: var(--base);
-  --btn-color-light: var(--brand-1);
-  --btn-color-faded: var(--brand-4);
   --btn-shadow-color: var(--brand-6);
 }
 
 .secondary {
   --btn-color: #3d6b0c;
   --btn-text-color: light-dark(#3d6b0c, var(--brand-4-secondary));
-  --btn-color-foreground: var(--base);
-  --btn-color-light: var(--brand-1-secondary);
-  --btn-color-faded: #3d6b0c;
   --btn-shadow-color: #3d6b0c;
 }
 
 .success {
   --btn-color: #246f2e;
   --btn-text-color: light-dark(#246f2e, var(--color-add-green-4));
-  --btn-color-foreground: var(--base);
-  --btn-color-light: var(--color-add-green-1);
-  --btn-color-faded: #246f2e;
   --btn-shadow-color: #246f2e;
 }
 
 .warning {
   --btn-color: #a04d00;
   --btn-text-color: light-dark(#a04d00, var(--color-add-orange-4));
-  --btn-color-foreground: var(--base);
-  --btn-color-light: var(--color-add-orange-1);
-  --btn-color-faded: #a04d00;
   --btn-shadow-color: #a04d00;
 }
 
 .danger {
   --btn-color: var(--color-add-red-6);
   --btn-text-color: light-dark(var(--color-add-red-6), var(--color-add-red-4));
-  --btn-color-foreground: var(--base);
-  --btn-color-light: var(--color-add-red-1);
-  --btn-color-faded: var(--color-add-red-5);
   --btn-shadow-color: var(--color-add-red-6);
 }
 
 .default {
   --btn-color: var(--gray-6);
   --btn-text-color: light-dark(var(--gray-6), var(--gray-4));
-  --btn-color-foreground: var(--base);
-  --btn-color-light: var(--gray-2);
-  --btn-color-faded: var(--gray-5);
   --btn-shadow-color: var(--gray-6);
 }

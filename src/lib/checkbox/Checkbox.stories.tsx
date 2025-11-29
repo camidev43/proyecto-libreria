@@ -1,315 +1,302 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
 import { useState } from 'react';
 
+import { Checkbox } from './Checkbox';
 import { CheckboxGroup } from './CheckboxGroup';
-import { CheckboxGroupCustom } from './CheckboxGroupCustom';
-import type { Option, CheckboxGroupProps } from './types';
 
-const opciones: Option[] = [
-  { value: 'uno', label: 'Uno', descripcion: 'Primera opción' },
-  { value: 'dos', label: 'Dos', descripcion: 'Segunda opción' },
-  { value: 'tres', label: 'Tercera opción' },
-];
-
-const meta: Meta<typeof CheckboxGroup> = {
+const meta: Meta<typeof Checkbox> = {
   title: 'Componentes/Checkbox',
-  component: CheckboxGroup,
+  component: Checkbox,
   parameters: {
     layout: 'centered',
-    docs: {
-      description: {
-        component:
-          'Componente para selección múltiple con soporte para orientación, estilos, límites y renderizado custom.',
-      },
-    },
   },
-  decorators: [
-    Story => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: 320,
-          width: 520,
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
-  argTypes: {
-    options: {
-      control: 'object',
-      description: 'Lista de opciones',
-      table: { type: { summary: 'Array<Option>' } },
-    },
-    value: {
-      control: 'object',
-      description: 'Lista de valores seleccionados (modo controlado)',
-      table: { type: { summary: 'string[]' } },
-    },
-    onChange: {
-      action: 'onChange',
-      description: 'Se dispara con el array de seleccionados',
-      table: { type: { summary: '(values: string[]) => void' } },
-    },
-    label: { control: 'text', description: 'Etiqueta del grupo' },
-    orientation: {
-      control: { type: 'radio' },
-      options: ['vertical', 'horizontal'],
-      description: 'Dirección de renderizado',
-      table: { defaultValue: { summary: 'vertical' } },
-    },
-    disabled: { control: 'boolean', description: 'Deshabilita todo el grupo' },
-    readOnly: { control: 'boolean', description: 'Solo lectura (bloquea cambios)' },
-    required: { control: 'boolean', description: 'Marca el grupo como requerido' },
-    relleno: {
-      control: 'boolean',
-      description: 'Usa checkbox con relleno (nativo) vs. SVG custom',
-    },
-    tachado: { control: 'boolean', description: 'Tacha el label cuando está seleccionado' },
-    lineaMitad: { control: 'boolean', description: 'Dibuja separador entre opciones' },
-    maxSelecionados: {
-      control: { type: 'number', min: 1, step: 1 },
-      description: 'Límite máximo de opciones seleccionadas',
-      table: { type: { summary: 'number' } },
-    },
-    color: { control: 'color', description: 'Color principal (check/halo)' },
-    borderColor: { control: 'color', description: 'Color del borde del checkbox' },
-    size: {
-      control: 'text',
-      description: 'Tamaño del checkbox (e.g. 18px, 22px)',
-      table: { type: { summary: 'CSSSize' } },
-    },
-    radius: {
-      control: 'text',
-      description: 'Radio del checkbox (e.g. 6px, var(--radius-2))',
-      table: { type: { summary: 'CSSSize' } },
-    },
-    className: { control: false },
-    classInterna: { control: false },
-  },
-  args: {
-    options: opciones,
-    orientation: 'vertical',
-    relleno: true,
-    label: 'Elige opciones',
-  },
+  tags: ['autodocs'],
 };
+
 export default meta;
+type Story = StoryObj<typeof Checkbox>;
 
-type Story = StoryObj<typeof CheckboxGroup>;
-
-type Args = Partial<CheckboxGroupProps> & { onChange?: (vals: string[]) => void } & Record<string, unknown>;
-
-export const Basico: Story = {
-  args: { options: opciones, label: 'Básico' },
-};
-
-export const Horizontal: Story = {
-  args: { options: opciones, orientation: 'horizontal', label: 'Horizontal', lineaMitad: true },
-};
-
-export const Deshabilitado: Story = {
-  args: { options: opciones, disabled: true, label: 'Deshabilitado' },
-};
-
-export const ConRelleno: Story = {
-  args: { options: opciones, relleno: true, label: 'Con relleno (input nativo)' },
-};
-
-export const SinRelleno: Story = {
-  args: { options: opciones, relleno: false, label: 'Sin relleno (SVG custom)' },
-};
-
-export const ConColor: Story = {
+export const Default: Story = {
   args: {
-    options: opciones,
-    color: '#4caf50',
-    borderColor: '#9ccc65',
-    label: 'Color personalizado',
+    children: 'Accept terms and conditions',
   },
 };
 
-export const ConTachado: Story = {
-  args: { options: opciones, tachado: true, label: 'Tachar al seleccionar' },
-};
-
-export const LimiteSeleccion: Story = {
-  args: { options: opciones, maxSelecionados: 2, label: 'Máximo 2 seleccionados' },
-};
-
-export const Requerido: Story = {
-  args: { options: opciones, required: true, label: 'Requerido' },
-};
-
-export const Controlado: Story = {
-  name: 'Modo controlado',
-  render: (args: Args) => {
-    const [vals, setVals] = useState<string[]>(['uno']);
-    return (
-      <CheckboxGroup
-        {...(args as CheckboxGroupProps)}
-        value={vals}
-        onChange={(v: string[]) => {
-          setVals(v);
-          args.onChange?.(v); // Actions
-        }}
-        label={`Seleccionados: ${vals.join(', ') || 'ninguno'}`}
-      />
-    );
+export const Checked: Story = {
+  args: {
+    children: 'Checked checkbox',
+    defaultChecked: true,
   },
 };
 
-/** A11y: agrega semántica accesible alrededor para que axe lo evalúe mejor */
-export const Accesible: Story = {
-  name: 'Accesible (role & aria-labelledby)',
-  render: (args: Args) => {
-    const headingId = 'chk-heading';
-    return (
-      <div role="group" aria-labelledby={headingId}>
-        <h3 id={headingId} style={{ fontSize: 16, margin: '8px 0' }}>
-          Preferencias
-        </h3>
-        <CheckboxGroup {...(args as CheckboxGroupProps)} label={undefined} />
-      </div>
-    );
-  },
-  args: { options: opciones },
-  parameters: {
-    a11y: {
-      // puedes habilitar/deshabilitar reglas específicas si quieres
-      // config: { rules: [{ id: 'color-contrast', enabled: true }] },
-    },
+export const Disabled: Story = {
+  args: {
+    children: 'Disabled checkbox',
+    isDisabled: true,
   },
 };
 
-/** Interactions: demostra el flujo con play() y el panel Interactions */
-export const Interactivo: Story = {
-  name: 'Interactivo (play)',
-  args: { options: opciones, label: 'Interactivo' },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  play: async ({ canvasElement, step }: any) => {
-    const canvas = within(canvasElement as unknown as HTMLElement);
-
-    await step('Marca "dos" y "tres"', async () => {
-      const dos = canvas.getByRole('checkbox', { name: /dos/i });
-      const tres = canvas.getByRole('checkbox', { name: /tercera/i });
-      await userEvent.click(dos);
-      await userEvent.click(tres);
-      await expect(dos).toBeChecked();
-      await expect(tres).toBeChecked();
-    });
-
-    await step('Desmarca "dos"', async () => {
-      const dos = canvas.getByRole('checkbox', { name: /dos/i });
-      await userEvent.click(dos);
-      await expect(dos).not.toBeChecked();
-    });
+export const DisabledChecked: Story = {
+  args: {
+    children: 'Disabled checked',
+    isDisabled: true,
+    defaultChecked: true,
   },
 };
 
-/** Interactions + A11y de teclado: TAB y Space */
-export const Teclado: Story = {
-  name: 'Accesibilidad por teclado',
-  args: { options: opciones, label: 'Con teclado' },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  play: async ({ canvasElement, step }: any) => {
-    const c = within(canvasElement as unknown as HTMLElement);
-    const primero = c.getByRole('checkbox', { name: /uno/i });
-
-    await step('Foco al primer checkbox', async () => {
-      await userEvent.tab();
-      await expect(primero).toHaveFocus();
-    });
-
-    await step('Activar con Space', async () => {
-      await userEvent.keyboard('[Space]');
-      await expect(primero).toBeChecked();
-    });
+export const ReadOnly: Story = {
+  args: {
+    children: 'Read only checkbox',
+    isReadOnly: true,
+    defaultChecked: true,
   },
 };
 
-export const CustomRender: Story = {
-  name: 'Custom (CheckboxGroupCustom)',
+export const Indeterminate: Story = {
+  args: {
+    children: 'Indeterminate state',
+    isIndeterminate: true,
+  },
+};
+
+export const Sizes: Story = {
   render: () => (
-    <CheckboxGroupCustom
-      opciones={opciones}
-      onChange={vals => {
-        // lo verás en la consola del iframe y en Actions si conectas args.onChange
-        console.log('onChange', vals);
-      }}
-    >
-      {(
-        opcion: Option,
-        { checked, alternar, disabled }: { checked: boolean; alternar: () => void; disabled: boolean },
-      ) => (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 30,
-            background: checked
-              ? 'color-mix(in srgb, var(--brand-primary, #4caf50) 10%, var(--background, #fff) 90%)'
-              : 'var(--background, #fff)',
-            border: checked ? '2px solid var(--brand-primary, #4caf50)' : '1px solid var(--surface-third, #bbb)',
-            borderRadius: 12,
-            padding: '14px 22px',
-            margin: '14px 0',
-            boxShadow: checked
-              ? '0 2px 8px 0 color-mix(in srgb, var(--brand-primary, #4caf50) 12%, transparent)'
-              : '0 1px 4px 0 color-mix(in srgb, var(--surface-third, #bbb) 12%, transparent)',
-            transition: 'all 0.2s',
-            cursor: disabled ? 'not-allowed' : 'pointer',
-            minWidth: 260,
-            width: 420,
-          }}
-        >
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={alternar}
-            disabled={disabled}
-            aria-label={opcion.label}
-            style={{
-              accentColor: 'var(--brand-primary, #4caf50)',
-              width: 22,
-              height: 22,
-              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.07))',
-            }}
-          />
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span
-              style={{
-                fontWeight: 600,
-                fontSize: 17,
-                color: disabled ? 'var(--text-disabled, #aaa)' : 'var(--text-primary, #222)',
-                letterSpacing: 0.1,
-              }}
-            >
-              {opcion.label}
-            </span>
-            {opcion.descripcion && (
-              <span style={{ fontSize: 13.5, color: 'var(--text-secondary, #666)', marginTop: 3 }}>
-                {opcion.descripcion}
-              </span>
-            )}
-          </div>
-        </div>
-      )}
-    </CheckboxGroupCustom>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <Checkbox size="sm" defaultChecked>
+        Small checkbox
+      </Checkbox>
+      <Checkbox size="md" defaultChecked>
+        Medium checkbox
+      </Checkbox>
+      <Checkbox size="lg" defaultChecked>
+        Large checkbox
+      </Checkbox>
+    </div>
   ),
 };
 
-export const Playground: Story = {
+export const Colors: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <Checkbox color="primary" defaultChecked>
+        Primary
+      </Checkbox>
+      <Checkbox color="secondary" defaultChecked>
+        Secondary
+      </Checkbox>
+      <Checkbox color="success" defaultChecked>
+        Success
+      </Checkbox>
+      <Checkbox color="warning" defaultChecked>
+        Warning
+      </Checkbox>
+      <Checkbox color="danger" defaultChecked>
+        Danger
+      </Checkbox>
+    </div>
+  ),
+};
+
+export const RadiusVariants: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <Checkbox radius="none" defaultChecked>
+        No radius
+      </Checkbox>
+      <Checkbox radius="sm" defaultChecked>
+        Small radius
+      </Checkbox>
+      <Checkbox radius="md" defaultChecked>
+        Medium radius
+      </Checkbox>
+      <Checkbox radius="lg" defaultChecked>
+        Large radius
+      </Checkbox>
+      <Checkbox radius="full" defaultChecked>
+        Full radius
+      </Checkbox>
+    </div>
+  ),
+};
+
+export const LineThrough: Story = {
   args: {
-    options: opciones,
-    orientation: 'vertical',
-    label: 'Playground',
-    relleno: true,
-    lineaMitad: false,
-    tachado: false,
+    children: 'Task completed',
+    lineThrough: true,
+    defaultChecked: true,
   },
+};
+
+export const OnlyIcon: Story = {
+  args: {
+    onlyIcon: true,
+    defaultChecked: true,
+  },
+};
+
+export const DisableAnimation: Story = {
+  args: {
+    children: 'No animation',
+    disableAnimation: true,
+  },
+};
+
+export const WithoutLabel: Story = {
+  args: {
+    defaultChecked: true,
+  },
+};
+
+export const VerticalGroup: Story = {
+  render: () => {
+    const [selected, setSelected] = useState<string[]>([]);
+
+    return (
+      <CheckboxGroup
+        label="Vertical Group (Radius LG)"
+        description="Select your preferred options"
+        orientation="vertical"
+        value={selected}
+        onChange={setSelected}
+      >
+        <Checkbox value="option1" radius="lg">
+          Option 1
+        </Checkbox>
+        <Checkbox value="option2" radius="lg">
+          Option 2
+        </Checkbox>
+        <Checkbox value="option3" radius="lg">
+          Option 3
+        </Checkbox>
+      </CheckboxGroup>
+    );
+  },
+};
+
+export const HorizontalGroup: Story = {
+  render: () => {
+    const [selected, setSelected] = useState<string[]>([]);
+
+    return (
+      <CheckboxGroup
+        label="Horizontal Group (Primary)"
+        orientation="horizontal"
+        value={selected}
+        onChange={setSelected}
+      >
+        <Checkbox value="h1">H1</Checkbox>
+        <Checkbox value="h2">H2</Checkbox>
+        <Checkbox value="h3">H3</Checkbox>
+      </CheckboxGroup>
+    );
+  },
+};
+
+export const GroupWithError: Story = {
+  render: () => {
+    const [selected, setSelected] = useState<string[]>([]);
+
+    return (
+      <CheckboxGroup
+        label="Terms acceptance"
+        isInvalid={selected.length === 0}
+        errorMessage="You must accept the terms and conditions"
+        orientation="vertical"
+        value={selected}
+        onChange={setSelected}
+      >
+        <Checkbox value="terms">I accept terms and conditions</Checkbox>
+        <Checkbox value="privacy">I accept privacy policy</Checkbox>
+      </CheckboxGroup>
+    );
+  },
+};
+
+export const DisabledGroup: Story = {
+  render: () => (
+    <CheckboxGroup label="Disabled Group" isDisabled orientation="vertical">
+      <Checkbox value="opt1">Option 1</Checkbox>
+      <Checkbox value="opt2">Option 2</Checkbox>
+      <Checkbox value="opt3">Option 3</Checkbox>
+    </CheckboxGroup>
+  ),
+};
+
+export const AllStates: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', padding: '2rem' }}>
+      <div>
+        <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary-text)' }}>Basic States</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <Checkbox>Unchecked</Checkbox>
+          <Checkbox defaultChecked>Checked</Checkbox>
+          <Checkbox isDisabled>Disabled Unchecked</Checkbox>
+          <Checkbox isDisabled defaultChecked>
+            Disabled Checked
+          </Checkbox>
+          <Checkbox isReadOnly defaultChecked>
+            Read Only (Checked)
+          </Checkbox>
+          <Checkbox isIndeterminate>Indeterminate</Checkbox>
+        </div>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary-text)' }}>Sizes</h3>
+        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+          <Checkbox size="sm" defaultChecked>
+            Small
+          </Checkbox>
+          <Checkbox size="md" defaultChecked>
+            Medium
+          </Checkbox>
+          <Checkbox size="lg" defaultChecked>
+            Large
+          </Checkbox>
+        </div>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary-text)' }}>Colors</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+          <Checkbox color="primary" defaultChecked>
+            Primary
+          </Checkbox>
+          <Checkbox color="secondary" defaultChecked>
+            Secondary
+          </Checkbox>
+          <Checkbox color="success" defaultChecked>
+            Success
+          </Checkbox>
+          <Checkbox color="warning" defaultChecked>
+            Warning
+          </Checkbox>
+          <Checkbox color="danger" defaultChecked>
+            Danger
+          </Checkbox>
+        </div>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary-text)' }}>Radius</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+          <Checkbox radius="none" defaultChecked>
+            None
+          </Checkbox>
+          <Checkbox radius="sm" defaultChecked>
+            Small
+          </Checkbox>
+          <Checkbox radius="md" defaultChecked>
+            Medium
+          </Checkbox>
+          <Checkbox radius="lg" defaultChecked>
+            Large
+          </Checkbox>
+          <Checkbox radius="full" defaultChecked>
+            Full
+          </Checkbox>
+        </div>
+      </div>
+    </div>
+  ),
 };

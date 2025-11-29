@@ -1,7 +1,6 @@
 .dialog {
-  /* Fullscreen dialog container that centers the modal */
   align-items: center;
-  background: transparent; /* overlay handled by ::backdrop */
+  background: transparent;
   border: none;
   display: flex;
   height: 100vh;
@@ -183,13 +182,11 @@
   color: light-dark(#005a9e, #6bb0ff);
 }
 
-/* Iconos SVG */
 .icono {
   height: 1rem;
   width: 1rem;
 }
 
-/* Contenedor de consentimiento con background diferente */
 .contenedor_consentimiento {
   background: light-dark(#f5f5f5, #1a1a1a);
   border-radius: 0.875rem;
@@ -197,7 +194,6 @@
   padding: 1.25rem 1.5rem;
 }
 
-/* Checkbox personalizado estilo toggle mejorado */
 .contenedor_checkbox {
   align-items: center;
   cursor: pointer;
@@ -254,7 +250,6 @@
   margin: 0;
 }
 
-/* Contenedor de subir firma */
 .contenedor_subir {
   margin-bottom: 1.5rem;
   padding: 0 1.5rem;
@@ -282,9 +277,8 @@
   display: none;
 }
 
-/* Responsive */
 @media (width <= 48rem) {
-  .dialog {
+  .modal {
     max-height: 95vh;
     width: 95vw;
   }

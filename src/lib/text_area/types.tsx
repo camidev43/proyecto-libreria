@@ -31,10 +31,7 @@ export type TextAreaProps = {
   isInvalid?: boolean;
   validationState?: 'valid' | 'invalid';
   description?: ReactNode;
-
-  // Tipado estricto para errorMessage
   errorMessage?: ReactNode | ((v: { invalido: boolean; mensaje: string | null }) => ReactNode);
-
   validate?: (value: string) => ValidationResult;
 
   minRows?: number;

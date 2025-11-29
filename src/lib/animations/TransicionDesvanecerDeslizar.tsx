@@ -2,12 +2,14 @@ import type React from 'react';
 import { useState, type HTMLAttributes } from 'react';
 import './transiciones.css';
 
-type Props = {
+export function TransicionDesvanecerDeslizar({
+  mostrar,
+  children,
+  ...resto
+}: {
   mostrar: boolean;
   children: React.ReactNode;
-} & HTMLAttributes<HTMLDivElement>;
-
-export function TransicionDesvanecerDeslizar({ mostrar, children, ...resto }: Props) {
+} & HTMLAttributes<HTMLDivElement>) {
   const [mounted, setMounted] = useState(mostrar);
   const [animationState, setAnimationState] = useState<'entering' | 'exiting' | null>(mostrar ? 'entering' : null);
 
@@ -18,7 +20,7 @@ export function TransicionDesvanecerDeslizar({ mostrar, children, ...resto }: Pr
     setAnimationState('exiting');
   }
 
-  const handleAnimationEnd = () => {
+  const manejarAnimacionFinal = () => {
     if (animationState === 'entering') {
       setAnimationState(null);
     } else if (animationState === 'exiting') {
@@ -32,7 +34,7 @@ export function TransicionDesvanecerDeslizar({ mostrar, children, ...resto }: Pr
   return (
     <div
       {...resto}
-      onAnimationEnd={handleAnimationEnd}
+      onAnimationEnd={manejarAnimacionFinal}
       className={
         animationState === 'entering'
           ? 'transicion_desvanecer_deslizar_entrada'

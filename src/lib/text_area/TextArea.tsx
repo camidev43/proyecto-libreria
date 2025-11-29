@@ -21,8 +21,7 @@ import type { TextAreaProps, ResultadoValidacion } from './types';
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
   const {
     children,
-    variant = 'flat',
-    color = 'default',
+    variant = 'default',
     size = 'md',
     radius = 'md',
     label,
@@ -30,8 +29,6 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
     value,
     defaultValue,
     placeholder,
-    startContent,
-    endContent,
     isRequired = false,
     isReadOnly,
     isDisabled = false,
@@ -96,9 +93,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
   }, [disableAutosize, minRows, maxRows]);
 
   useEffect(() => {
-    if (!disableAutosize) {
-      redimensionar();
-    }
+    if (!disableAutosize) redimensionar();
   }, [val, redimensionar, disableAutosize]);
 
   useImperativeHandle(ref, () => taRef.current as HTMLTextAreaElement);
@@ -143,24 +138,21 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
     if (!esControlado) setValorInterno('');
     onChange?.('');
     onClear?.();
-    requestAnimationFrame(() => {
-      taRef.current?.focus();
-    });
+    taRef.current?.focus();
   }, [esControlado, isDisabled, isReadOnly, onChange, onClear]);
 
-  const handleEscuchar = useCallback(() => {
+  const alternarEscuchar = useCallback(() => {
     if (hablando) detenerHablar();
     else escuchar();
   }, [hablando, escuchar, detenerHablar]);
 
-  const handleDictar = useCallback(() => {
+  const alternarDictar = useCallback(() => {
     if (escuchando) detenerDictado();
     else dictar();
   }, [escuchando, dictar, detenerDictado]);
 
   const errorSlot = typeof errorMessage === 'function' ? errorMessage(validacion) : (errorMessage ?? errorInterno);
   const mostrarLimpiar = isClearable && !!val && !isReadOnly && !isDisabled;
-  const hayBadge = escuchando || hablando;
 
   const descId = description ? `${inputId}-desc` : undefined;
   const errId = errorSlot || errorDictado ? `${inputId}-err` : undefined;
@@ -169,7 +161,6 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
   const clasesBase = clsx(
     estilos.contenedor_base,
     estilos[`variante_${variant}`],
-    estilos[`color_${color}`],
     estilos[`tam_${size}`],
     estilos[`radio_${radius}`],
     fullWidth && estilos.ancho_total,
@@ -180,118 +171,100 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
     classNames?.base,
   );
 
-  const renderAcciones = () => (
-    <div className={estilos.acciones_header}>
-      <button
-        type="button"
-        className={clsx(estilos.boton_tts, hablando && estilos.boton_activo)}
-        onClick={handleEscuchar}
-        disabled={!puedeHablar || (!hablando && (!val || escuchando))}
-        title={hablando ? 'Detener lectura' : 'Leer texto'}
-        aria-pressed={hablando}
-        tabIndex={-1}
-      >
-        <SonidoIcono />
-      </button>
-
-      {puedeEscuchar && (
-        <button
-          type="button"
-          className={clsx(estilos.boton_tts, escuchando && estilos.boton_activo_mic)}
-          onClick={handleDictar}
-          disabled={isDisabled || isReadOnly || hablando}
-          title={escuchando ? 'Detener dictado' : 'Dictar texto'}
-          aria-pressed={escuchando}
-          tabIndex={-1}
-        >
-          {escuchando ? <GrabacionIcono color="red" /> : <MicrofonoIcono />}
-        </button>
-      )}
-
-      {mostrarLimpiar && (
-        <button
-          type="button"
-          className={estilos.boton_limpiar}
-          onClick={limpiar}
-          title="Borrar contenido"
-          aria-label="Borrar contenido"
-          tabIndex={-1}
-        >
-          ×
-        </button>
-      )}
-    </div>
-  );
-
-  const renderBadges = () => (
-    <>
-      <TransicionDesvanecerDeslizar mostrar={escuchando}>
-        <BadgeVoz tipo="mic" texto="Escuchando..." size={size === 'lg' ? 'md' : 'sm'} />
-      </TransicionDesvanecerDeslizar>
-      <TransicionDesvanecerDeslizar mostrar={hablando}>
-        <BadgeVoz tipo="tts" texto="Leyendo..." size={size === 'lg' ? 'md' : 'sm'} />
-      </TransicionDesvanecerDeslizar>
-    </>
-  );
-
   return (
     <div className={clasesBase}>
-      <div className={estilos.fila_acciones}>
+      <div className={estilos.fila_header}>
         {label && (
-          <label className={clsx(estilos.etiqueta, estilos.etiqueta_externa, classNames?.label)} htmlFor={inputId}>
-            {label}{' '}
+          <label className={clsx(estilos.etiqueta, classNames?.label)} htmlFor={inputId}>
+            {label}
             {isRequired && (
               <span className={estilos.marca_requerido} aria-hidden="true">
+                {' '}
                 *
               </span>
             )}
           </label>
         )}
 
-        <div className={estilos.acciones_grupo}>
-          {renderAcciones()}
-          <div
-            className={clsx(estilos.badges_wrap, hayBadge && estilos.badges_wrap_visible)}
-            aria-live="polite"
-            role="status"
-          >
-            {renderBadges()}
+        <div className={estilos.grupo_derecha}>
+          <div className={estilos.badges_contenedor} aria-live="polite" role="status">
+            <TransicionDesvanecerDeslizar mostrar={escuchando}>
+              <BadgeVoz tipo="mic" texto="Escuchando..." size={size === 'lg' ? 'md' : 'sm'} />
+            </TransicionDesvanecerDeslizar>
+            <TransicionDesvanecerDeslizar mostrar={hablando}>
+              <BadgeVoz tipo="tts" texto="Leyendo..." size={size === 'lg' ? 'md' : 'sm'} />
+            </TransicionDesvanecerDeslizar>
+          </div>
+
+          <div className={estilos.botones_acciones}>
+            <button
+              type="button"
+              className={clsx(estilos.boton_accion, hablando && estilos.boton_activo)}
+              onClick={alternarEscuchar}
+              disabled={!puedeHablar || (!hablando && (!val || escuchando))}
+              title={hablando ? 'Detener lectura' : 'Leer texto'}
+              aria-pressed={hablando}
+              tabIndex={-1}
+            >
+              <SonidoIcono />
+            </button>
+
+            {puedeEscuchar && (
+              <button
+                type="button"
+                className={clsx(estilos.boton_accion, escuchando && estilos.boton_activo_mic)}
+                onClick={alternarDictar}
+                disabled={isDisabled || isReadOnly || hablando}
+                title={escuchando ? 'Detener dictado' : 'Dictar texto'}
+                aria-pressed={escuchando}
+                tabIndex={-1}
+              >
+                {escuchando ? <GrabacionIcono color="red" /> : <MicrofonoIcono />}
+              </button>
+            )}
+
+            {mostrarLimpiar && (
+              <button
+                type="button"
+                className={estilos.boton_limpiar}
+                onClick={limpiar}
+                title="Borrar contenido"
+                aria-label="Borrar contenido"
+                tabIndex={-1}
+              >
+                ×
+              </button>
+            )}
           </div>
         </div>
       </div>
 
       <div className={clsx(estilos.envoltorio_input, classNames?.inputWrapper)}>
-        <div className={clsx(estilos.contenedor_interior, classNames?.innerWrapper)}>
-          {startContent && <div className={estilos.inicio}>{startContent}</div>}
-
-          <textarea
-            {...restProps}
-            ref={taRef}
-            id={inputId}
-            name={name}
-            placeholder={placeholder}
-            value={esControlado ? val : undefined}
-            defaultValue={esControlado ? undefined : (defaultValue ?? '')}
-            onChange={manejarCambio}
-            onFocus={e => {
-              setEnfocado(true);
-              props.onFocus?.(e);
-            }}
-            onBlur={e => {
-              setEnfocado(false);
-              props.onBlur?.(e);
-            }}
-            className={clsx(estilos.entrada, disableAutosize && estilos.sin_autosize, classNames?.input)}
-            readOnly={isReadOnly}
-            disabled={isDisabled}
-            rows={rows ?? minRows}
-            aria-invalid={esInvalido || undefined}
-            aria-describedby={ariaDescribedBy}
-            aria-required={isRequired}
-          />
-
-          {endContent && <div className={estilos.fin}>{endContent}</div>}
-        </div>
+        <textarea
+          {...restProps}
+          ref={taRef}
+          id={inputId}
+          name={name}
+          placeholder={placeholder}
+          value={esControlado ? val : undefined}
+          defaultValue={esControlado ? undefined : (defaultValue ?? '')}
+          onChange={manejarCambio}
+          onFocus={e => {
+            setEnfocado(true);
+            props.onFocus?.(e);
+          }}
+          onBlur={e => {
+            setEnfocado(false);
+            props.onBlur?.(e);
+          }}
+          className={clsx(estilos.entrada, disableAutosize && estilos.sin_autosize, classNames?.input)}
+          readOnly={isReadOnly}
+          disabled={isDisabled}
+          rows={rows ?? minRows}
+          aria-invalid={esInvalido || undefined}
+          aria-describedby={ariaDescribedBy}
+          aria-required={isRequired}
+        />
       </div>
 
       {description && (

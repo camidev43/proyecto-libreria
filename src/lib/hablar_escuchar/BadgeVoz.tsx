@@ -1,16 +1,19 @@
 import clsx from 'clsx';
 
-import { MicrofonoIcono, SonidoIcono } from './Iconografia';
 import estilos from './BadgeVoz.module.css';
+import { MicrofonoIcono, SonidoIcono } from './Iconografia';
 
-type Props = {
+export default function BadgeVoz({
+  tipo,
+  texto,
+  size = 'md',
+  estirar,
+}: {
   tipo: 'mic' | 'tts';
   texto: string;
   size?: 'sm' | 'md' | 'lg';
   estirar?: boolean;
-};
-
-export default function BadgeVoz({ tipo, texto, size = 'md', estirar }: Props) {
+}) {
   const esMic = tipo === 'mic';
   return (
     <span

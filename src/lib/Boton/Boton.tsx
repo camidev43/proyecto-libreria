@@ -1,132 +1,127 @@
 import clsx from 'clsx';
-import { forwardRef, useRef, type MouseEvent, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { forwardRef, useRef, type ElementType, type MouseEvent, type ComponentPropsWithoutRef } from 'react';
 
 import styles from './Boton.module.css';
+import type { BotonProps } from './typesButton';
 
-export type Variant = 'solid' | 'bordered' | 'light' | 'faded' | 'ghost' | 'shadow';
-export type Color = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
-export type Size = 'sm' | 'md' | 'lg';
-export type Radius = 'none' | 'sm' | 'md' | 'lg' | 'full';
-export type SpinnerPlacement = 'start' | 'end';
+const BotonBase = <C extends ElementType = 'button'>(
+  {
+    as,
+    variant = 'solid',
+    color = 'default',
+    size = 'sm',
+    radius = 'md',
+    fullWidth = false,
+    isLoading = false,
+    onlyLoading = false,
+    isDisabled = false,
+    isIconOnly = false,
+    startContent,
+    endContent,
+    spinner,
+    spinnerPlacement = 'end',
+    disableRipple = false,
+    disableAnimation = true,
+    children,
+    className,
+    onClick,
+    ...props
+  }: BotonProps<C>,
+  ref: ComponentPropsWithoutRef<C>['ref'],
+) => {
+  const Component = as || 'button';
+  const internalRef = useRef<HTMLElement>(null);
 
-export type BotonProps = {
-  variant?: Variant;
-  color?: Color;
-  size?: Size;
-  radius?: Radius;
-  fullWidth?: boolean;
-  isLoading?: boolean;
-  isDisabled?: boolean;
-  isIconOnly?: boolean;
-  startContent?: ReactNode;
-  endContent?: ReactNode;
-  spinner?: ReactNode;
-  spinnerPlacement?: SpinnerPlacement;
-  disableRipple?: boolean;
-  disableAnimation?: boolean;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+  const isButtonDisabled = isDisabled || isLoading;
+  const shouldHideContent = isLoading && (onlyLoading || isIconOnly);
 
-const Boton = forwardRef<HTMLButtonElement, BotonProps>(
-  (
-    {
-      variant = 'solid',
-      color = 'default',
-      size = 'md',
-      radius = 'md',
-      fullWidth = false,
-      isLoading = false,
-      isDisabled = false,
-      isIconOnly = false,
-      startContent,
-      endContent,
-      spinner,
-      spinnerPlacement,
-      disableRipple = false,
-      disableAnimation = false,
-      children,
-      className,
-      ...props
-    },
-    ref,
-  ) => {
-    const internalRef = useRef<HTMLButtonElement>(null);
+  const classes = clsx(
+    styles.boton,
+    styles[variant],
+    styles[color],
+    styles[size],
+    styles[`radius_${radius}`],
+    fullWidth && !isIconOnly && styles.full_width,
+    isButtonDisabled && styles.disabled,
+    isIconOnly && styles.icon_only,
+    isLoading && styles.loading,
+    shouldHideContent && styles.only_loading,
+    !disableAnimation && styles.tap_animation,
+    className,
+  );
 
-    const classes = clsx(
-      styles.boton,
-      styles[variant],
-      styles[color],
-      styles[size],
-      styles[`radius_${radius}`],
-      fullWidth && !isIconOnly && styles.full_width,
-      (isDisabled || props.disabled) && styles.disabled,
-      isIconOnly && styles.icon_only,
-      isLoading && styles.loading,
-      !disableAnimation && styles.tap_animation,
-      className,
-    );
+  const manejarClick = (e: MouseEvent<HTMLElement>) => {
+    if (isButtonDisabled && Component === 'a') {
+      e.preventDefault();
+    }
 
-    const mostrarLabel = !!children && (!isLoading || !isIconOnly);
+    if (typeof onClick === 'function') {
+      onClick(e as MouseEvent<HTMLButtonElement>);
+    }
 
-    const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-      if (!disableRipple && !isDisabled && !isLoading && internalRef.current) {
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          const btn = internalRef.current;
-          const ripple = document.createElement('span');
-          ripple.className = styles.ripple;
-          ripple.setAttribute('aria-hidden', 'true');
+    if (!disableRipple && !isButtonDisabled && internalRef.current) {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-          const rect = btn.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
+      if (!prefersReducedMotion) {
+        const btn = internalRef.current;
+        const ripple = document.createElement('span');
+        ripple.className = styles.ripple;
+        ripple.setAttribute('aria-hidden', 'true');
 
-          const dx = Math.max(x, rect.width - x);
-          const dy = Math.max(y, rect.height - y);
-          const radius = Math.hypot(dx, dy);
-          const size = radius * 2;
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-          ripple.style.width = ripple.style.height = `${size}px`;
-          ripple.style.left = `${x}px`;
-          ripple.style.top = `${y}px`;
+        const dx = Math.max(x, rect.width - x);
+        const dy = Math.max(y, rect.height - y);
+        const radius = Math.hypot(dx, dy);
+        const size = radius * 2;
 
-          ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
-          btn.appendChild(ripple);
-        }
+        ripple.style.width = `${size}px`;
+        ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        const cleanup = () => ripple.remove();
+        ripple.addEventListener('animationend', cleanup, { once: true });
+        btn.appendChild(ripple);
       }
-      props.onClick?.(e);
-    };
+    }
+  };
 
-    return (
-      <button
-        {...props}
-        aria-busy={isLoading}
-        ref={instance => {
-          (internalRef as React.MutableRefObject<HTMLButtonElement | null>).current = instance;
+  const spinnerElement = (
+    <span className={styles.spinner} aria-label="Cargando">
+      {spinner ?? <div className={styles.modern_spinner} />}
+    </span>
+  );
 
-          if (typeof ref === 'function') {
-            ref(instance);
-          } else if (ref && 'current' in ref) {
-            (ref as React.MutableRefObject<HTMLButtonElement | null>).current = instance;
-          }
-        }}
-        type={props.type || 'button'}
-        className={classes}
-        disabled={isDisabled || isLoading}
-        onClick={handleClick}
-      >
-        <span className={styles.inner}>
-          {startContent && !isLoading && <span className={styles.start}>{startContent}</span>}
+  return (
+    <Component
+      {...props}
+      ref={instance => {
+        (internalRef as React.MutableRefObject<HTMLElement | null>).current = instance;
+        if (typeof ref === 'function') {
+          ref(instance);
+        } else if (ref && 'current' in ref) {
+          (ref as React.MutableRefObject<HTMLElement | null>).current = instance;
+        }
+      }}
+      className={classes}
+      disabled={Component === 'button' ? isButtonDisabled : undefined}
+      aria-disabled={isButtonDisabled}
+      tabIndex={isButtonDisabled ? -1 : undefined}
+      onClick={manejarClick}
+      role={Component !== 'button' ? 'button' : undefined}
+    >
+      <span className={styles.inner}>
+        {isLoading && spinnerPlacement === 'start' && spinnerElement}
+        {!shouldHideContent && startContent && <span className={styles.start}>{startContent}</span>}
+        {!shouldHideContent && children && <span className={styles.label}>{children}</span>}
+        {!shouldHideContent && endContent && <span className={styles.end}>{endContent}</span>}
+        {isLoading && spinnerPlacement === 'end' && spinnerElement}
+      </span>
+    </Component>
+  );
+};
 
-          {mostrarLabel && <span className={styles.label}>{children}</span>}
-
-          {isLoading && <span className={styles.spinner}>{spinner ?? <div className={styles.modern_spinner} />}</span>}
-
-          {endContent && !isLoading && <span className={styles.end}>{endContent}</span>}
-        </span>
-      </button>
-    );
-  },
-);
-
-Boton.displayName = 'Boton';
-
-export { Boton };
+export const Boton = forwardRef(BotonBase);

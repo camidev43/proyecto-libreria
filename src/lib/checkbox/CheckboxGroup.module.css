@@ -1,0 +1,40 @@
+.checkbox_group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.group_label {
+  color: var(--color-primary-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.checkbox_list {
+  display: flex;
+}
+
+.checkbox_list.vertical {
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.checkbox_list.horizontal {
+  flex-flow: row wrap;
+  gap: 1rem;
+}
+
+.description {
+  color: var(--color-secondary-text);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-top: 0.25rem;
+}
+
+.error_message {
+  color: var(--system-error-color);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-top: 0.25rem;
+}

@@ -75,6 +75,8 @@ export function useReconocimientoVoz({
   const [errorDictado, setErrorDictado] = useState<string | null>(null);
 
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const speechTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const puedeHablar = typeof window !== 'undefined' && 'speechSynthesis' in window;
   const puedeEscuchar =
@@ -82,34 +84,87 @@ export function useReconocimientoVoz({
     !!((window as ExtendedWindow).SpeechRecognition || (window as ExtendedWindow).webkitSpeechRecognition);
 
   const detenerHablar = useCallback(() => {
+    if (speechTimeoutRef.current) {
+      clearTimeout(speechTimeoutRef.current);
+      speechTimeoutRef.current = null;
+    }
+
     if (puedeHablar) {
       window.speechSynthesis.cancel();
-      setHablando(false);
     }
+
+    utteranceRef.current = null;
+    setHablando(false);
   }, [puedeHablar]);
 
   const escuchar = useCallback(() => {
     if (!puedeHablar || !value) return;
+
     detenerHablar();
+
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {
+        console.error('Error stopping recognition:', e);
+      }
+      recognitionRef.current = null;
+      setEscuchando(false);
+    }
 
     const utterance = new SpeechSynthesisUtterance(value);
     utterance.lang = idioma;
-    utterance.onstart = () => setHablando(true);
-    utterance.onend = () => setHablando(false);
-    utterance.onerror = () => setHablando(false);
 
+    utterance.onstart = () => {
+      setHablando(true);
+    };
+
+    utterance.onend = () => {
+      setHablando(false);
+      utteranceRef.current = null;
+      if (speechTimeoutRef.current) {
+        clearTimeout(speechTimeoutRef.current);
+        speechTimeoutRef.current = null;
+      }
+    };
+
+    utterance.onerror = () => {
+      setHablando(false);
+      utteranceRef.current = null;
+      if (speechTimeoutRef.current) {
+        clearTimeout(speechTimeoutRef.current);
+        speechTimeoutRef.current = null;
+      }
+    };
+
+    utteranceRef.current = utterance;
     window.speechSynthesis.speak(utterance);
+
+    speechTimeoutRef.current = setTimeout(() => {
+      if (!window.speechSynthesis.speaking) {
+        setHablando(false);
+        utteranceRef.current = null;
+      }
+    }, 500);
   }, [puedeHablar, value, idioma, detenerHablar]);
 
   const detenerDictado = useCallback(() => {
     if (recognitionRef.current) {
-      recognitionRef.current.stop();
-      setEscuchando(false);
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {
+        console.error('Error stopping recognition:', e);
+      }
+      recognitionRef.current = null;
     }
+    setEscuchando(false);
+    setErrorDictado(null);
   }, []);
 
   const dictar = useCallback(() => {
     if (!puedeEscuchar || isDisabled || isReadOnly) return;
+
+    detenerHablar();
 
     const SpeechRecognitionCtor =
       (window as ExtendedWindow).SpeechRecognition || (window as ExtendedWindow).webkitSpeechRecognition;
@@ -131,11 +186,17 @@ export function useReconocimientoVoz({
         setErrorDictado(null);
       };
 
-      recognition.onend = () => setEscuchando(false);
+      recognition.onend = () => {
+        setEscuchando(false);
+        recognitionRef.current = null;
+      };
 
       recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
         setEscuchando(false);
-        setErrorDictado('Error al reconocer voz');
+        recognitionRef.current = null;
+        if (event.error !== 'no-speech' && event.error !== 'aborted') {
+          setErrorDictado('Error al reconocer voz');
+        }
         console.error(event.error);
       };
 
@@ -156,13 +217,25 @@ export function useReconocimientoVoz({
       recognition.start();
     } catch (_err) {
       setErrorDictado('No se pudo iniciar dictado');
+      setEscuchando(false);
     }
-  }, [puedeEscuchar, isDisabled, isReadOnly, value, onChange, idioma, onDictadoCompleto]);
+  }, [puedeEscuchar, isDisabled, isReadOnly, value, onChange, idioma, onDictadoCompleto, detenerHablar]);
 
   useEffect(() => {
     return () => {
-      if (puedeHablar) window.speechSynthesis.cancel();
-      if (recognitionRef.current) recognitionRef.current.stop();
+      if (speechTimeoutRef.current) {
+        clearTimeout(speechTimeoutRef.current);
+      }
+      if (puedeHablar) {
+        window.speechSynthesis.cancel();
+      }
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {
+          console.error('Error in cleanup:', e);
+        }
+      }
     };
   }, [puedeHablar]);
 

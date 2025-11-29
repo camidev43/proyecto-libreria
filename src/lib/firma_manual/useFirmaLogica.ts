@@ -1,37 +1,20 @@
 import { useRef, useState, useCallback } from 'react';
 
-/** A point in the canvas coordinate system */
 type Punto = {
   x: number;
   y: number;
 };
 
-/** Stroke history type */
 type Trazo = {
   puntos: Punto[];
   color: string;
 };
 
-/**
- * useFirmaLogica
- * Hook that encapsulates the canvas drawing logic for FirmaManual.
- * Returns references and actions to integrate a canvas-based signature capture.
- *
- * Returned values:
- * - canvasRef: ref for the canvas element
- * - estaVacio: boolean indicating whether the canvas is empty
- * - limpiarCanvas: function to clear the canvas
- * - deshacerUltimoTrazo: undo last stroke
- * - puedeDeshacer: boolean if undo is possible
- * - obtenerDatosFirma: export canvas as PNG data URL
- * - configurarCanvas: attach event listeners and configure stroke style
- */
 const useFirmaLogica = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDibujando, setIsDibujando] = useState(false);
   const [estaVacio, setEstaVacio] = useState(true);
   const [ultimoPunto, setUltimoPunto] = useState<Punto | null>(null);
-  // Removed unused UI states (tabs, text overlay, color) to keep the hook lean and focused
   const [trazos, setTrazos] = useState<Trazo[]>([]);
   const [trazoActual, setTrazoActual] = useState<Punto[]>([]);
 
@@ -74,13 +57,11 @@ const useFirmaLogica = () => {
     setEstaVacio(nuevosTrazos.length === 0);
   }, [trazos]);
 
-  /** Convert a mouse or touch event to canvas coordinates, accounting for device pixel ratio */
   const obtenerPuntoDeEvento = useCallback((event: MouseEvent | TouchEvent): Punto => {
     const canvas = canvasRef.current;
     if (!canvas) return { x: 0, y: 0 };
 
     const rect = canvas.getBoundingClientRect();
-    // El canvas tiene el doble de tamaño interno (HD), escala correcta
     const escalaX = canvas.width / rect.width;
     const escalaY = canvas.height / rect.height;
 
@@ -89,12 +70,12 @@ const useFirmaLogica = () => {
         x: (event.touches[0].clientX - rect.left) * escalaX,
         y: (event.touches[0].clientY - rect.top) * escalaY,
       };
-    } else {
-      return {
-        x: (event.clientX - rect.left) * escalaX,
-        y: (event.clientY - rect.top) * escalaY,
-      };
     }
+
+    return {
+      x: (event.clientX - rect.left) * escalaX,
+      y: (event.clientY - rect.top) * escalaY,
+    };
   }, []);
 
   const dibujarLinea = useCallback((inicio: Punto, fin: Punto) => {
@@ -109,7 +90,6 @@ const useFirmaLogica = () => {
     setEstaVacio(false);
   }, []);
 
-  /** Start a new stroke and record the first point */
   const iniciarDibujo = useCallback(
     (event: MouseEvent | TouchEvent) => {
       event.preventDefault();
@@ -121,7 +101,6 @@ const useFirmaLogica = () => {
     [obtenerPuntoDeEvento],
   );
 
-  /** Continue the current stroke while pointer moves */
   const dibujar = useCallback(
     (event: MouseEvent | TouchEvent) => {
       if (!isDibujando || !ultimoPunto) return;
@@ -135,7 +114,6 @@ const useFirmaLogica = () => {
     [isDibujando, ultimoPunto, obtenerPuntoDeEvento, dibujarLinea],
   );
 
-  /** Finish the current stroke and save it to history */
   const detenerDibujo = useCallback(() => {
     if (isDibujando && trazoActual.length > 0) {
       const canvas = canvasRef.current;
@@ -157,32 +135,23 @@ const useFirmaLogica = () => {
     return canvas.toDataURL('image/png');
   }, [estaVacio]);
 
-  /** Configure canvas context options and attach pointer/touch events for drawing.
-   * Returns a cleanup function to remove event listeners when unmounting.
-   */
   const configurarCanvas = useCallback(
     (color: string, habilitado = true) => {
       const canvas = canvasRef.current;
       const ctx = canvas?.getContext('2d');
       if (!canvas || !ctx) return;
 
-      // Configurar el contexto de dibujo para HD (sin escalar el ctx, el canvas ya tiene width/height * 2)
       ctx.strokeStyle = color;
-      ctx.lineWidth = 4; // Más grueso porque el canvas es 2x
+      ctx.lineWidth = 4;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
 
-      if (!habilitado) {
-        return () => {};
-      }
+      if (!habilitado) return () => {};
 
-      // Eventos del mouse
       canvas.addEventListener('mousedown', iniciarDibujo);
       canvas.addEventListener('mousemove', dibujar);
       canvas.addEventListener('mouseup', detenerDibujo);
       canvas.addEventListener('mouseout', detenerDibujo);
-
-      // Eventos táctiles
       canvas.addEventListener('touchstart', iniciarDibujo);
       canvas.addEventListener('touchmove', dibujar);
       canvas.addEventListener('touchend', detenerDibujo);

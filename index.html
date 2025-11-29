@@ -5,20 +5,6 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Libreria PC</title>
-    <script>
-      (function () {
-        try {
-          var clave = 'tema-preferido';
-          var guardado = localStorage.getItem(clave);
-          if (guardado === 'light' || guardado === 'dark') {
-            document.documentElement.setAttribute('data-theme', guardado);
-          } else {
-            var oscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', oscuro ? 'dark' : 'light');
-          }
-        } catch {}
-      })();
-    </script>
   </head>
   <body>
     <div id="root"></div>
